@@ -1,0 +1,116 @@
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.26, autoprefixer: v9.7.3) */
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+}
+
+.wallpaper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url(wallpaper.jpg);
+    background-image: -o-linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(wallpaper.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(wallpaper.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.form {
+    position: relative;
+    width: 380px;
+    height: 480px;
+    margin: 10% auto;
+    padding: 5px;
+    background: white;
+    -webkit-box-shadow: 0 0 20px 9px rgba(255, 95, 35, 0.15);
+    box-shadow: 0 0 20px 9px rgba(255, 95, 35, 0.15);
+    overflow: hidden;
+}
+
+.button-box {
+    position: relative;
+    width: 220px;
+    margin: 50px auto;
+    border-radius: 30px;
+    -webkit-box-shadow: 0 0 20px 9px rgba(255, 95, 35, 0.15);
+    box-shadow: 0 0 20px 9px rgba(255, 95, 35, 0.15);
+}
+
+#button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 100%;
+    border-radius: 30px;
+    background: coral;
+    color: white;
+    -webkit-transition: 0.4s ease;
+    -o-transition: 0.4s ease;
+    transition: 0.4s ease;
+}
+
+.toggle-button {
+    position: relative;
+    padding: 10px 30px;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+.credentials {
+    position: absolute;
+    top: 180px;
+    width: 280px;
+    -webkit-transition: 0.4s ease;
+    -o-transition: 0.4s ease;
+    transition: 0.4s ease;
+}
+
+.input-field {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid rgb(150, 150, 150);
+    outline: none;
+    background: transparent;
+}
+
+.submit-button {
+    display: block;
+    width: 85%;
+    margin: auto;
+    padding: 10px 30px;
+    border: 0;
+    border-radius: 30px;
+    outline: none;
+    background: coral;
+    color: white;
+    cursor: pointer;
+}
+
+.checkbox {
+    margin: 30px 10px 30px 0;
+}
+
+span {
+    position: absolute;
+    bottom: 66px;
+    font-size: 12px;
+    color: rgb(120, 120, 120);
+}
+
+#login {
+    left: 50px;
+}
+
+#register {
+    left: 450px;
+}
