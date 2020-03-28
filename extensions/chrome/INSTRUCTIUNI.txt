@@ -1,0 +1,4 @@
+Deci, se pare ca esti destul de curios :)).
+
+Nu e greu, acceseaza "chrome://extensions/" din bara de navigare a browserului Chrome, 
+in stanga sus vei afla un buton "Load unpacked extension" apasa-l, selecteaza folderul curent and enjoy.
