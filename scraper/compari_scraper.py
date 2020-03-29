@@ -42,7 +42,7 @@ def scrapeVendors(product_link):
 			logo_url=logo_raw_url['src']
 			offers_name=logo_raw_url['alt']
 		else:
-			logo_url="ERRRRRRRRORRR"
+			logo_url="NO_LOGO"
 		offers_raw_price=product.find(class_="row-price")
 		print(offers_raw_price)
 		offers_price_span=offers_raw_price.find('span')
@@ -53,7 +53,14 @@ def scrapeVendors(product_link):
 	return json.dumps(vendors)
 
 
-print(scrapeProducts(	page = 'https://www.compari.ro/notebook-laptop-c3100/'))
+
+def scrapeFromSearch(searchQuery):
+	mainURL="https://www.compari.ro/CategorySearch.php?st="+searchQuery.replace(" ","+")
+	return scrapeProducts(mainURL)
+
+
+
+print(scrapeFromSearch("telefon"))
 
 
 
