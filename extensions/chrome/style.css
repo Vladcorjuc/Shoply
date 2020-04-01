@@ -1,0 +1,119 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+    z-index: 0;
+}
+
+header{
+    margin-top: 10px;
+}
+
+.logo{
+    width: 100px;
+    height: 70px;
+    position: relative;
+    margin-top: -15px;
+    float: left;
+}
+.simple_line{
+    width: 100%;
+    height: 2px;
+    margin-top:10px;
+    background-color: coral;
+}
+.search-box {
+    margin-left: 120px;
+    width: 280px;
+    height: 30px;
+    border: 1px solid coral;
+    border-radius: 40px;
+}
+
+.search-button {
+    display: flex;
+    float: right;
+    margin-top: 0px;
+    margin-right: -1px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    background-color: coral;
+    color: white;
+}
+
+.search-text {
+    position: absolute;
+    float: left;
+    margin-top: -4px;
+    border: none;
+    background: none;
+    outline: none;
+    width: 200px;
+    height: 37px;
+    padding-left: 10px;
+    color: #5e5e5e;
+    font-size: 16px;
+    transition: 0.4s ease;
+}
+
+.simple_footer_line{
+    width: 100%;
+    height: 1px;
+    background-color: coral;
+}
+footer{
+    position: fixed; 
+    text-align: center;
+    background-color: white;
+    left: 0; 
+    bottom: 0; 
+    width: 100%; 
+    margin-left: : 10px; 
+    margin-right: 10px;
+}
+nav{
+    position: sticky;
+
+    margin-top: -10px;
+    width: 100%;
+    float: none;
+}
+.menu {
+    display: flex;
+    float: left;
+    margin-left: 40px;
+    margin-top: -10px;
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.navbar-links li {
+    list-style: none;
+}
+
+.navbar-links li a {
+
+    padding: 1rem;
+    color: coral;
+    text-decoration: none;
+}
+
+.navbar-links li:hover {
+    background-color: peachpuff;
+}
+
+nav div.nav-simple-line{
+    margin-top: 11px;
+    width: 82%;
+    margin-left: 40px;
+    height: 1px;
+    background-color: coral;
+}
