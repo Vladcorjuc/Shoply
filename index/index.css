@@ -78,6 +78,10 @@
     color: white;
 }
 
+.search-button:hover {
+    opacity: 0.75;
+}
+
 .menu {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -118,6 +122,10 @@
     cursor: pointer;
 }
 
+.search-icon:hover {
+    opacity: 0.75;
+}
+
 .hamburger-menu {
     display: none;
     -webkit-box-orient: vertical;
@@ -132,6 +140,10 @@
     width: 30px;
     height: 21px;
     cursor: pointer;
+}
+
+.hamburger-menu:hover {
+    opacity: 0.75;
 }
 
 .hamburger-menu span {
@@ -237,3 +249,4 @@
         display: flex;
     }
 }
+

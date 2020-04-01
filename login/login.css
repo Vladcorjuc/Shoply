@@ -6,22 +6,19 @@
     font-family: "Open Sans", sans-serif;
 }
 
-.wallpaper {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url(wallpaper.jpg);
-    background-image: -o-linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(wallpaper.jpg);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(wallpaper.jpg);
-    background-position: center;
-    background-size: cover;
+.logo {
+    display: block;
+    position: relative;
+    margin: 4% auto;
+    width: 225px;
+    cursor: pointer;
 }
 
 .form {
     position: relative;
     width: 380px;
     height: 480px;
-    margin: 10% auto;
+    margin: auto;
     padding: 5px;
     background: white;
     -webkit-box-shadow: 0 0 20px 9px rgba(255, 95, 35, 0.15);
@@ -54,7 +51,7 @@
 
 .toggle-button {
     position: relative;
-    padding: 10px 30px;
+    padding: 10px 32px;
     border: 0;
     outline: none;
     background: transparent;
@@ -64,7 +61,7 @@
 
 .credentials {
     position: absolute;
-    top: 180px;
+    top: 165px;
     width: 280px;
     -webkit-transition: 0.4s ease;
     -o-transition: 0.4s ease;
@@ -98,6 +95,7 @@
 
 .checkbox {
     margin: 30px 10px 30px 0;
+    cursor: pointer;
 }
 
 span {
@@ -105,6 +103,7 @@ span {
     bottom: 66px;
     font-size: 12px;
     color: rgb(120, 120, 120);
+    cursor: context-menu;
 }
 
 #login {
@@ -113,4 +112,61 @@ span {
 
 #register {
     left: 450px;
+}
+
+@media (max-width: 430px) {
+    .form {
+        width: 90%;
+    }
+}
+
+@media (max-width: 375px) {
+    .form {
+        width: 85%;
+    }
+
+    .credentials {
+        width: 230px;
+    }
+
+    span {
+        bottom: 59px;
+    }
+}
+
+@media (max-width: 360px) {
+    .credentials {
+        width: 220px;
+    }
+}
+
+@media (max-width: 330px) {
+    .credentials {
+        width: 200px;
+    }
+
+    .input-field {
+        padding: 5px 0;
+    }
+}
+
+@media (max-height: 680px) {
+    .form {
+        height: 425px;
+    }
+
+    .credentials {
+        top: 135px;
+    }
+
+}
+
+@media (max-height: 600px) {
+    .form {
+        height: 350px;
+    }
+
+    .credentials {
+        top: 125px;
+    }
 }
