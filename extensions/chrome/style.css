@@ -72,8 +72,9 @@ footer{
     background-color: white;
     left: 0; 
     bottom: 0; 
-    width: 100%; 
-    margin-left: : 10px; 
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 10px;
     margin-right: 10px;
 }
 nav{
@@ -116,4 +117,8 @@ nav div.nav-simple-line{
     margin-left: 40px;
     height: 1px;
     background-color: coral;
+}
+#content{
+    max-height: 350px;
+    overflow: auto;
 }

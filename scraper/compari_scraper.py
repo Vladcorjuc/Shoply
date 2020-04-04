@@ -40,28 +40,24 @@ def scrapeVendors():
 	product_link=productQuery["product_link"]
 	page = requests.get(product_link)
 	soup = BeautifulSoup(page.content, 'html.parser')
-	print(soup.find(itemprop='offers').encode("utf-8"))
-	print("")
-	print("")
-	print("")
 	product_elems = soup.find_all( itemprop='offers')
 
 	vendors=[]
 
-	for product in product_elems:
-		logo_raw_url=product.find(class_="col-logo").find(class_="img-responsive logo-host")
+	for i in range(1, len(product_elems)):
+		product=product_elems[i]
+		logo_raw_url=product.find(class_="col-logo")
+		if(logo_raw_url):
+			logo_raw_url=logo_raw_url.find(class_="img-responsive logo-host")
 		if(logo_raw_url):
 			logo_url=logo_raw_url['src']
 			offers_name=logo_raw_url['alt']
 		else:
 			logo_url="NO_LOGO"
-		offers_raw_price=product.find(class_="row-price")
-		print(offers_raw_price)
-		offers_price_span=offers_raw_price.find('span')
-		offers_price=offers_price_span['content']
-		offers_price_currency=offers_price_span.find('meta')['content']
-		vendors.append({'logo':logo_url,'price':offers_price,'currency':offers_price_currency})
-
+		offers_price=product.find(itemprop="price").get("content")
+		offers_price_currency=product.find(itemprop="priceCurrency").get("content")
+		vendor_name=product.find(itemprop="seller").get("content")
+		vendors.append({'logo':logo_url,'price':offers_price,'currency':offers_price_currency,'name':vendor_name})
 	return json.dumps(vendors)
 
 
