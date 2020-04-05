@@ -1,60 +1,66 @@
-window.onload=	function(){
-				 	if (document.readyState !== "loading") {
-				 		$('#wait').hide();
-				 			ExtensionController.pageController();
-					} else {
-						$('#wait').hide();
-    					document.addEventListener("DOMContentLoaded", ExtensionController.pageController());
-					}
-
-
-};
-
 let products = null;
 let isProductSelected = false;
 let productSelected = null;
+let contentPanel=null;
+let alternativesButton =null;
+let priceButton =null;
+let similarButton =null;
+let searchButton = null;
 
+
+window.onload=	function(){
+	if (document.readyState !== "loading") {
+		contentPanel = document.getElementById("content");
+		alternativesButton= document.getElementById("alternatives-button");
+		priceButton=document.getElementById("price-button");
+		similarButton=document.getElementById("similar-products-button");
+		searchButton=document.getElementById("search-button");
+		ExtensionController.pageController();
+	} else {
+		contentPanel = document.getElementById("content");
+		alternativesButton= document.getElementById("alternatives-button");
+		priceButton=document.getElementById("price-button");
+		similarButton=document.getElementById("similar-products-button");
+		searchButton=document.getElementById("search-button");
+		contentPanel.innerHTML="<p>celka</p>";
+		document.addEventListener("DOMContentLoaded", ExtensionController.pageController());
+	}
+
+
+};
 class ExtensionController{
 	static pageController(){
-		const contentPanel = document.getElementById("content");
-		const alternativesButton = document.getElementById("alternatives-button");
-		const priceButton = document.getElementById("price-button");
-		const similarButton = document.getElementById("similar-products-button");
-		const searchButton = document.getElementById("search-button");
 
-		alternativesButton.addEventListener("click",function(){ExtensionView.firsMenuOption()},false);
-		priceButton.addEventListener("click",function(){ExtensionView.secondMenuOption()},false);
-		similarButton.addEventListener("click",function(){ExtensionView.thirdMenuOption()},false);
-						 	 
-		searchButton.addEventListener("click",function(){
-			const searchedText = document.getElementById("search-text").value;
-			if(searchedText!==null&&searchedText!==''){
-				var response;
-				contentPanel.innerHTML=" ";
-				response=ExtensionModel.getProductsFromServer(searchedText);
-				if(response.message==="OK"&&response.data.length){
-					products=response.data;
-					isProductSelected=false;
-				}
-				else{
-					products=null;
-				}
 
-				ExtensionView.firsMenuOption(products);
-							 			
-			}
-								
-		},false);
+		alternativesButton.addEventListener("click",function(){ExtensionView.firsMenuOption()});
+		priceButton.addEventListener("click",function(){ExtensionView.secondMenuOption()});
+		similarButton.addEventListener("click",function(){ExtensionView.thirdMenuOption()});
+
+		searchButton.addEventListener("click",function (){ExtensionView.searchOption()});
 
 	}
 	
 }
 class ExtensionView{
+	static searchOption(){
+		const searchedText = document.getElementById("search-text").value;
+		if(searchedText!==null&&searchedText!==''){
+			var response;
+
+			response=ExtensionModel.getProductsFromServer(searchedText);
+			contentPanel.innerHTML="";
+			if(response.message==="OK"&&response.data.length){
+				products=response.data;
+				isProductSelected=false;
+			}
+			else{
+				products=null;
+			}
+			ExtensionView.firsMenuOption(products);
+
+		}
+	}
 	static firsMenuOption(){
-		const contentPanel = document.getElementById("content");
-		const alternativesButton = document.getElementById("alternatives-button");
-		const priceButton = document.getElementById("price-button");
-		const similarButton = document.getElementById("similar-products-button");
 
 
 		alternativesButton.style.backgroundColor="peachpuff";
@@ -80,10 +86,6 @@ class ExtensionView{
 		}
 	}
 	static secondMenuOption(){
-		const contentPanel = document.getElementById("content");
-		const alternativesButton = document.getElementById("alternatives-button");
-		const priceButton = document.getElementById("price-button");
-		const similarButton = document.getElementById("similar-products-button");
 
 		alternativesButton.style.backgroundColor="white";
 		priceButton.style.backgroundColor="peachpuff";
@@ -100,12 +102,9 @@ class ExtensionView{
 		else{
 			contentPanel.innerHTML="TO DO";
 		}
+
 	}
 	static thirdMenuOption(){
-		var contentPanel=document.getElementById("content");
-		var alternativesButton= document.getElementById("alternatives-button");
-		var priceButton= document.getElementById("price-button");
-		var similarButton= document.getElementById("similar-products-button");
 
 		alternativesButton.style.backgroundColor="white";
 		priceButton.style.backgroundColor="white";
@@ -120,8 +119,14 @@ class ExtensionView{
 			contentPanel.appendChild(ExtensionView.createNotSelectedMSG());
 		}
 		else{
-			contentPanel.innerHTML="TO DO";
+			contentPanel.innerHTML="";
+			for(var key in products){
+				if(products.hasOwnProperty(key)&&products[key]["title"]!==productSelected["title"]){
+					ExtensionView.createProductElement(products[key]);
+				}
+			}
 		}
+
 	}
 	static createNotSearchedMSG(){
 		var notSearchedMessage=document.createElement("P");
@@ -209,9 +214,9 @@ class ExtensionView{
 	}
 
 	static createProductPage() {
-		const contentPanel = document.getElementById("content");
 		let productDiv=document.createElement("DIV");
 		let infoDiv=document.createElement("DIV");
+		infoDiv.style.width="100%";
 		infoDiv.style.display="flex";
 
 		let productTitle=document.createElement("H3");
@@ -300,6 +305,7 @@ class ExtensionView{
 		return vendorLi;
 		
 	}
+
 }
 class ExtensionModel{
 	static getProductsFromServer(searchedText){
@@ -309,7 +315,6 @@ class ExtensionModel{
 					url: "https://127.0.0.1:5000/search?search="+searchedText,
 					dataType: "json",
 					async:false,
-					beforeSend: function() { $('#wait').show(); },
 					success: function (data) {
 						response={data:JSON.parse(data),message: "OK"};
 
@@ -317,7 +322,6 @@ class ExtensionModel{
 					error:function (data) {
 						response={data:JSON.stringify(data),message: "ERROR"};
 					},
-        			complete: function() { $('#wait').hide(); }
 				});
 		return response;
 	}
