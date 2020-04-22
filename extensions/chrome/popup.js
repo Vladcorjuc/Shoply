@@ -1,4 +1,4 @@
-document.getElementById("checkPage").addEventListener("click",function(){
+document.getElementById("checkPage").addEventListener("click",function() {
   chrome.tabs.getSelected(null, function(tab) {
       d = document;
 
@@ -13,4 +13,4 @@ document.getElementById("checkPage").addEventListener("click",function(){
       d.body.appendChild(f);
       f.submit();
     });
-})
+});

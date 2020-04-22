@@ -1,0 +1,136 @@
+/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.26, autoprefixer: v9.7.3) */
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+    z-index: 0;
+}
+
+header {
+    margin-top: 10px;
+}
+
+.logo {
+    position: relative;
+    width: 100px;
+    height: 70px;
+    margin-top: -17px;
+    margin-left: 5px;
+    float: left;
+    cursor: pointer;
+}
+
+.simple_line {
+    width: 100%;
+    height: 2px;
+    margin-top: 10px;
+    background-color: coral;
+}
+
+.search-box {
+    width: 280px;
+    height: 30px;
+    margin-left: 110px;
+    border: 1px solid coral;
+    border-radius: 40px;
+}
+
+.search-text {
+    position: absolute;
+    float: left;
+    width: 225px;
+    height: 37px;
+    margin-top: -5px;
+    padding-left: 10px;
+    font-size: 16px;
+    background: none;
+    border: none;
+    outline: none;
+    color: #5e5e5e;
+    -webkit-transition: 0.4s ease;
+    -o-transition: 0.4s ease;
+    transition: 0.4s ease;
+}
+
+.search-button {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    float: right;
+    width: 30px;
+    height: 30px;
+    margin-top: -1px;
+    margin-right: -1px;
+    border-radius: 50%;
+    text-decoration: none;
+    background-color: coral;
+    color: white;
+    cursor: pointer;
+}
+
+nav {
+    position: -webkit-sticky;
+    position: sticky;
+    float: none;
+    width: 100%;
+    margin-top: -10px;
+}
+
+.menu {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    float: left;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 30px;
+    margin-top: -5px;
+    padding: 0;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.navbar-links li {
+    list-style: none;
+}
+
+.navbar-links li a {
+    padding: 1rem;
+    text-decoration: none;
+    color: coral;
+}
+
+.navbar-links li:hover {
+    background-color: peachpuff;
+}
+
+footer {
+    position: fixed;
+    width: 100%;
+    margin: auto;
+    bottom: 0;
+    text-align: center;
+    background-color: white;
+}
+
+.simple_footer_line {
+    width: 100%;
+    height: 1px;
+    background-color: coral;
+}
+
+.copyright-text {
+    color: #5e5e5e;
+    font-size: 14px;
+}
