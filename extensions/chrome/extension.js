@@ -60,14 +60,13 @@ class ExtensionView{
 			type: 'line',
 			data: {
 				labels: dates,
-				dataset:{
+				datasets:[{
 					label:"PRICES",
-					data:prices,
-					backgroundColor: [
-						'rgba(255, 99, 132, 0.2)'
-					],
+					data: prices,
+					borderColor: "coral",
+					fill: false,
 					borderWidth: 1
-				}
+				}]
 			},
 			scales: {
 				yAxes: [{
