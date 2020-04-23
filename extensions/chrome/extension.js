@@ -1,6 +1,7 @@
 let products = null;
 let isProductSelected = false;
 let productSelected = null;
+let response=null;
 let contentPanel=null;
 let alternativesButton =null;
 let priceButton =null;
@@ -42,22 +43,76 @@ class ExtensionController{
 	
 }
 class ExtensionView{
+	static graphCallback(){
+		let graph= document.createElement("CANVAS");
+		graph.id="data_graph";
+		graph.style.width="400px";
+		document.getElementById("content").appendChild(graph);
+		var data=response.data;
+		var dates=[];
+		var prices=[];
+		for(var i=0;i<data.length;i++){
+			dates.push(data[i].y);
+			prices.push(parseInt(data[i].x,10));
+		}
+		var ctx = document.getElementById('data_graph').getContext('2d');
+		var myChart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: dates,
+				dataset:{
+					label:"PRICES",
+					data:prices,
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)'
+					],
+					borderWidth: 1
+				}
+			},
+			scales: {
+				yAxes: [{
+					ticks: {
+						suggestedMax: 1000000
+					}
+				}]
+			}
+
+		});
+		document.getElementById("content").appendChild(graph);
+	}
+	static searchVendorsCallback(data){
+		let productVendors=data.data;
+		let vendorsDiv=document.createElement("DIV");
+		vendorsDiv.style.marginTop="30px";
+		vendorsDiv.style.marginLeft="15%";
+		let vendorsUl=document.createElement("UL");
+		vendorsUl.style.overflow="auto";
+		vendorsUl.style.maxHeight="100px";
+		for (var key in productVendors) {
+			if (productVendors.hasOwnProperty(key)) {
+
+				let vendorLi=ExtensionView.createVendorDiv(productVendors[key]);
+				vendorsUl.appendChild(vendorLi);
+			}
+		}
+		vendorsDiv.appendChild(vendorsUl);
+		contentPanel.appendChild(vendorsDiv);
+	};
+	static searchOptionCallback(){
+		contentPanel.innerHTML="";
+		if(response.message==="OK"&&response.data.length){
+			products=response.data;
+			isProductSelected=false;
+		}
+		else{
+			products=null;
+		}
+		ExtensionView.firsMenuOption(products);
+	}
 	static searchOption(){
 		const searchedText = document.getElementById("search-text").value;
 		if(searchedText!==null&&searchedText!==''){
-			var response;
-
-			response=ExtensionModel.getProductsFromServer(searchedText);
-			contentPanel.innerHTML="";
-			if(response.message==="OK"&&response.data.length){
-				products=response.data;
-				isProductSelected=false;
-			}
-			else{
-				products=null;
-			}
-			ExtensionView.firsMenuOption(products);
-
+			ExtensionModel.getProductsFromServer(searchedText,this.searchOptionCallback);
 		}
 	}
 	static firsMenuOption(){
@@ -74,6 +129,7 @@ class ExtensionView{
 		}
 		else{
 			contentPanel.innerHTML="";
+			ExtensionView.removeLoadingScreen();
 			for (var key in products) {
 				if (products.hasOwnProperty(key)) {
 						ExtensionView.createProductElement(products[key]);
@@ -81,6 +137,7 @@ class ExtensionView{
 			}
 		}
 		if(isProductSelected===true){
+			ExtensionView.removeLoadingScreen();
 			contentPanel.innerHTML="";
 			ExtensionView.createProductPage();
 		}
@@ -100,7 +157,8 @@ class ExtensionView{
 			contentPanel.appendChild(ExtensionView.createNotSelectedMSG());
 		}
 		else{
-			contentPanel.innerHTML="TO DO";
+			contentPanel.innerHTML="";
+			this.createGraph();
 		}
 
 	}
@@ -120,6 +178,7 @@ class ExtensionView{
 		}
 		else{
 			contentPanel.innerHTML="";
+			ExtensionView.removeLoadingScreen();
 			for(var key in products){
 				if(products.hasOwnProperty(key)&&products[key]["title"]!==productSelected["title"]){
 					ExtensionView.createProductElement(products[key]);
@@ -197,6 +256,7 @@ class ExtensionView{
 
 		chevronElement.addEventListener("click",function () {
 			isProductSelected=true;
+			ExtensionView.activateLoadingScreen();
 			productSelected=product;
 			ExtensionView.firsMenuOption();
 		},false);
@@ -246,27 +306,8 @@ class ExtensionView{
 		productDiv.appendChild(productTitle);
 		productDiv.appendChild(infoDiv);
 
-
-
-		let productVendors=ExtensionModel.getProductVendorsFromServer(productSelected["link"]).data;
-		let vendorsDiv=document.createElement("DIV");
-		vendorsDiv.style.marginTop="30px";
-		vendorsDiv.style.marginLeft="15%";
-		let vendorsUl=document.createElement("UL");
-		vendorsUl.style.overflow="auto";
-		vendorsUl.style.maxHeight="100px";
-		for (var key in productVendors) {
-			if (productVendors.hasOwnProperty(key)) {
-
-				let vendorLi=ExtensionView.createVendorDiv(productVendors[key]);
-				vendorsUl.appendChild(vendorLi);
-			}
-		}
-		vendorsDiv.appendChild(vendorsUl);
-
 		contentPanel.appendChild(productDiv);
-		contentPanel.appendChild(vendorsDiv);
-
+		ExtensionModel.getProductVendorsFromServer(productSelected["link"],this.searchVendorsCallback);
 
 	}
 
@@ -306,41 +347,113 @@ class ExtensionView{
 		
 	}
 
+	static activateLoadingScreen() {
+		document.getElementById("content").innerHTML="";
+		document.getElementById("loading").style.display="block";
+		let loadingImage= document.createElement("IMG");
+		loadingImage.style.alignItems="center";
+		loadingImage.src="loading.gif";
+		loadingImage.style.width="50px";
+		document.getElementById("loading").appendChild(loadingImage);
+	}
+
+	static removeLoadingScreen() {
+		document.getElementById("loading").innerHTML="";
+	}
+
+	static activateVendorsLoadingScreen() {
+		document.getElementById("loading").style.top="75%";
+		document.getElementById("loading").style.display="block";
+		let loadingImage= document.createElement("IMG");
+		loadingImage.style.alignItems="center";
+		loadingImage.src="loading.gif";
+		loadingImage.style.width="50px";
+		document.getElementById("loading").appendChild(loadingImage);
+	}
+	static removeVendorsLoadingScreen(){
+		document.getElementById("loading").style.top="50%";
+		document.getElementById("loading").innerHTML="";
+	}
+
+	static createGraph() {
+		ExtensionModel.getData(productSelected['link'],ExtensionView.graphCallback);
+	}
 }
 class ExtensionModel{
-	static getProductsFromServer(searchedText){
-		var response;
-		$.ajax({
-					type: "GET",
-					url: "https://127.0.0.1:5000/search?search="+searchedText,
-					dataType: "json",
-					async:false,
-					success: function (data) {
-						response={data:JSON.parse(data),message: "OK"};
+	static getProductsFromServer(searchedText,callback){
+		var xhttp = new XMLHttpRequest();
+		xhttp.timeout=2000;
+		xhttp.onreadystatechange = function() {
+			// readyState: 0=unsent, 1=opened, 2=headers_received, 3=loading, 4=done
+			if(this.readyState===1){
+				ExtensionView.activateLoadingScreen();
+			}
+			if (this.readyState === 4 && this.status === 200) {
+				response={data:JSON.parse(this.responseText),message: "OK"};
+			}
+			else if(this.readyState===4){
+				response={data:JSON.parse(this.responseText),message: "ERROR"};
+			}
+		};
+		xhttp.onload = function(){
+			callback();
+		};
+		xhttp.ontimeout = function(){
+		};
+		xhttp.open("GET", "https://127.0.0.1:5000/search?search="+searchedText, true);
+		xhttp.send();
 
-					},
-					error:function (data) {
-						response={data:JSON.stringify(data),message: "ERROR"};
-					},
-				});
-		return response;
 	}
-	static getProductVendorsFromServer(productURL){
-		var response;
-		$.ajax({
-					type: "GET",
-					url: "https://127.0.0.1:5000/vendors?product_link="+productURL,
-					dataType: "json",
-					async:false,
-					success: function (data) {
-						response={data:data,message: "OK"};
+	static getProductVendorsFromServer(productURL,callback){
+		var xhttp = new XMLHttpRequest();
+		xhttp.timeout=2000;
+		xhttp.onreadystatechange = function() {
+			// readyState: 0=unsent, 1=opened, 2=headers_received, 3=loading, 4=done
+			if(this.readyState===1){
+				ExtensionView.activateVendorsLoadingScreen()
+			}
+			if (this.readyState === 4 && this.status === 200) {
+				response={data:JSON.parse(this.responseText),message: "OK"};
+			}
+			else if(this.readyState===4){
+				response={data:JSON.parse(this.responseText),message: "ERROR"};
+			}
+		};
+		xhttp.onload = function(){
+			ExtensionView.removeVendorsLoadingScreen();
+			if(response!==null&&response.message==="OK")
+				callback(response);
+		};
+		xhttp.ontimeout = function(){
+		};
+		xhttp.open("GET", "https://127.0.0.1:5000/vendors?product_link="+productURL, true);
+		xhttp.send();
+	}
+	static getData(productURL,callback){
+		var xhttp = new XMLHttpRequest();
+		xhttp.timeout=2000;
+		xhttp.onreadystatechange = function() {
+			// readyState: 0=unsent, 1=opened, 2=headers_received, 3=loading, 4=done
+			if(this.readyState===1){
+				ExtensionView.activateVendorsLoadingScreen()
+			}
+			if (this.readyState === 4 && this.status === 200) {
+				response={data:JSON.parse(this.responseText),message: "OK"};
+			}
+			else if(this.readyState===4){
+				response={data:JSON.parse(this.responseText),message: "ERROR"};
+			}
+		};
+		xhttp.onload = function(){
+			ExtensionView.removeVendorsLoadingScreen();
+			if(response!==null&&response.message==="OK")
+				callback();
+		};
+		xhttp.ontimeout = function(){
+		};
+		xhttp.open("GET", "https://127.0.0.1:5000/data?product_link="+productURL, true);
+		xhttp.send();
 
-					},
-					error:function (data) {
-						response={data:JSON.stringify(data),message: "ERROR"};
-					}
-				});
-		return response;
 	}
 }
 
