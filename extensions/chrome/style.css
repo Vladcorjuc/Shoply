@@ -122,3 +122,13 @@ nav div.nav-simple-line{
     max-height: 350px;
     overflow: auto;
 }
+
+#loading{
+    position: fixed;
+    align-content: center;
+    align-items: center;
+    background-color: white;
+    top: 50%;
+    left: 45%;
+
+}
