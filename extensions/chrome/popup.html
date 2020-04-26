@@ -1,46 +1,41 @@
 <!DOCTYPE html>
-<html>
-  <head>
-  	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	  <link rel="stylesheet" type="text/css" href="chartslib/Chart.min.css">
-	  <script src="chartslib/Chart.js"></script>
-  	<link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="extension.js"></script>
-    <title>ShopLy</title>
-    
-  </head>
-  <body style="min-width: 400px;min-height: 350px;overflow: auto">
-  	<header>
-  		 <img src="logo.png" alt="Shoply" class="logo">
-  	 	 <div class="search-box">
-                <label>
-                    <input class="search-text" type="text" placeholder="Search product" id="search-text">
-                </label>
-                <a class="search-button" id="search-button"><i class="fa fa-search"></i></a>
-   	 	 </div>
-
-
-  	 	 <div class="simple_line"><br></div><br>
-  	</header>
-  	<nav>
-  		<div class="navbar-links">
-        	<ul class="menu">
-        		  <li id="alternatives-button"><a>Alternatives</a></li>
-            	<li id="price-button"><a>Price</a></li>
-            	<li id="similar-products-button"><a>Similar Products</a></li>
-        	</ul>
-        </div><br>
-        <div class="nav-simple-line"><br></div><br>
-  	</nav>
-
-    <div id="content">&nbsp;</div>
-	<div style="color: transparent"><br></div><br>
-	<div style="display: none" id="loading"></div>
-	<footer>
-  		<div class="simple_footer_line"><br></div>
-  		&copy; Copyright 2020 ShopLy.com</footer>
-  	</footer>
-  </body>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="popup.css">
+		<link rel="stylesheet" type="text/css" href="chartslib/Chart.min.css">
+		<script type="text/javascript" src="extension.js" defer></script>
+		<script src="chartslib/Chart.js"></script>
+		<title>Shoply</title>
+	</head>
+	<body>
+		<header>
+			<img src="logo.png" alt="Shoply" class="logo">
+			<div class="search-box">
+				<label>
+					<input id="search-text" type="text" placeholder="Search product">
+				</label>
+				<a id="search-button"><i class="fa fa-search"></i></a>
+			</div>
+		</header>
+		<div class="simple-line"><br></div><br>
+		<nav>
+			<div class="navigation-bar-links">
+				<ul class="menu">
+					<li id="alternatives-button"><a>Alternatives</a></li>
+					<li id="price-button"><a>Price</a></li>
+					<li id="similar-products-button"><a>Similar Products</a></li>
+				</ul>
+			</div>
+		</nav>
+		<div id="content">&nbsp;</div>
+		<div><br><br></div>
+		<div id="loading"></div>
+		<footer>
+			<div class="simple-footer-line"><br></div>
+			<div class="copyright-text">&copy; Copyright 2020 shoply.com</div>
+		</footer>
+	</body>
 </html>

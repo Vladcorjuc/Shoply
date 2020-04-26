@@ -1,5 +1,5 @@
-Deci, se pare ca esti destul de curios :)).
+Deci se pare ca esti destul de curios :)).
 
-Nu e greu, acceseaza "chrome://extensions/" din bara de navigare a browserului Chrome,
+Nu e greu, acceseaza "chrome://extensions" din bara de navigare a browser-ului Chrome,
 activeaza Developer Mode din dreapta sus, iar in stanga sus vei gasi un buton "Load unpacked extension":
 apasa-l, selecteaza folderul curent and enjoy.

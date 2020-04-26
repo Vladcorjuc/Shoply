@@ -1,8 +1,10 @@
 <?php
+    session_start();
     require_once 'login_controller.php';
 
     if (isset($_SESSION["username"])) {
         header("Location: ../index/index.html");
+        unset($_SESSION["username"]);
     }
     else {
         if (isset($_POST["action"])) {

@@ -1,17 +1,6 @@
 <?php
-    require_once 'database_configuration.php';
+    require_once '../database/database.php';
     require_once 'login_view.php';
-
-    class Database {
-        private static $connection = NULL; // singleton
-        public static function getConnection() {
-            if (is_null(self::$connection)) {
-                self::$connection = new PDO('mysql:host=' . DATABASE_HOST . ';dbname=' . DATABASE_NAME,
-                    DATABASE_USERNAME, DATABASE_PASSWORD);
-            }
-            return self::$connection;
-        }
-    }
 
     class LoginModel {
         public function addUser($username, $password) { // create
@@ -40,7 +29,7 @@
                 'password' => $password
             ));
             if ($query->rowCount() == 0) {
-                return "Username or password are incorrect.";
+                return "Username and/or password are incorrect.";
             }
             else {
                 return "";
