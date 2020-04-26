@@ -71,7 +71,7 @@ def scrape_products(page, add_to_database):
         products.append({'link': product_link, 'title': product_title, 'description': product_description,
                          'price': product_price, 'offer-num': product_offer_num, 'image': product_image_url})
     if add_to_database:
-        x = threading.Thread(target=put_products_in_table, args=products)
+        x = threading.Thread(target=put_products_in_table, args=(products,))
         x.start()
     return json.dumps(products)
 
@@ -280,7 +280,7 @@ def get_data():
     product_data = request.args
     product_link = product_data["product_link"]
     sql = "SELECT price, updated_at FROM product_log WHERE link = %s"
-    val = product_link
+    val = (product_link,)
     cursor = database.cursor()
     cursor.execute(sql, val)
     result = cursor.fetchall()
