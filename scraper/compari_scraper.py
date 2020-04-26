@@ -295,5 +295,5 @@ def get_data():
 if __name__ == "__main__":
     database = mysql.connector.connect(host="34.65.28.199", user="shoply", passwd="shoply", database="shoply",
                                        auth_plugin='mysql_native_password')
-    initialize_database()
+    #initialize_database()
     app.run(ssl_context='adhoc')
