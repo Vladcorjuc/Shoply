@@ -10,13 +10,7 @@ import mysql.connector
 from flask import Flask, render_template, request, redirect, Response
 from flask_cors import CORS
 
-mydb = mysql.connector.connect(
- 		host="localhost",
-  		user="caled",
-  		passwd="calid",
-  		database="shoply",
-  		auth_plugin='mysql_native_password'
-	)
+mydb = ''
 app = Flask(__name__)
 CORS(app)
 
@@ -333,6 +327,8 @@ def getData():
 
 
 if __name__ == "__main__":
+	mydb= mysql.connector.connect(host="34.65.28.199", user="shoply", passwd="shoply", database="shoply",
+                                       auth_plugin='mysql_native_password')
 	#initialize_database(mydb)
 	app.run(ssl_context='adhoc')
 
