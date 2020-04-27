@@ -1,0 +1,7 @@
+Flask
+Werkzeug
+requests
+beautifulsoup4
+datetime
+mysql.connector
+flask_cors
