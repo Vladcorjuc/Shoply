@@ -64,7 +64,7 @@ class ExtensionModel {
 		this.readyStateChange(xmlHttpRequest);
 		xmlHttpRequest.onload = function() { callback(); };
 		xmlHttpRequest.ontimeout = function() {};
-		xmlHttpRequest.open("GET", "https://127.0.0.1:5000/search?search=" + searchedText, true);
+		xmlHttpRequest.open("GET", "https://shoply-scraper.ew.r.appspot.com/search?search=" + searchedText, true);
 		xmlHttpRequest.send();
 	}
 
@@ -79,7 +79,7 @@ class ExtensionModel {
 			}
 		};
 		xmlHttpRequest.ontimeout = function() {};
-		xmlHttpRequest.open("GET", "https://127.0.0.1:5000/vendors?product_link=" + productURL,
+		xmlHttpRequest.open("GET", "https://shoply-scraper.ew.r.appspot.com/vendors?product_link=" + productURL,
 			true);
 		xmlHttpRequest.send();
 	}
@@ -95,7 +95,7 @@ class ExtensionModel {
 			}
 		};
 		xmlHttpRequest.ontimeout = function() {};
-		xmlHttpRequest.open("GET", "https://127.0.0.1:5000/data?product_link=" + productURL, true);
+		xmlHttpRequest.open("GET", "https://shoply-scraper.ew.r.appspot.com/data?product_link=" + productURL, true);
 		xmlHttpRequest.send();
 	}
 }
