@@ -24,6 +24,27 @@ window.onload =	function() {
 };
 
 class ExtensionModel {
+	static setCookie(cname, cvalue, exdays) {
+		var d = new Date();
+		d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+		var expires = "expires="+d.toUTCString();
+		document.cookie+= cname + "=" + cvalue + ";" + expires + ";path=/\n";
+	}
+
+	static getCookie(cname) {
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
 	static readyStateChange(xmlHttpRequest) {
 		xmlHttpRequest.onreadystatechange = function() {
 			// readyState: 0 = unsent, 1 = opened, 2 = headers_received, 3 = loading, 4 = done
@@ -81,6 +102,7 @@ class ExtensionModel {
 		xmlHttpRequest.ontimeout = function() {};
 		xmlHttpRequest.open("GET", "https://shoply-scraper.ew.r.appspot.com/vendors?product_link=" + productURL,
 			true);
+		this.setCookie("product",productURL,365);
 		xmlHttpRequest.send();
 	}
 
