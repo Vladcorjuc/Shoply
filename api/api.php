@@ -3,12 +3,17 @@
 
     header("Content-Type:application/json");
     if (isset($_GET['search']) && $_GET['search']!="") {
-        $search = $_GET['order_id'];
-        $json_response = file_get_contents('https://www.facebook.com/');
-        echo $json_response;
+        $search = $_GET['search'];
+        $search_url = "https://shoply-scraper.ew.r.appspot.com/search?search=".$search;
+        $json_file=file_get_contents($search_url);
+        if($json_file!=""){
+            searchResponse($json_file,200,"list of searched products.");
+        }
+        else{
+            searchResponse("",200,"No product found.");
+        }
     }
-
-    if (isset($_GET['category']) && $_GET['category'] != "") {
+    else if (isset($_GET['category']) && $_GET['category'] != "") {
         $category = $_GET['category'];
 
         $statement = "SELECT * FROM categories WHERE category = :category";
@@ -24,11 +29,8 @@
             }
         }
     }
-    else {
-        response(400, "Invalid Request");
-    }
 
-    if (isset($_GET['price_fluct']) && $_GET['price_fluct'] != "") {
+    else if (isset($_GET['price_fluct']) && $_GET['price_fluct'] != "") {
         $link = $_GET['price_fluct'];
 
         $statement = "SELECT * FROM product_log WHERE link = :link";
@@ -44,6 +46,15 @@
                 productLogResponse($link, $row['price'], $row['updated_at'], 200,
                     "Price fluctuation for selected product");
             }
+        }
+    }
+    else if(isset($_GET['info']) && $_GET['info'] != ""){
+        $inipath = php_ini_loaded_file();
+
+        if ($inipath) {
+            echo 'Loaded php.ini: ' . $inipath;
+        } else {
+            echo 'A php.ini file is not loaded';
         }
     }
     else {
@@ -64,6 +75,14 @@
         $response['product_link'] = $product_link;
         $response['price']= $price;
         $response['date'] = $date;
+        $response['response_code'] = $response_code;
+        $response['response_desc'] = $response_desc;
+
+        $json_response = json_encode($response);
+        echo $json_response;
+    }
+    function searchResponse($search_json,$response_code, $response_desc){
+        $response['search-jon']    = $search_json;
         $response['response_code'] = $response_code;
         $response['response_desc'] = $response_desc;
 
