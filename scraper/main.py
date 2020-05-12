@@ -10,13 +10,15 @@ import mysql.connector
 from flask import Flask, render_template, request, redirect, Response
 from flask_cors import CORS
 
-mydb=''
+myDB= mysql.connector.connect(host="sql2.freemysqlhosting.net", user="sql2339886", passwd="cA7%iD9!", database="sql2339886",
+                                                auth_plugin='mysql_native_password')
+
 app = Flask(__name__)
 CORS(app)
 
 def transform_to_int(price_string):
 	number=0
-	currency=price_string[-4:]
+	currency="RON"
 	for ch in price_string:
 		if ch.isdigit():
 			number=number*10+int(ch)
@@ -140,7 +142,7 @@ def initialize_database(db_connection):
 		"https://fierastrau-circular-manual.compari.ro/"
 	]
 
-	mycursor = mydb.cursor()
+	mycursor = myDB.cursor()
 	i=-1
 	for page in categories_link:
 		i=i+1
@@ -154,11 +156,11 @@ def initialize_database(db_connection):
 			response_vendors=_scrapeVendors(product["link"])
 			
 			ok=0
-			sql = "INSERT IGNORE INTO products (title,description,price,currency,offer_num,link,image,vendors) VALUES (%s, %s, %s,%s,%s,%s,%s,%s)"
+			sql = "INSERT INTO products (title,description,price,currency,offer_num,link,image,vendors) VALUES (%s, %s, %s,%s,%s,%s,%s,%s)"
 			val = (product["title"],product["description"],transform_to_int(product["price"])[0],transform_to_int(product["price"])[1],product["offer-num"],product["link"],product["image"],response_vendors)
 			try:
 				mycursor.execute(sql, val)
-				mydb.commit()
+				myDB.commit()
 				ok=1
 			except Exception as e:
 				pass
@@ -192,12 +194,12 @@ def initialize_database(db_connection):
 				val=(genre,product['link'])
 				try:
 					mycursor.execute(sql, val)
-					mydb.commit()
+					myDB.commit()
 				except Exception as e:
 					pass
 
 		try:
-			mydb.commit()
+			myDB.commit()
 		except Exception as e:
 			pass
 
@@ -207,17 +209,31 @@ def initialize_database(db_connection):
 	
 
 def put_products_in_DB(products):
-	mycursor = mydb.cursor()
+	mycursor = myDB.cursor()
 	for product in products:
-		
 		response_vendors=_scrapeVendors(product["link"])
-		sql = "INSERT IGNORE INTO products (title,description,price,currency,offer_num,link,image,vendors) VALUES (%s, %s, %s,%s,%s,%s,%s,%s)"
-		val = (product["title"],product["description"],transform_to_int(product["price"])[0],transform_to_int(product["price"])[1],product["offer-num"],product["link"],product["image"],response_vendors)
-		mycursor.execute(sql, val)
+		if not productExist(product["link"],mycursor):
+		    sql = "INSERT IGNORE INTO products (title,description,price,currency,offer_num,link,image,vendors) VALUES (%s, %s, %s,%s,%s,%s,%s,%s)"
+		    val = (product["title"],product["description"],product["price"],"RON",product["offer-num"],product["link"],product["image"],response_vendors)
+		    mycursor.execute(sql, val)
+		    myDB.commit()
+		else:
+		    sql="INSERT INTO product_log(link,updated_at,price) VALUES (%s,NOW(),%s)"
+		    val=(product["link"],transform_to_int(product["price"])[0])
+		    mycursor.execute(sql,val)
+		    myDB.commit()
 	mycursor.close()
 
-	mydb.commit()
-	
+
+def productExist(url,mycursor):
+    sql="SELECT COUNT(link) from products where link=%s"
+    val=(url,)
+    mycursor.execute(sql,val)
+    records = mycursor.fetchall()
+    for row in records:
+        if row[0]>0:
+            return True
+    return False
 
 def _scrapeVendors(product_link):
 	page = requests.get(product_link)
@@ -239,7 +255,7 @@ def _scrapeVendors(product_link):
 		offers_price=product.find(itemprop="price").get("content")
 		offers_price_currency=product.find(itemprop="priceCurrency").get("content")
 		vendor_name=product.find(itemprop="seller").get("content")
-		vendors.append({'logo':logo_url,'price':offers_price,'currency':offers_price_currency,'name':vendor_name})
+		vendors.append({'logo':logo_url,'price':transform_to_int(offers_price)[0],'currency':offers_price_currency,'name':vendor_name})
 	return json.dumps(vendors)
 
 
@@ -265,7 +281,7 @@ def scrapeProducts(page,addToDB):
 			product_image_url=product_image_url['data-lazy-src']
 		else:
 			product_image_url=product.find(class_='img-responsive')['src']
-		products.append({'title':product_title,'description':product_description,'price':product_price,'offer-num':product_offer_num,'link':product_link,'image':product_image_url})
+		products.append({'title':product_title,'description':product_description,'price':transform_to_int(product_price)[0],'offer-num':product_offer_num,'link':product_link,'image':product_image_url})
 	if addToDB:
 			x = threading.Thread(target=put_products_in_DB, args=(products,))
 			x.start()
@@ -295,7 +311,7 @@ def scrapeVendors():
 		offers_price=product.find(itemprop="price").get("content")
 		offers_price_currency=product.find(itemprop="priceCurrency").get("content")
 		vendor_name=product.find(itemprop="seller").get("content")
-		vendors.append({'logo':logo_url,'price':offers_price,'currency':offers_price_currency,'name':vendor_name})
+		vendors.append({'logo':logo_url,'price':transform_to_int(offers_price)[0],'currency':offers_price_currency,'name':vendor_name})
 	return json.dumps(vendors)
 
 
@@ -313,9 +329,9 @@ def getData():
 	product_link=productQuery["product_link"]
 	sql="SELECT price,date_update FROM product_log WHERE link = %s"
 	val=(product_link,)
-	mycursor = mydb.cursor()
+	mycursor = myDB.cursor()
 	mycursor.execute(sql, val)
-	result = mycursor.fetchall();
+	result = mycursor.fetchall()
 	data=[]
 	for data_log in result:
 		date_time = data_log[1].strftime("%m/%d/%Y")
@@ -327,9 +343,7 @@ def getData():
 
 
 if __name__ == "__main__":
-	mydb = mydb= mysql.connector.connect(host="34.65.28.199", user="shoply", passwd="shoply", database="shoply",
-                                           auth_plugin='mysql_native_password')
-	#initialize_database(mydb)
+	#initialize_database(myDB)
 	app.run(ssl_context='adhoc')
 
 

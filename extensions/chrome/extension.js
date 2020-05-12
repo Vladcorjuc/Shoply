@@ -7,6 +7,8 @@ let products = null;
 let isProductSelected = false;
 let selectedProduct = null;
 let response = null;
+let hostOn="https://shoply-scraper.ew.r.appspot.com";
+let hostLoc="https://127.0.0.1:5000";
 
 window.onload =	function() {
 	contentPanel = document.getElementById("content");
@@ -54,6 +56,7 @@ class ExtensionModel {
 			if (this.readyState === 4) {
 				if (this.status === 200) {
 					response = {data:JSON.parse(this.responseText), message: "OK"};
+					console.log(response);
 				}
 				else {
 					response = {data:JSON.parse(this.responseText), message: "ERROR"};
@@ -85,7 +88,7 @@ class ExtensionModel {
 		this.readyStateChange(xmlHttpRequest);
 		xmlHttpRequest.onload = function() { callback(); };
 		xmlHttpRequest.ontimeout = function() {};
-		xmlHttpRequest.open("GET", "https://shoply-scraper.ew.r.appspot.com/search?search=" + searchedText, true);
+		xmlHttpRequest.open("GET", hostOn+"/search?search=" + searchedText, true);
 		xmlHttpRequest.send();
 	}
 
@@ -100,7 +103,7 @@ class ExtensionModel {
 			}
 		};
 		xmlHttpRequest.ontimeout = function() {};
-		xmlHttpRequest.open("GET", "https://shoply-scraper.ew.r.appspot.com/vendors?product_link=" + productURL,
+		xmlHttpRequest.open("GET", hostOn+"/vendors?product_link=" + productURL,
 			true);
 		this.setCookie("product",productURL,365);
 		xmlHttpRequest.send();
@@ -117,7 +120,7 @@ class ExtensionModel {
 			}
 		};
 		xmlHttpRequest.ontimeout = function() {};
-		xmlHttpRequest.open("GET", "https://shoply-scraper.ew.r.appspot.com/data?product_link=" + productURL, true);
+		xmlHttpRequest.open("GET", hostOn+"/data?product_link=" + productURL, true);
 		xmlHttpRequest.send();
 	}
 }
@@ -192,6 +195,7 @@ class ExtensionView {
 	static searchOption() {
 		const searchedText = document.getElementById("search-text").value;
 		if (searchedText !==null && searchedText !== '') {
+			alert("alllert");
 			ExtensionModel.getProductsFromServer(searchedText, this.searchOptionCallback);
 		}
 	}
@@ -440,4 +444,6 @@ class ExtensionController {
 		similarButton.addEventListener("click", function() { ExtensionView.thirdMenuOption() });
 		searchButton.addEventListener("click", function () { ExtensionView.searchOption() });
 	}
+
+
 }
