@@ -29,7 +29,6 @@
             }
         }
     }
-
     else if (isset($_GET['price_fluct']) && $_GET['price_fluct'] != "") {
         $link = $_GET['price_fluct'];
 
