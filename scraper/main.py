@@ -157,7 +157,7 @@ def initialize_database(db_connection):
 			
 			ok=0
 			sql = "INSERT INTO products (title,description,price,currency,offer_num,link,image,vendors) VALUES (%s, %s, %s,%s,%s,%s,%s,%s)"
-			val = (product["title"],product["description"],transform_to_int(product["price"])[0],transform_to_int(product["price"])[1],product["offer-num"],product["link"],product["image"],response_vendors)
+			val = (product["title"],product["description"],product["price"],"RON",product["offer-num"],product["link"],product["image"],response_vendors)
 			try:
 				mycursor.execute(sql, val)
 				myDB.commit()
