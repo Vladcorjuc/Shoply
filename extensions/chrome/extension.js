@@ -195,7 +195,6 @@ class ExtensionView {
 	static searchOption() {
 		const searchedText = document.getElementById("search-text").value;
 		if (searchedText !==null && searchedText !== '') {
-			alert("alllert");
 			ExtensionModel.getProductsFromServer(searchedText, this.searchOptionCallback);
 		}
 	}
