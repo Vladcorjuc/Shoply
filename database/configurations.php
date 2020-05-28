@@ -57,4 +57,4 @@
     }
 
     Table::createTables();
-    Table::createInsertProductTrigger();
+    //Table::createInsertProductTrigger();

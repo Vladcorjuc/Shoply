@@ -10,7 +10,7 @@ import mysql.connector
 from flask import Flask, render_template, request, redirect, Response
 from flask_cors import CORS
 
-myDB= mysql.connector.connect(host="sql2.freemysqlhosting.net", user="sql2339886", passwd="cA7%iD9!", database="sql2339886",
+myDB= mysql.connector.connect(host="remotemysql.com", user="9RI3meN7i3", passwd="fV5wY4UVd3", database="9RI3meN7i3",
                                                 auth_plugin='mysql_native_password')
 
 app = Flask(__name__)
@@ -343,7 +343,7 @@ def getData():
 
 
 if __name__ == "__main__":
-	#initialize_database(myDB)
+	initialize_database(myDB)
 	app.run(ssl_context='adhoc')
 
 
