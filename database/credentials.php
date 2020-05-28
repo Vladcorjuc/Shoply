@@ -1,5 +1,5 @@
 <?php
-    define('DATABASE_HOST', '34.65.28.199');
-    define('DATABASE_NAME', 'shoply');
-    define('DATABASE_USERNAME', 'shoply');
-    define('DATABASE_PASSWORD', 'shoply');
+    define('DATABASE_HOST', 'remotemysql.com');
+    define('DATABASE_NAME', '9RI3meN7i3');
+    define('DATABASE_USERNAME', '9RI3meN7i3');
+    define('DATABASE_PASSWORD', 'fV5wY4UVd3');
