@@ -7,8 +7,8 @@ let products = null;
 let isProductSelected = false;
 let selectedProduct = null;
 let response = null;
-let hostOn="https://shoply-scraper.ew.r.appspot.com";
-let hostLoc="https://127.0.0.1:5000";
+//let hostOn="https://shoply-scraper.ew.r.appspot.com";
+let hostOn="https://127.0.0.1:5000";
 
 window.onload =	function() {
 	contentPanel = document.getElementById("content");

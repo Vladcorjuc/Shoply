@@ -11,7 +11,7 @@
             $query = Database::getConnection()->prepare($statement);
             $query->execute(array(
                 'username' => $username,
-                'password' => $password,
+                'password' => password_hash($password,PASSWORD_DEFAULT),
             ));
             if ($query->rowCount() == 0) {
                 return "Username is already taken.";

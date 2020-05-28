@@ -219,7 +219,7 @@ def put_products_in_DB(products):
 		    myDB.commit()
 		else:
 		    sql="INSERT INTO product_log(link,updated_at,price) VALUES (%s,NOW(),%s)"
-		    val=(product["link"],transform_to_int(product["price"])[0])
+		    val=(product["link"],product["price"])
 		    mycursor.execute(sql,val)
 		    myDB.commit()
 	mycursor.close()
@@ -229,10 +229,9 @@ def productExist(url,mycursor):
     sql="SELECT COUNT(link) from products where link=%s"
     val=(url,)
     mycursor.execute(sql,val)
-    records = mycursor.fetchall()
-    for row in records:
-        if row[0]>0:
-            return True
+    row = mycursor.fetchone()
+    if int(row[0])>0:
+        return True
     return False
 
 def _scrapeVendors(product_link):
@@ -325,25 +324,25 @@ def scrapeFromSearch():
 
 @app.route("/data",methods=["GET", "POST"])
 def getData():
+	mycursor = myDB.cursor()
 	productQuery=request.args
 	product_link=productQuery["product_link"]
 	sql="SELECT price,date_update FROM product_log WHERE link = %s"
 	val=(product_link,)
-	mycursor = myDB.cursor()
 	mycursor.execute(sql, val)
 	result = mycursor.fetchall()
+	mycursor.close()
 	data=[]
 	for data_log in result:
 		date_time = data_log[1].strftime("%m/%d/%Y")
 		data.append(dict({ 'x':data_log[0],'y':date_time }))
-	mycursor.close()
 	return json.dumps(data)
 
 
 
 
 if __name__ == "__main__":
-	initialize_database(myDB)
+	#initialize_database(myDB)
 	app.run(ssl_context='adhoc')
 
 

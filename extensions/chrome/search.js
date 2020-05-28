@@ -43,9 +43,6 @@ function validProduct() {
 function readyStateChange(xmlHttpRequest) {
     xmlHttpRequest.onreadystatechange = function() {
         // readyState: 0 = unsent, 1 = opened, 2 = headers_received, 3 = loading, 4 = done
-        if (this.readyState === 1) {
-            ExtensionView.activateLoadingScreen();
-        }
         if (this.readyState === 4) {
             if (this.status === 200) {
                 response = {data:JSON.parse(this.responseText), message: "OK"};
