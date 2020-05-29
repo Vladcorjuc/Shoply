@@ -443,6 +443,4 @@ class ExtensionController {
 		similarButton.addEventListener("click", function() { ExtensionView.thirdMenuOption() });
 		searchButton.addEventListener("click", function () { ExtensionView.searchOption() });
 	}
-
-
 }

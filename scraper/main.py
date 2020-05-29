@@ -156,14 +156,18 @@ def initialize_database(db_connection):
 			response_vendors=_scrapeVendors(product["link"])
 			
 			ok=0
-			sql = "INSERT INTO products (title,description,price,currency,offer_num,link,image,vendors) VALUES (%s, %s, %s,%s,%s,%s,%s,%s)"
+			sql = "INSERT INTO products (title,description,price,currency,offers,link,image,vendors) VALUES (%s, %s, %s,%s,%s,%s,%s,%s)"
 			val = (product["title"],product["description"],product["price"],"RON",product["offer-num"],product["link"],product["image"],response_vendors)
 			try:
 				mycursor.execute(sql, val)
 				myDB.commit()
 				ok=1
 			except Exception as e:
-				pass
+				print(e)
+			sql="INSERT INTO product_log(link,updated_at,price) VALUES (%s,NOW(),%s)"
+			val=(product["link"],product["price"])
+			mycursor.execute(sql,val)
+			myDB.commit()
 
 			genre="constructie"
 			if i<10:
@@ -190,7 +194,7 @@ def initialize_database(db_connection):
 				genre="birou"
 
 			if ok==1:
-				sql="INSERT IGNORE INTO categories(genre,link) VALUES (%s,%s)"
+				sql="INSERT IGNORE INTO categories(category,link) VALUES (%s,%s)"
 				val=(genre,product['link'])
 				try:
 					mycursor.execute(sql, val)
@@ -202,6 +206,7 @@ def initialize_database(db_connection):
 			myDB.commit()
 		except Exception as e:
 			pass
+		break
 
 	mycursor.close()
 		
@@ -213,7 +218,7 @@ def put_products_in_DB(products):
 	for product in products:
 		response_vendors=_scrapeVendors(product["link"])
 		if not productExist(product["link"],mycursor):
-		    sql = "INSERT IGNORE INTO products (title,description,price,currency,offer_num,link,image,vendors) VALUES (%s, %s, %s,%s,%s,%s,%s,%s)"
+		    sql = "INSERT IGNORE INTO products (title,description,price,currency,offers,link,image,vendors) VALUES (%s, %s, %s,%s,%s,%s,%s,%s)"
 		    val = (product["title"],product["description"],product["price"],"RON",product["offer-num"],product["link"],product["image"],response_vendors)
 		    mycursor.execute(sql, val)
 		    myDB.commit()
@@ -243,6 +248,7 @@ def _scrapeVendors(product_link):
 
 	for i in range(1, len(product_elems)):
 		product=product_elems[i]
+		vendor_link = product.findNext("a")['href']
 		logo_raw_url=product.find(class_="col-logo")
 		if(logo_raw_url):
 			logo_raw_url=logo_raw_url.find(class_="img-responsive logo-host")
@@ -254,7 +260,7 @@ def _scrapeVendors(product_link):
 		offers_price=product.find(itemprop="price").get("content")
 		offers_price_currency=product.find(itemprop="priceCurrency").get("content")
 		vendor_name=product.find(itemprop="seller").get("content")
-		vendors.append({'logo':logo_url,'price':transform_to_int(offers_price)[0],'currency':offers_price_currency,'name':vendor_name})
+		vendors.append({'logo':logo_url,'link':vendor_link,'price':transform_to_int(offers_price)[0],'currency':offers_price_currency,'name':vendor_name})
 	return json.dumps(vendors)
 
 
@@ -342,7 +348,7 @@ def getData():
 
 
 if __name__ == "__main__":
-	#initialize_database(myDB)
+	# initialize_database(myDB)
 	app.run(ssl_context='adhoc')
 
 
