@@ -25,21 +25,20 @@
     }
 
     if(!empty($data->product)&&!empty($data->stars)){
-        if($data->stars>0 && $data->stars<6){
+        if($data->stars > 0 && $data->stars < 6){
             if(isProduct($data->product)==False){
                 http_response_code(401);
                 echo json_encode(array("message"=>"product not found"));
                 exit();
             }
             $query="INSERT INTO rating(user,product,rating) VALUES (:user,:product,:rating)";
-
-            Database::getConnection()->prepare($query);
-            $query->execute(array(
+            $statement= Database::getConnection()->prepare($query);
+            $statement->execute(array(
                 'user' => $user->username,
                 'product' => $data->product,
-                'rating' => $data->stars,
+                'rating' => $data->stars
             ));
-            if ($query->rowCount() == 0) {
+            if ($statement->rowCount() == 0) {
                 http_response_code(401);
                 echo  json_encode(array("message"=>"Unable to rate."));
             }
@@ -61,10 +60,10 @@
 
     function isProduct($link){
         $query="SELECT * FROM products where link=:link";
-        Database::getConnection()->prepare($query);
-        $query->execute(array('link'=>$link));
-        if($query->rowCount()==0)
+        $statement=Database::getConnection()->prepare($query);
+        $statement->execute(array('link'=>$link));
+        if($statement->rowCount()==0)
             return False;
         return True;
-}
+    }
 

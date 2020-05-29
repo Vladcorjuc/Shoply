@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Shoply" uuid="e077b469-d145-4e4f-8e09-2cab7aaf4802">
+    <data-source source="LOCAL" name="@Shoply" uuid="3143e574-0fa9-4138-a9f3-54760a7e5a15">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://34.65.28.199:3306/shoply</jdbc-url>
+      <jdbc-url>jdbc:mysql://remotemysql.com:3306/9RI3meN7i3</jdbc-url>
     </data-source>
   </component>
 </project>
