@@ -7,11 +7,21 @@ import threading
 from datetime import date, datetime
 import ast
 import mysql.connector
-from flask import Flask, render_template, request, redirect, Response
+from mysql.connector import Error
+from mysql.connector import pooling
+from flask import Flask, render_template, request, redirect, Response, jsonify
 from flask_cors import CORS
 
-myDB= mysql.connector.connect(host="remotemysql.com", user="9RI3meN7i3", passwd="fV5wY4UVd3", database="9RI3meN7i3",
-                                                auth_plugin='mysql_native_password')
+conn_pool=mysql.connector.pooling.MySQLConnectionPool(pool_name="shoply_pool",
+                                                    pool_size=5,
+                                                    pool_reset_session=True,
+                                                    host="remotemysql.com",
+                                                    user="9RI3meN7i3",
+                                                    password="fV5wY4UVd3",
+                                                    database="9RI3meN7i3")
+
+
+
 
 app = Flask(__name__)
 CORS(app)
@@ -22,6 +32,8 @@ def transform_to_int(price_string):
 	for ch in price_string:
 		if ch.isdigit():
 			number=number*10+int(ch)
+		if ch==',':
+		    break
 
 	list=[number,currency]
 	return list
@@ -142,32 +154,34 @@ def initialize_database(db_connection):
 		"https://fierastrau-circular-manual.compari.ro/"
 	]
 
-	mycursor = myDB.cursor()
+	mycursor = db_connection.cursor()
 	i=-1
 	for page in categories_link:
 		i=i+1
 		try:
-			products=json.loads(scrapeProducts(page,False))
+			products=json.loads(scrapeProducts(page,False,False))
 			print(i)
 		except Exception as e:
 			continue
 		
 		for product in products:
 			response_vendors=_scrapeVendors(product["link"])
-			
 			ok=0
-			sql = "INSERT INTO products (title,description,price,currency,offers,link,image,vendors) VALUES (%s, %s, %s,%s,%s,%s,%s,%s)"
-			val = (product["title"],product["description"],product["price"],"RON",product["offer-num"],product["link"],product["image"],response_vendors)
+			sql = "INSERT INTO products (title,description,price,currency,offers,link,image,vendors,info) VALUES (%s, %s, %s,%s,%s,%s,%s,%s,%s)"
+			val = (product["title"],product["description"],product["price"],"RON",product["offer-num"],product["link"],product["image"],response_vendors,product["info"])
+			#sql="UPDATE products SET description=%s, price=%s, vendors=%s, info=%s  WHERE link=%s"
+			#val=(product["description"],product["price"],response_vendors,product["info"],product["link"])
 			try:
 				mycursor.execute(sql, val)
-				myDB.commit()
+				db_connection.commit()
 				ok=1
 			except Exception as e:
 				print(e)
-			sql="INSERT INTO product_log(link,updated_at,price) VALUES (%s,NOW(),%s)"
+
+			sql="INSERT IGNORE INTO product_log(link,updated_at,price) VALUES (%s,NOW(),%s)"
 			val=(product["link"],product["price"])
 			mycursor.execute(sql,val)
-			myDB.commit()
+			db_connection.commit()
 
 			genre="constructie"
 			if i<10:
@@ -193,41 +207,41 @@ def initialize_database(db_connection):
 			elif i<90:
 				genre="birou"
 
-			if ok==1:
+			if ok==1 :
 				sql="INSERT IGNORE INTO categories(category,link) VALUES (%s,%s)"
 				val=(genre,product['link'])
 				try:
 					mycursor.execute(sql, val)
-					myDB.commit()
+					db_connection.commit()
 				except Exception as e:
 					pass
-
 		try:
-			myDB.commit()
+			db_connection.commit()
 		except Exception as e:
 			pass
-		break
-
 	mycursor.close()
+	db_connection.close()
 		
 
 	
 
 def put_products_in_DB(products):
-	mycursor = myDB.cursor()
-	for product in products:
-		response_vendors=_scrapeVendors(product["link"])
-		if not productExist(product["link"],mycursor):
-		    sql = "INSERT IGNORE INTO products (title,description,price,currency,offers,link,image,vendors) VALUES (%s, %s, %s,%s,%s,%s,%s,%s)"
-		    val = (product["title"],product["description"],product["price"],"RON",product["offer-num"],product["link"],product["image"],response_vendors)
-		    mycursor.execute(sql, val)
-		    myDB.commit()
-		else:
-		    sql="INSERT INTO product_log(link,updated_at,price) VALUES (%s,NOW(),%s)"
-		    val=(product["link"],product["price"])
-		    mycursor.execute(sql,val)
-		    myDB.commit()
-	mycursor.close()
+    conn=conn_pool.get_connection()
+    mycursor =conn.cursor()
+    for product in products:
+	    response_vendors=_scrapeVendors(product["link"])
+	    if not productExist(product["link"],mycursor):
+	        sql = "INSERT IGNORE INTO products (title,description,price,currency,offers,link,image,vendors,info) VALUES (%s, %s, %s,%s,%s,%s,%s,%s,%s)"
+	        val = (product["title"],product["description"],product["price"],"RON",product["offer-num"],product["link"],product["image"],response_vendors,product["info"])
+	        mycursor.execute(sql, val)
+	        conn.commit()
+	    else:
+	        sql="INSERT INTO product_log(link,updated_at,price) VALUES (%s,NOW(),%s)"
+	        val=(product["link"],product["price"])
+	        mycursor.execute(sql,val)
+	        conn.commit()
+    mycursor.close()
+    conn.close()
 
 
 def productExist(url,mycursor):
@@ -265,7 +279,7 @@ def _scrapeVendors(product_link):
 
 
 
-def scrapeProducts(page,addToDB):
+def scrapeProducts(page,addToDB,extension):
 	page = requests.get(page)
 	soup = BeautifulSoup(page.content, 'html.parser')
 	product_elems = soup.find_all( class_='product-box clearfix')
@@ -276,7 +290,12 @@ def scrapeProducts(page,addToDB):
 		product_title=product.find(class_='name ulined-link').find('a').get_text()
 		product_description=""
 		if(product.find(class_='description clearfix hidden-xs')):
-			product_description=str(product.find(class_='description clearfix hidden-xs').ul)
+		    description_element=product.find(class_='description clearfix hidden-xs').findAll('ul')
+		    if(len(description_element)>1):
+		        product_description=str(description_element[0])+str(description_element[1])
+
+		    if len(description_element) == 1:
+		        product_description=str(description_element[0])
 
 		product_price=product.find(class_='price').get_text()[6::]  
 		product_offer_num=product.find(class_='offer-num').get_text().lstrip().rstrip()       
@@ -286,12 +305,25 @@ def scrapeProducts(page,addToDB):
 			product_image_url=product_image_url['data-lazy-src']
 		else:
 			product_image_url=product.find(class_='img-responsive')['src']
-		products.append({'title':product_title,'description':product_description,'price':transform_to_int(product_price)[0],'offer-num':product_offer_num,'link':product_link,'image':product_image_url})
+		if(extension):
+		    products.append({'title':product_title,'description':product_description,'price':transform_to_int(product_price)[0],'offer-num':product_offer_num,'link':product_link,'image':product_image_url})
+		else:
+		    products.append({'title':product_title,'description':scrapeDescription(product_link),'info':product_description,'price':transform_to_int(product_price)[0],'offer-num':product_offer_num,'link':product_link,'image':product_image_url})
 	if addToDB:
 			x = threading.Thread(target=put_products_in_DB, args=(products,))
 			x.start()
 	return json.dumps(products)
 
+def scrapeDescription(link):
+    description_link=link+"#descrierea-produsului"
+    page=requests.get(description_link)
+    soup=BeautifulSoup(page.content,"html.parser")
+    product_elems=soup.find(class_="text property-sheet").getText()
+    product_elems=product_elems.replace("   ","\n")
+    escape_index=product_elems.find("Galerie")
+    if escape_index != -1:
+       product_elems=product_elems[:escape_index]
+    return product_elems
 
 @app.route("/vendors",methods=["GET", "POST"])
 def scrapeVendors():
@@ -305,6 +337,7 @@ def scrapeVendors():
 
 	for i in range(1, len(product_elems)):
 		product=product_elems[i]
+		vendor_link = product.findNext("a")['href']
 		logo_raw_url=product.find(class_="col-logo")
 		if(logo_raw_url):
 			logo_raw_url=logo_raw_url.find(class_="img-responsive logo-host")
@@ -316,8 +349,10 @@ def scrapeVendors():
 		offers_price=product.find(itemprop="price").get("content")
 		offers_price_currency=product.find(itemprop="priceCurrency").get("content")
 		vendor_name=product.find(itemprop="seller").get("content")
-		vendors.append({'logo':logo_url,'price':transform_to_int(offers_price)[0],'currency':offers_price_currency,'name':vendor_name})
-	return json.dumps(vendors)
+		vendors.append({'logo':logo_url,'link':vendor_link,'price':transform_to_int(offers_price)[0],'currency':offers_price_currency,'name':vendor_name})
+	response= jsonify(vendors)
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
 
 
 @app.route("/search",methods=["GET", "POST"])
@@ -325,30 +360,45 @@ def scrapeFromSearch():
 	searchQuery=request.args
 	searchQuery=searchQuery["search"]
 	mainURL="https://www.compari.ro/CategorySearch.php?st="+searchQuery.replace(" ","+").replace("%20","+")
-	result=scrapeProducts(mainURL,True)
-	return result
+	response = jsonify(scrapeProducts(mainURL,True,False))
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
+
+
+@app.route("/search_ext",methods=["GET", "POST"])
+def scrapeFromSearchExtension():
+	searchQuery=request.args
+	searchQuery=searchQuery["search"]
+	mainURL="https://www.compari.ro/CategorySearch.php?st="+searchQuery.replace(" ","+").replace("%20","+")
+	response = jsonify(scrapeProducts(mainURL,True,True))
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
 
 @app.route("/data",methods=["GET", "POST"])
 def getData():
-	mycursor = myDB.cursor()
-	productQuery=request.args
-	product_link=productQuery["product_link"]
-	sql="SELECT price,date_update FROM product_log WHERE link = %s"
-	val=(product_link,)
-	mycursor.execute(sql, val)
-	result = mycursor.fetchall()
-	mycursor.close()
-	data=[]
-	for data_log in result:
-		date_time = data_log[1].strftime("%m/%d/%Y")
-		data.append(dict({ 'x':data_log[0],'y':date_time }))
-	return json.dumps(data)
+    conn=conn_pool.get_connection()
+    mycursor = conn.cursor()
+    productQuery=request.args
+    product_link=productQuery["product_link"]
+    sql="SELECT price,updated_at FROM product_log WHERE link = %s"
+    val=(product_link,)
+    mycursor.execute(sql, val)
+    result = mycursor.fetchall()
+    data=[]
+    for data_log in result:
+        date_time = data_log[1].strftime("%m/%d/%Y")
+        data.append(dict({ 'x':data_log[0],'y':date_time }))
+    mycursor.close()
+    conn.close()
+    response = jsonify(data)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 
 
 
 if __name__ == "__main__":
-	# initialize_database(myDB)
+	#initialize_database(conn_pool.get_connection())
 	app.run(ssl_context='adhoc')
 
 
