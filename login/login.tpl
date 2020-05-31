@@ -17,10 +17,10 @@
     <div class="button-box">
         <div id="button"></div>
         <button type="button" id="login-button" class="toggle-button" name="action" value="login"
-                onclick="login()">Login
+                onclick="login()">Autentificare
         </button>
         <button type="button" id="register-button" class="toggle-button" name="action" value="register"
-                onclick="register()">Register
+                onclick="register()">Inregistrare
         </button>
     </div>
     <form id="login" class="credentials" method="POST" action="login.php">
@@ -29,17 +29,17 @@
         </label>
         <label>
             <input type="text" name="username" autocomplete="off" class="input-field"
-                   placeholder="Please enter your username" required>
+                   placeholder="Username" required>
         </label>
         <label>
             <input type="password" name="password" autocomplete="off" class="input-field"
-                   placeholder="Please enter your password" required>
+                   placeholder="Parola" required>
         </label>
         <label>
             <input type="checkbox" class="checkbox">
         </label>
-        <span>Remember password</span>
-        <button type="submit" class="submit-button" name="action" value="login">Login</button>
+        <span>Retine parola</span>
+        <button type="submit" class="submit-button" name="action" value="login">Autentificare</button>
     </form>
     <?php if ($page == "login") { ?>
     <div class="error" id="login-error"> <?php echo $error; ?> </div>
@@ -50,17 +50,17 @@
         </label>
         <label>
             <input type="text" name="username" autocomplete="off" class="input-field"
-                   placeholder="Please enter your username" required>
+                   placeholder="Username" required>
         </label>
         <label>
             <input type="password" name="password" autocomplete="off" class="input-field"
-                   placeholder="Please enter your password" required>
+                   placeholder="Parola" required>
         </label>
         <label>
             <input type="checkbox" class="checkbox">
         </label>
-        <span>Receive Shoply recommendations by email</span>
-        <button type="submit" class="submit-button" name="action" value="register">Register</button>
+        <span>Vreau sa primesc email-uri cu recmandari de la Shoply</span>
+        <button type="submit" class="submit-button" name="action" value="register">Autentificare</button>
     </form>
     <?php if ($page == "register") { ?>
     <div class="error" id="register-error"> <?php echo $error; ?> </div>

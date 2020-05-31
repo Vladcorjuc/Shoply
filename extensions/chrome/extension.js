@@ -207,7 +207,7 @@ class ExtensionView {
 
 		if (products===null) {
 			contentPanel.innerHTML = "";
-			contentPanel.appendChild(ExtensionView.createNotMessage("You have not searched any product yet."));
+			contentPanel.appendChild(ExtensionView.createNotMessage("Nu ai cautat niciun produs."));
 		}
 		else {
 			contentPanel.innerHTML = "";
@@ -232,11 +232,11 @@ class ExtensionView {
 
 		if (products===null) {
 			contentPanel.innerHTML = "";
-			contentPanel.appendChild(ExtensionView.createNotMessage("You have not searched any product yet."));
+			contentPanel.appendChild(ExtensionView.createNotMessage("Nu ai cautat niciun produs."));
 		}
 		if (isProductSelected === false) {
 			contentPanel.innerHTML = "";
-			contentPanel.appendChild(ExtensionView.createNotMessage("You have not selected any product yet."));
+			contentPanel.appendChild(ExtensionView.createNotMessage("Nu ai cautat niciun produs."));
 		}
 		else {
 			contentPanel.innerHTML = "";
@@ -251,11 +251,11 @@ class ExtensionView {
 
 		if (products == null) {
 			contentPanel.innerHTML = "";
-			contentPanel.appendChild(ExtensionView.createNotMessage("You have not searched any product yet."));
+			contentPanel.appendChild(ExtensionView.createNotMessage("Nu ai cautat niciun produs."));
 		}
 		if (isProductSelected === false) {
 			contentPanel.innerHTML="";
-			contentPanel.appendChild(ExtensionView.createNotMessage("You have not selected any product yet."));
+			contentPanel.appendChild(ExtensionView.createNotMessage("Nu ai cautat niciun produs."));
 		}
 		else {
 			contentPanel.innerHTML = "";
