@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="19c69785-aa94-41c5-9deb-3200ad1279f0" name="XAMPP Apache" url="http://localhost">
-        <fileTransfer port="0" mountedRoot="D:\Program Files\xampp\htdocs\Tehnologii Web\Shoply" accessType="MOUNT" />
+        <fileTransfer mountedRoot="D:\Anul II\Semestrul II\Tehnologii web\Proiect\Shoply" accessType="MOUNT" port="0" />
       </webServer>
     </option>
   </component>

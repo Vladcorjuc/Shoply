@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once 'login_controller.php';
+require_once "login_controller.php";
 
 if (isset($_SESSION["username"])) {
     header("Location: ../index/index.html");
@@ -21,6 +21,5 @@ if (isset($_SESSION["username"])) {
         $action = "";
         $parameters = "";
     }
-
     $controller = new LoginController($action, $parameters);
 }

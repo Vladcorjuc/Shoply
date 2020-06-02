@@ -1,2 +1,2 @@
 <?php
-    header("Location: index/index.html");
+    header("Location: products/all.php");

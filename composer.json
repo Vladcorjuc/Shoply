@@ -1,5 +1,6 @@
 {
   "require": {
+    "ext-dom": "*",
     "ext-pdo": "*",
     "ext-json": "*"
   }

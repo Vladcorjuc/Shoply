@@ -180,4 +180,21 @@ class Product
         $query = $this->connection->prepare($statement);
         return $query->execute(array("link" => $this->link, "title" => $this->title, "price" => $this->price));
     }
+
+    public function updatePrice() {
+        $statement = "UPDATE products SET price = :price WHERE id = :id";
+        $query = $this->connection->prepare($statement);
+        if ($query->execute(array("price" => $this->price, "id" => $this->id))) {
+            $statement = "INSERT INTO product_log (link, price) VALUES (:link, :price)";
+            $query = $this->connection->prepare($statement);
+            return $query->execute(array("link" => $this->link, "price" => $this->price));
+        }
+        return false;
+    }
+
+    public function deleteById() {
+        $statement = "DELETE FROM products WHERE id = :id";
+        $query = $this->connection->prepare($statement);
+        return $query->execute(array("id" => $this->id));
+    }
 }
