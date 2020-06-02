@@ -56,10 +56,9 @@ class ExtensionModel {
 			if (this.readyState === 4) {
 				if (this.status === 200) {
 					response = {data:JSON.parse(this.responseText), message: "OK"};
-					console.log(response);
 				}
 				else {
-					response = {data:JSON.parse(this.responseText), message: "ERROR"};
+					response = {data:{"message":"aaaa"}, message: "ERROR"};
 				}
 			}
 		};
@@ -84,12 +83,13 @@ class ExtensionModel {
 
 	static getProductsFromServer(searchedText, callback) {
 		let xmlHttpRequest = new XMLHttpRequest();
-		xmlHttpRequest.timeout = 2000;
+		//xmlHttpRequest.timeout = 2000;
 		this.readyStateChange(xmlHttpRequest);
 		xmlHttpRequest.onload = function() { callback(); };
 		xmlHttpRequest.ontimeout = function() {};
-		xmlHttpRequest.open("GET", hostOn+"/search?search=" + searchedText, true);
+		xmlHttpRequest.open("GET", hostOn+"/search_ext?search=" + searchedText, true);
 		xmlHttpRequest.send();
+
 	}
 
 	static getProductVendorsFromServer(productURL, callback) {
@@ -183,10 +183,11 @@ class ExtensionView {
 	static searchOptionCallback() {
 		contentPanel.innerHTML = "";
 		if (response.message === "OK" && response.data.length) {
-			products = response.data;
+			products = JSON.parse(response.data);
 			isProductSelected = false;
 		}
 		else {
+			ExtensionView.removeLoadingScreen();
 			products = null;
 		}
 		ExtensionView.firstMenuOption(products);
@@ -206,7 +207,7 @@ class ExtensionView {
 
 		if (products===null) {
 			contentPanel.innerHTML = "";
-			contentPanel.appendChild(ExtensionView.createNotMessage("You have not searched any product yet."));
+			contentPanel.appendChild(ExtensionView.createNotMessage("Nu ai cautat niciun produs."));
 		}
 		else {
 			contentPanel.innerHTML = "";
@@ -231,11 +232,11 @@ class ExtensionView {
 
 		if (products===null) {
 			contentPanel.innerHTML = "";
-			contentPanel.appendChild(ExtensionView.createNotMessage("You have not searched any product yet."));
+			contentPanel.appendChild(ExtensionView.createNotMessage("Nu ai cautat niciun produs."));
 		}
 		if (isProductSelected === false) {
 			contentPanel.innerHTML = "";
-			contentPanel.appendChild(ExtensionView.createNotMessage("You have not selected any product yet."));
+			contentPanel.appendChild(ExtensionView.createNotMessage("Nu ai cautat niciun produs."));
 		}
 		else {
 			contentPanel.innerHTML = "";
@@ -250,11 +251,11 @@ class ExtensionView {
 
 		if (products == null) {
 			contentPanel.innerHTML = "";
-			contentPanel.appendChild(ExtensionView.createNotMessage("You have not searched any product yet."));
+			contentPanel.appendChild(ExtensionView.createNotMessage("Nu ai cautat niciun produs."));
 		}
 		if (isProductSelected === false) {
 			contentPanel.innerHTML="";
-			contentPanel.appendChild(ExtensionView.createNotMessage("You have not selected any product yet."));
+			contentPanel.appendChild(ExtensionView.createNotMessage("Nu ai cautat niciun produs."));
 		}
 		else {
 			contentPanel.innerHTML = "";
