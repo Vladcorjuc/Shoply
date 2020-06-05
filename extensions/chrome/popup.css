@@ -96,7 +96,7 @@ header {
     background-color: coral;
 }
 
-.menu {
+.big-menu {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

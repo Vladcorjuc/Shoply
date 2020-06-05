@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Shoply" uuid="af76e46a-3928-4395-a5be-2fdcb72c89f9">
+    <data-source source="LOCAL" name="Shoply" uuid="e654f86d-eb6e-4e5a-a650-7c62ca8949d1">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

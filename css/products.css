@@ -1,0 +1,93 @@
+.container {
+    margin-top: 10px;
+    margin-right: 200px;
+    margin-bottom: 10px;
+}
+
+aside {
+    width: 15%;
+    padding-left: 15px;
+    margin-left: 15px;
+    float: left;
+}
+
+.categories li {
+    list-style: none;
+}
+
+.category:hover {
+    cursor: pointer;
+}
+
+.products {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    -webkit-box-shadow: 0 0 20px 5px rgba(255, 95, 35, 0.15);
+    box-shadow: 0 0 20px 5px rgba(255, 95, 35, 0.15);
+    overflow: hidden;
+}
+
+.product {
+    position: relative;
+    width: 250px;
+    height: 350px;
+    margin: 15px auto;
+    padding: 5px;
+    border-radius: 10px;
+    background: white;
+    -webkit-box-shadow: 0 0 20px 5px rgba(255, 95, 35, 0.15);
+    box-shadow: 0 0 20px 5px rgba(255, 95, 35, 0.15);
+    color: #5e5e5e;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.product:hover {
+    box-shadow: 0 0 20px 5px rgba(255, 95, 35, 0.25);
+    transition: all 0.2s ease;
+}
+
+.image {
+    display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.title {
+    margin-top: 30px;
+}
+
+.title, .price, .offers {
+    text-align: center;
+}
+
+.price {
+    margin-top: 5px;
+}
+
+.offers {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.rating {
+    display: inline-flex;
+}
+
+.on:before, .off:before {
+    font-size: 1.5rem;
+}
+
+.on {
+    color: orange;
+}
+
+.off {
+    color: #ddd;
+}
