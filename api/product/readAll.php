@@ -49,7 +49,7 @@ if ($productsNumber > 0) {
             "category" => $row["category"],
             "link" => $row["link"],
             "title" => $row["title"],
-            "characteristics" => $row["info"],
+            "characteristics" => $row["characteristics"],
             "description" => html_entity_decode($row["description"]),
             "price" => $row["price"],
             "currency" => $row["currency"],

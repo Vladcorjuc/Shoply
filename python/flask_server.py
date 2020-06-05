@@ -21,7 +21,7 @@ def scrape_search():
     search_query = request.args
     search_query = search_query["search"]
     main_url = "https://www.compari.ro/CategorySearch.php?st=" + search_query.replace(" ", "+").replace("%20", "+")
-    response = jsonify(scrape_products(main_url, True, False))
+    response = jsonify(scrape_products(main_url, False))
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
@@ -31,7 +31,7 @@ def scrape_search_extension():
     search_query = request.args
     search_query = search_query["search"]
     main_url = "https://www.compari.ro/CategorySearch.php?st=" + search_query.replace(" ", "+").replace("%20", "+")
-    response = jsonify(scrape_products(main_url, True, True))
+    response = jsonify(scrape_products(main_url, True))
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 

@@ -5,6 +5,14 @@ import mysql.connector
 from bs4 import BeautifulSoup
 from mysql.connector import pooling
 
+connection_pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="shoply_pool",
+                                                              pool_size=5,
+                                                              pool_reset_session=True,
+                                                              host="remotemysql.com",
+                                                              user="9RI3meN7i3",
+                                                              password="fV5wY4UVd3",
+                                                              database="9RI3meN7i3")
+
 
 def transform_to_int(price_string):
     number = 0
@@ -200,7 +208,7 @@ def add_data_in_database(database_connection):
         for page in category:
             products = []
             try:
-                products = json.loads(scrape_products(page, False, False))
+                products = json.loads(scrape_products(page, False))
                 print(page)
             except Exception as exception:
                 print(exception)
@@ -220,7 +228,7 @@ def add_data_in_database(database_connection):
     database_connection.close()
 
 
-def scrape_products(page, add_in_database, extension):
+def scrape_products(page, extension):
     page = requests.get(page)
     soup = BeautifulSoup(page.content, "html.parser")
     product_elements = soup.find_all(class_="product-box clearfix")
@@ -253,9 +261,6 @@ def scrape_products(page, add_in_database, extension):
                              "description": scrape_description(product_link),
                              "price": transform_to_int(product_price), "offers": product_offers_number,
                              "image": product_image_url})
-    if add_in_database:
-        thread = threading.Thread(target=add_products_in_database, args=(products,))
-        thread.start()
     return json.dumps(products)
 
 
@@ -311,7 +316,7 @@ def add_product_in_database(database_connection, cursor, product):
     if product["price"] == 0 or "oferte" not in product["offers"]:
         return
     response_vendors = scrape_vendors_database(product["link"])
-    query = "INSERT IGNORE INTO products (link, title, info, description, price, offers, image, vendors) " \
+    query = "INSERT IGNORE INTO products (link, title, characteristics, description, price, offers, image, vendors) " \
             "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
     values = (product["link"], product["title"], product["characteristics"], product["description"],
               product["price"], product["offers"], product["image"], response_vendors,)
@@ -332,11 +337,4 @@ def add_product_in_database(database_connection, cursor, product):
 
 
 if __name__ == "__main__":
-    connection_pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="shoply_pool",
-                                                                  pool_size=5,
-                                                                  pool_reset_session=True,
-                                                                  host="remotemysql.com",
-                                                                  user="9RI3meN7i3",
-                                                                  password="fV5wY4UVd3",
-                                                                  database="9RI3meN7i3")
     add_data_in_database(connection_pool.get_connection())
