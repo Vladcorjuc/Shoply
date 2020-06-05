@@ -67,5 +67,5 @@ if ($productsNumber > 0) {
     print(json_encode($products));
 } else {
     http_response_code(404);
-    print(json_encode(array("message" => "Nu exista produse in categoria ". $category . ".")));
+    print(json_encode(array("message" => "Nu exista produse in categoria " . $category . ".")));
 }

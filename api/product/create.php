@@ -46,17 +46,15 @@ $product->setLink($data->link);
 $product->setTitle($data->title);
 $product->setPrice($data->price);
 // create the product
-if($product->create()){
+if ($product->create()) {
 
     // set response code - 201 created
     http_response_code(201);
 
     // tell the user
     echo json_encode(array("message" => "Produsul a fost adaugat."));
-}
-
-// if unable to create the product, tell the user
-else{
+} // if unable to create the product, tell the user
+else {
 
     // set response code - 503 service unavailable
     http_response_code(503);

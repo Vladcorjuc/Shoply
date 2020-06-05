@@ -175,13 +175,15 @@ class Product
         return $query;
     }
 
-    public function create() {
+    public function create()
+    {
         $statement = "INSERT INTO products SET link = :link, title = :title, price = :price";
         $query = $this->connection->prepare($statement);
         return $query->execute(array("link" => $this->link, "title" => $this->title, "price" => $this->price));
     }
 
-    public function updatePrice() {
+    public function updatePrice()
+    {
         $statement = "UPDATE products SET price = :price WHERE id = :id";
         $query = $this->connection->prepare($statement);
         if ($query->execute(array("price" => $this->price, "id" => $this->id))) {
@@ -192,7 +194,8 @@ class Product
         return false;
     }
 
-    public function deleteById() {
+    public function deleteById()
+    {
         $statement = "DELETE FROM products WHERE id = :id";
         $query = $this->connection->prepare($statement);
         return $query->execute(array("id" => $this->id));
