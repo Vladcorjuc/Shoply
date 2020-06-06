@@ -1,12 +1,30 @@
+let parameters = new URLSearchParams(window.location.search);
+let category;
+if (parameters.has("category")) {
+    category = parameters.get("category");
+} else {
+    category = "birou";
+}
+let sortBy;
+if (parameters.has("sort-by")) {
+    sortBy = parameters.get("sort-by");
+} else {
+    sortBy = "most-popular";
+}
 let categoriesRequest = new XMLHttpRequest();
 categoriesRequest.onreadystatechange = addCategories;
-categoriesRequest.open("GET", "../php/controllers/products_controller.php?categories=1", true);
+categoriesRequest.open("GET", "../php/controllers/products_controller.php?categories=true", true);
 categoriesRequest.send();
 
 const selectedOption = document.getElementsByClassName("selected-option")[0];
 const options = document.getElementsByClassName("options")[0];
-const arrow = document.getElementsByClassName("arrow")[0];
+let arrow = document.createElement("div");
+arrow.setAttribute("class", "arrow");
 const optionList = document.querySelectorAll(".option");
+selectedOption.textContent = document.getElementsByClassName(sortBy)[0].textContent;
+arrow = document.createElement("div");
+arrow.setAttribute("class", "arrow");
+selectedOption.appendChild(arrow);
 selectedOption.addEventListener("click", () => {
     options.classList.toggle("active");
     arrow.classList.toggle("active");
@@ -14,16 +32,19 @@ selectedOption.addEventListener("click", () => {
 optionList.forEach(option => {
     option.addEventListener("click", () => {
         selectedOption.textContent = option.getElementsByTagName("label")[0].textContent;
-        let arrow = document.createElement("div");
+        arrow = document.createElement("div");
         arrow.setAttribute("class", "arrow");
         selectedOption.appendChild(arrow);
         options.classList.remove("active");
         option.addEventListener("click", () => {
-            const criteria = option.getElementsByTagName("input")[0].id;
+            const newSortBy = option.getElementsByTagName("input")[0].id;
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname +
+                "?category=" + category + "&sort-by=" + newSortBy;
+            window.history.pushState({path: newUrl}, "", newUrl);
             productsRequest = new XMLHttpRequest();
             productsRequest.onreadystatechange = addProducts;
             productsRequest.open("GET", "../php/controllers/products_controller.php?category="
-                + "birou" + "&" + "sort-by=" + criteria, true);
+                + category + "&" + "sort-by=" + newSortBy, true);
             productsRequest.send();
         });
     });
@@ -31,7 +52,8 @@ optionList.forEach(option => {
 
 let productsRequest = new XMLHttpRequest();
 productsRequest.onreadystatechange = addProducts;
-productsRequest.open("GET", "../php/controllers/products_controller.php?category=birou&sort-by=most-popular", true);
+productsRequest.open("GET", "../php/controllers/products_controller.php?category=" + category +
+    "&sort-by=" + sortBy, true);
 productsRequest.send();
 
 function addCategories() {
@@ -41,17 +63,20 @@ function addCategories() {
         categoryObjects.forEach(categoryObject => {
             let categoryElement = document.createElement("li");
             categoryElement.setAttribute("class", "category");
-            let categoryName = categoryObject.category;
-            categoryElement.textContent = categoryName[0].toUpperCase() + categoryName.slice(1);
+            let newCategory = categoryObject.category;
+            categoryElement.textContent = newCategory[0].toUpperCase() + newCategory.slice(1);
             categoryElement.addEventListener("click", () => {
+                const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname +
+                    "?category=" + newCategory + "&sort-by=most-popular";
+                window.history.pushState({path: newUrl}, "", newUrl);
                 selectedOption.textContent = "Cele mai populare";
-                let arrow = document.createElement("div");
+                arrow = document.createElement("div");
                 arrow.setAttribute("class", "arrow");
                 selectedOption.appendChild(arrow);
                 productsRequest = new XMLHttpRequest();
                 productsRequest.onreadystatechange = addProducts;
                 productsRequest.open("GET", "../php/controllers/products_controller.php?category="
-                    + categoryName, true);
+                    + newCategory + "&sort-by=most-popular", true);
                 productsRequest.send();
             });
             categoriesElement.appendChild(categoryElement);

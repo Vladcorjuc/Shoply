@@ -9,30 +9,28 @@ require_once __DIR__ . "/../models/products_model.php";
 
 if (isset($_GET["categories"])) {
     $categories = $_GET["categories"];
-    $categories = getCategories();
-    if ($categories == null) {
-        http_response_code(404);
-        echo json_encode(array("message" => "Nu exista nicio categorie."));
+    if ($categories == "true") {
+        $categories = getCategories();
+        if ($categories == null) {
+            http_response_code(404);
+            echo json_encode(array("message" => "Nu exista nicio categorie."));
+        } else {
+            http_response_code(200);
+            echo json_encode($categories);
+        }
     }
-    else {
-        http_response_code(200);
-        echo json_encode($categories);
-    }
-}
-else if (isset($_GET["category"])) {
+} else if (isset($_GET["category"])) {
     $category = $_GET["category"];
     if (isset($_GET["sort-by"])) {
         $sortBy = $_GET["sort-by"];
         $products = getProductsByCategory($category, $sortBy);
-    }
-    else {
+    } else {
         $products = getProductsByCategory($category, "most-popular");
     }
     if ($products == null) {
         http_response_code(404);
         echo json_encode(array("message" => "Nu exista produse in categoria " . $category . "."));
-    }
-    else {
+    } else {
         http_response_code(200);
         echo json_encode($products, JSON_PRETTY_PRINT);
     }

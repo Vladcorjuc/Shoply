@@ -58,7 +58,7 @@ let bigMenu = document.createElement("ul");
 bigMenu.setAttribute("class", "big-menu");
 let productsElement = document.createElement("li");
 let productsAnchor = document.createElement("a");
-productsAnchor.setAttribute("href", "../html/products.html");
+productsAnchor.setAttribute("href", "../html/products.html?category=birou&sort-by=most-popular");
 productsAnchor.textContent = "Produse";
 productsElement.appendChild(productsAnchor);
 bigMenu.appendChild(productsElement);
