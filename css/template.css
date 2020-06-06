@@ -8,6 +8,15 @@
     font-family: "Open Sans", sans-serif;
 }
 
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    overflow: visible;
+    z-index: 1;
+}
+
 .navigation-bar {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -22,9 +31,6 @@
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    position: -webkit-sticky;
-    position: sticky;
-    width: 100%;
     height: 125px;
     color: coral;
 }
@@ -152,7 +158,7 @@
 }
 
 footer {
-    position: fixed;
+    position: relative;
     width: 100%;
     margin: auto;
     bottom: 0;
@@ -222,6 +228,7 @@ footer {
 
     .navigation-bar-links li a {
         padding: 0.5em 1em;
+        background: white;
     }
 
     .navigation-bar-links.active {
@@ -259,5 +266,6 @@ footer {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
+        background: white;
     }
 }

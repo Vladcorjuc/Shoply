@@ -28,6 +28,6 @@ else if (isset($_GET["category"])) {
     }
     else {
         http_response_code(200);
-        echo json_encode($products);
+        echo json_encode($products, JSON_PRETTY_PRINT);
     }
 }

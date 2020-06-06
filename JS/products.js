@@ -6,9 +6,10 @@ categoriesRequest.send();
 function addCategories() {
     if (this.readyState === categoriesRequest.DONE && this.status === 200) {
         let categoriesElement = document.getElementsByClassName("categories")[0];
-        let categoryObjects = JSON.parse(this.responseText);
+        let categoryObjects = JSON.parse(decodeURIComponent(this.responseText));
         categoryObjects.forEach(categoryObject => {
             let categoryElement = document.createElement("li");
+            categoryElement.setAttribute("class", "category");
             let categoryName = categoryObject.category;
             categoryElement.textContent = categoryName[0].toUpperCase() + categoryName.slice(1);
             categoryElement.addEventListener('click', () => {
