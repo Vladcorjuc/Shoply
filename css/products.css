@@ -8,16 +8,15 @@
 }
 
 .categories {
-    position: fixed;
+    display: grid;
+    grid-column-start: 1;
+    position: sticky;
+    top: 130px;
     list-style: none;
 }
 
 .category:hover {
     cursor: pointer;
-}
-
-.sort {
-    grid-column-start: 2;
 }
 
 .sort-text {
@@ -36,6 +35,7 @@
     border-color: rgb(230, 230, 230);
     margin-bottom: 8px;
     width: 200px;
+    background: rgb(250, 250, 250);
     order: 0;
 }
 
@@ -66,6 +66,7 @@
     border-radius: 8px;
     border-color: rgb(230, 230, 230);
     width: 200px;
+    background: rgb(250, 250, 250);
     overflow: hidden;
     transition: all 0.3s ease;
     order: 1;
@@ -92,6 +93,7 @@
     max-height: 85px;
     opacity: 1;
     overflow-y: scroll;
+    z-index: 1;
 }
 
 .options::-webkit-scrollbar {
@@ -114,6 +116,7 @@
 }
 
 .products {
+    margin-top: -200px;
     display: grid;
     gap: 1rem;
     grid-row-start: 2;
