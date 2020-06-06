@@ -92,14 +92,14 @@ let copyrightText = document.createElement("div");
 copyrightText.setAttribute("class", "copyright-text");
 footer.appendChild(copyrightText);
 
-hamburgerMenu.addEventListener('click', () => {
-    hamburgerMenu.classList.toggle('active');
-    navigationBarLinks.classList.toggle('active');
+hamburgerMenu.addEventListener("click", () => {
+    hamburgerMenu.classList.toggle("active");
+    navigationBarLinks.classList.toggle("active");
 });
 
-searchButtonSmallIcon.addEventListener('click', () => {
-    searchButtonSmallIcon.classList.toggle('active');
-    searchBox.classList.toggle('active');
+searchButtonSmallIcon.addEventListener("click", () => {
+    searchButtonSmallIcon.classList.toggle("active");
+    searchBox.classList.toggle("active");
 });
 
 copyrightText.innerHTML = "&copy; Copyright " + new Date().getFullYear() + " shoply.com";

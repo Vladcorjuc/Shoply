@@ -26,11 +26,22 @@ function getCategories()
     return $categories;
 }
 
-function getProductsByCategory($category)
+function getProductsByCategory($category, $sortBy)
 {
+    $criteria = "COALESCE(FLOOR(AVG(rating)), 0) DESC";
+    switch ($sortBy) {
+        case "most-viewed":
+            $criteria = "views DESC";
+            break;
+        case "price-ascending":
+            $criteria = "CONVERT(price, UNSIGNED)";
+            break;
+        case "price-descending":
+            $criteria = "CONVERT(price, UNSIGNED) DESC";
+    }
     $query = "SELECT image, title, COALESCE(FLOOR(AVG(rating)), 0) AS rating, price, offers FROM products p " .
         "JOIN categories c ON p.link = c.link LEFT JOIN rating r ON p.link = r.product WHERE category = :category " .
-        "GROUP BY image, title, price, offers";
+        "GROUP BY image, title, price, offers, views ORDER BY " . $criteria;
     $statement = Database::getConnection()->prepare($query);
     $statement->execute(array("category" => $category));
     if ($statement->rowCount() == 0) {

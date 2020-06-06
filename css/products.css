@@ -1,8 +1,10 @@
 .container {
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    gap: 1rem;
+    grid-template-columns: 1fr 6fr;
     min-height: calc(100vh - 130px - 20px);
     margin-top: 130px;
+    color: #5e5e5e;
 }
 
 .categories {
@@ -15,15 +17,115 @@
     cursor: pointer;
 }
 
-.products {
+.sort {
     grid-column-start: 2;
+}
+
+.sort-text {
+    display: inline-grid;
+}
+
+.sort-box {
+    display: inline-grid;
+}
+
+.selected-option {
+    position: relative;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+    border-color: rgb(230, 230, 230);
+    margin-bottom: 8px;
+    width: 200px;
+    order: 0;
+}
+
+.arrow {
+    display: inline;
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    top: 15px;
+    right: 20px;
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: rgb(150, 150, 150);
+    transform: rotate(45deg);
+    transition: all 0.2s ease;
+}
+
+.arrow:hover {
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+}
+
+.options {
+    max-height: 0;
+    opacity: 0;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 8px;
+    border-color: rgb(230, 230, 230);
+    width: 200px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    order: 1;
+}
+
+.option, .selected-option {
+    padding: 10px 20px;
+}
+
+.selected-option, .sort-box label {
+    cursor: pointer;
+}
+
+.radio {
+    display: none;
+}
+
+.arrow.active {
+    top: 20px;
+    transform: rotate(225deg);
+}
+
+.options.active {
+    max-height: 85px;
+    opacity: 1;
+    overflow-y: scroll;
+}
+
+.options::-webkit-scrollbar {
+    width: 8px;
+    background: rgb(230, 230, 230);
+    border-radius: 0 7px 7px 0;
+}
+
+.options::-webkit-scrollbar-thumb {
+    background: rgb(210, 210, 210);
+    border-radius: 0 7px 7px 0;
+}
+
+.selected-option:hover {
+    background: rgb(230, 230, 230);
+}
+
+.option:hover {
+    background: rgb(235, 235, 235);
+}
+
+.products {
+    display: grid;
+    gap: 1rem;
+    grid-row-start: 2;
+    grid-column-start: 2;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
 .product {
     position: relative;
-    width: 250px;
+    width: 240px;
     height: 350px;
-    margin: 15px auto;
     padding: 5px;
     border-radius: 10px;
     background: white;

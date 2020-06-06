@@ -21,7 +21,13 @@ if (isset($_GET["categories"])) {
 }
 else if (isset($_GET["category"])) {
     $category = $_GET["category"];
-    $products = getProductsByCategory($category);
+    if (isset($_GET["sort-by"])) {
+        $sortBy = $_GET["sort-by"];
+        $products = getProductsByCategory($category, $sortBy);
+    }
+    else {
+        $products = getProductsByCategory($category, "most-popular");
+    }
     if ($products == null) {
         http_response_code(404);
         echo json_encode(array("message" => "Nu exista produse in categoria " . $category . "."));

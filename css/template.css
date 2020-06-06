@@ -1,4 +1,9 @@
-/* prefixed by https://autoprefixer.github.io (PostCSS: v7.0.26, autoprefixer: v9.7.3) */
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
 
 * {
     -webkit-box-sizing: border-box;
@@ -13,8 +18,9 @@ header {
     top: 0;
     width: 100%;
     background: white;
-    overflow: visible;
     z-index: 1;
+    -webkit-box-shadow: 0 5px 5px 0 rgba(255, 95, 35, 0.15);
+    box-shadow: 0 5px 5px 0 rgba(255, 95, 35, 0.15);
 }
 
 .navigation-bar {
@@ -163,7 +169,7 @@ footer {
     margin: auto;
     bottom: 0;
     text-align: center;
-    background-color: white;
+    background: white;
 }
 
 .footer-line {
@@ -228,13 +234,14 @@ footer {
 
     .navigation-bar-links li a {
         padding: 0.5em 1em;
-        background: white;
     }
 
     .navigation-bar-links.active {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
+        margin-top: -11px;
+        background: white;
     }
 }
 
@@ -246,6 +253,8 @@ footer {
     }
 
     .search-box {
+        display: none;
+        width: 75%;
         -webkit-box-ordinal-group: 2;
         -ms-flex-order: 1;
         order: 1;
@@ -257,15 +266,16 @@ footer {
         display: flex;
     }
 
-    .search-box {
-        display: none;
-        width: 75%;
-    }
-
     .search-box.active {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
-        background: white;
+        background-color: white;
+        -webkit-box-shadow: 0 -1px 0 10px white,
+        -50vw -1px 0 10px white,
+        50vw -1px 0 10px white;
+        box-shadow: 0 -1px 0 10px white,
+        -50vw -1px 0 10px white,
+        50vw -1px 0 10px white;
     }
 }

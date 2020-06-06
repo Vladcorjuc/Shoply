@@ -19,13 +19,13 @@ def add_data_in_database(database_connection):
     categories = ["calculatoare", "electronice"]
     categories_links = [
         [
-            "https://www.emag.ro/laptopuri/c?ref=hp_menu_quick-nav_1_1&type=category",
-            "https://www.emag.ro/label/laptopuri/Laptopuri-cu-Windows/c?ref=hp_menu_quick-nav_1_2&type=link"
+            "https://www.emag.ro/laptopuri/c?ref=list",
+            "https://www.emag.ro/label/laptopuri/Laptopuri-cu-Windows/c?ref=list"
         ],
         [
-            "https://www.emag.ro/telefoane-mobile/c?ref=hp_menu_quick-nav_1_16&type=category",
-            "https://www.emag.ro/tablete/c?ref=hp_menu_quick-nav_1_32&type=category",
-            "https://www.emag.ro/televizoare/c?ref=hp_menu_quick-nav_190_1&type=category"
+            "https://www.emag.ro/telefoane-mobile/c?ref=list",
+            "https://www.emag.ro/tablete/c?ref=list",
+            "https://www.emag.ro/televizoare/c?ref=list"
         ]
     ]
 
@@ -40,6 +40,7 @@ def add_data_in_database(database_connection):
                 if not product_element.find(class_="lozad"):
                     continue
                 link = product_element.find(class_="thumbnail-wrapper js-product-url")["href"]
+                characteristics = scrape_characteristics(product_element)
                 description = scrape_description(link)
                 if description is None:
                     continue
@@ -49,7 +50,7 @@ def add_data_in_database(database_connection):
                 vendor = get_vendor(link, price)
                 query = "INSERT IGNORE INTO products (link, title, characteristics, description, price, offers, image, vendors) " \
                         "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-                values = (link, title, "", description,
+                values = (link, title, characteristics, description,
                           price, "o oferta", image, vendor,)
                 try:
                     cursor.execute(query, values)
@@ -77,6 +78,18 @@ def add_data_in_database(database_connection):
             print(page_link)
     cursor.close()
     database_connection.close()
+
+
+def scrape_characteristics(product_element):
+    columns = product_element.find(class_="card-body product-specs-zone hidden-grid hidden-xs hidden-sm")
+    characteristics = ""
+    if columns is None:
+        return characteristics
+    for column in columns:
+        paragraphs = column.findAll("p")
+        for paragraph in paragraphs:
+            characteristics += paragraph.text + "\n"
+    return characteristics
 
 
 def scrape_description(link):
