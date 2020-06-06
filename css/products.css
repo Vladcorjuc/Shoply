@@ -1,7 +1,7 @@
 .container {
     display: grid;
     gap: 1rem;
-    grid-template-columns: 1fr 6fr;
+    grid-template-columns: 1fr 10fr 1fr;
     min-height: calc(100vh - 130px - 20px);
     margin-top: 130px;
     color: #5e5e5e;
@@ -9,7 +9,6 @@
 
 .categories {
     position: fixed;
-    width: 1fr;
     list-style: none;
 }
 
