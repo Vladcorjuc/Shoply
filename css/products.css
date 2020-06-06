@@ -119,6 +119,7 @@
     grid-row-start: 2;
     grid-column-start: 2;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    margin-bottom: 1rem;
 }
 
 .product {
