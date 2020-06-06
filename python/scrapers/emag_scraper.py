@@ -16,12 +16,12 @@ connection_pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="shoply_
 
 def add_data_in_database(database_connection):
     cursor = database_connection.cursor()
-    categories = ["electronice"]
+    categories = ["calculatoare", "electronice"]
     categories_links = [
-        # [
-        #     "https://www.emag.ro/laptopuri/c?ref=hp_menu_quick-nav_1_1&type=category",
-        #     "https://www.emag.ro/label/laptopuri/Laptopuri-cu-Windows/c?ref=hp_menu_quick-nav_1_2&type=link"
-        # ],
+        [
+            "https://www.emag.ro/laptopuri/c?ref=hp_menu_quick-nav_1_1&type=category",
+            "https://www.emag.ro/label/laptopuri/Laptopuri-cu-Windows/c?ref=hp_menu_quick-nav_1_2&type=link"
+        ],
         [
             "https://www.emag.ro/telefoane-mobile/c?ref=hp_menu_quick-nav_1_16&type=category",
             "https://www.emag.ro/tablete/c?ref=hp_menu_quick-nav_1_32&type=category",

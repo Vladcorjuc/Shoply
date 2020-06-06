@@ -2,6 +2,10 @@ let categoriesRequest = new XMLHttpRequest();
 categoriesRequest.onreadystatechange = addCategories;
 categoriesRequest.open("GET", "../php/controllers/products_controller.php?categories=1", true);
 categoriesRequest.send();
+let productsRequest = new XMLHttpRequest();
+productsRequest.onreadystatechange = addProducts;
+productsRequest.open("GET", "../php/controllers/products_controller.php?category=birou", true);
+productsRequest.send();
 
 function addCategories() {
     if (this.readyState === categoriesRequest.DONE && this.status === 200) {
@@ -13,7 +17,7 @@ function addCategories() {
             let categoryName = categoryObject.category;
             categoryElement.textContent = categoryName[0].toUpperCase() + categoryName.slice(1);
             categoryElement.addEventListener('click', () => {
-                let productsRequest = new XMLHttpRequest();
+                productsRequest = new XMLHttpRequest();
                 productsRequest.onreadystatechange = addProducts;
                 productsRequest.open("GET", "../php/controllers/products_controller.php?category="
                     + categoryName, true);
@@ -25,7 +29,7 @@ function addCategories() {
 }
 
 function addProducts() {
-    if (this.readyState === categoriesRequest.DONE && this.status === 200) {
+    if (this.readyState === productsRequest.DONE && this.status === 200) {
         let productsElement = document.getElementsByClassName("products")[0];
         if (typeof productsElement !== "undefined") {
             productsElement.parentNode.removeChild(productsElement);
