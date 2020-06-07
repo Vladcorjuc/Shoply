@@ -1,0 +1,13 @@
+.container{
+    padding-top: 100px;
+}
+.products{
+    padding-top: 150px;
+}
+#no-found-message{
+    padding-top: 200px;
+    display: none;
+    width: 100%;
+    text-align: center;
+    color: coral;
+}

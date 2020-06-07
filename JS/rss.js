@@ -120,17 +120,5 @@ function open_facebook_window( facebook_url ) {
         facebook_url, 'share-facebook','width=580,height=296'
     );
 }
-function scrapePathName(link) {
-    let pathName = link.split(".ro/")[1].replace(/\//g, "-");
-    if (pathName[pathName.length - 1] === "-") {
-        pathName = pathName.slice(0, -1);
-    }
-    if (link.includes("compari.ro") && !link.includes("https://www.compari.ro")) {
-        let doubleSlash = "//";
-        return link.substring(link.indexOf(doubleSlash) + doubleSlash.length,
-            link.indexOf(".compari.ro")) + "-" + pathName;
-    }
-    return pathName;
-}
 let url="../xml/rss.xml";
 RSSModel.getRSSXML(url,RSSView.createRSSNewsFeed);

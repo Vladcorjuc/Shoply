@@ -113,7 +113,7 @@ function addProducts() {
                 scrapePathName(decodeURIComponent(productObject.link)));
             let productTitle = document.createElement("div");
             productTitle.setAttribute("class", "title");
-            productTitle.textContent = productObject.title;
+            productTitle.textContent = parseTitle(productObject.title);
             productTitleAnchor.appendChild(productTitle);
             productElement.appendChild(productTitleAnchor);
 
@@ -134,7 +134,7 @@ function addProducts() {
 
             let productPrice = document.createElement("div");
             productPrice.setAttribute("class", "price");
-            let price = document.createTextNode("de la " + productObject.price);
+            let price = document.createTextNode("de la " +addPoint(productObject.price));
             productPrice.appendChild(price);
             let decimals = document.createElement("sup");
             decimals.textContent = "99";
@@ -166,17 +166,4 @@ function addProducts() {
             productsElement.appendChild(productElement);
         }
     }
-}
-
-function scrapePathName(link) {
-    let pathName = link.split(".ro/")[1].replace(/\//g, "-");
-    if (pathName[pathName.length - 1] === "-") {
-        pathName = pathName.slice(0, -1);
-    }
-    if (link.includes("compari.ro") && !link.includes("https://www.compari.ro")) {
-        let doubleSlash = "//";
-        return link.substring(link.indexOf(doubleSlash) + doubleSlash.length,
-            link.indexOf(".compari.ro")) + "-" + pathName;
-    }
-    return pathName;
 }
