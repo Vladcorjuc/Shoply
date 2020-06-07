@@ -7,30 +7,11 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 require_once __DIR__ . "/../../database/database.php";
 
-function getCategories()
+function getProductsByCategoryLimited($category)
 {
-    $query = "SELECT DISTINCT category FROM categories ORDER BY category";
-    $statement = Database::getConnection()->prepare($query);
-    $statement->execute();
-    if ($statement->rowCount() == 0) {
-        return null;
-    }
-    $categories = array();
-    while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-        $record = array
-        (
-            "category" => $row["category"],
-        );
-        array_push($categories, $record);
-    }
-    return $categories;
-}
-
-function getProductsByCategory($category)
-{
-    $query = "SELECT image, title, COALESCE(FLOOR(AVG(rating)), 0) AS rating, price, offers, p.link as link FROM products p " .
+    $query = "SELECT image, title, COALESCE(FLOOR(AVG(rating)), 0) AS rating, price, offers, p.link AS link FROM products p " .
         "JOIN categories c ON p.link = c.link LEFT JOIN rating r ON p.link = r.product WHERE category = :category " .
-        "GROUP BY image, title, price, offers, p.link";
+        "GROUP BY image, title, price, offers,p.link ORDER BY RAND()"." LIMIT 4";
     $statement = Database::getConnection()->prepare($query);
     $statement->execute(array("category" => $category));
     if ($statement->rowCount() == 0) {
