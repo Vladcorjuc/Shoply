@@ -12,7 +12,7 @@
     <title>Shoply</title>
 </head>
 <body>
-<a href="/index.html"><img src="../images/logo.png" alt="Shoply" class="logo"></a>
+<a href="http://localhost/html/index.html"><img src="../images/logo.png" alt="Shoply" class="logo"></a>
 <div class="form">
     <div class="button-box">
         <div id="button"></div>

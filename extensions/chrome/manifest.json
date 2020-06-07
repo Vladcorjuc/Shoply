@@ -8,12 +8,6 @@
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
-  "background": {
-    "scripts": [
-      "search.js"
-    ],
-    "persistent": false
-  },
   "permissions": [
     "https://google.com/",
     "activeTab",
