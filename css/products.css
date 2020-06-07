@@ -13,14 +13,22 @@ html{
 
 .categories {
     display: grid;
+    padding-left: 10px;
     grid-column-start: 1;
     position: sticky;
-    top: 130px;
+    top: 200px;
     list-style: none;
 }
 
 .category:hover {
     cursor: pointer;
+    text-shadow: 0 0 0.01px darkorange;
+}
+
+.sort{
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 10px;
 }
 
 .sort-text {
@@ -78,7 +86,6 @@ html{
 
 .option, .selected-option {
     padding: 10px 20px;
-    padding: 10px 20px;
 }
 
 .selected-option, .sort-box label {
@@ -121,7 +128,7 @@ html{
 }
 
 .products {
-    margin-top: -200px;
+    margin-top: -180px;
     display: grid;
     gap: 1rem;
     grid-row-start: 2;
@@ -137,10 +144,12 @@ html{
     bottom: 30px;
     right: 30px;
     filter: brightness(100%);
+    opacity: 0.5;
 }
 
 .gotopbtn:hover img{
     filter: brightness(90%);
+    opacity: 0.9;
 }
 
 
