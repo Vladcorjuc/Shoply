@@ -78,6 +78,7 @@ html{
 
 .option, .selected-option {
     padding: 10px 20px;
+    padding: 10px 20px;
 }
 
 .selected-option, .sort-box label {

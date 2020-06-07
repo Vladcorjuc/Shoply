@@ -103,3 +103,41 @@ searchButtonSmallIcon.addEventListener("click", () => {
 });
 
 copyrightText.innerHTML = "&copy; Copyright " + new Date().getFullYear() + " shoply.com";
+
+function parseTitle(title) {
+    var words = title.split(/,| |-|\(|\)/);
+    if(words.length<=6)
+        return title;
+    var newTitle=words[0];
+    for(var i=1;i<6;i++){
+        if(words[i]!=="cu") {
+            newTitle = newTitle.concat(" " + words[i]);
+        }
+    }
+    return newTitle;
+}
+
+function addPoint(numberString) {
+    let number=numberString;
+    numberString=numberString.toString();
+    if(numberString.length>=4){
+        number= numberString.substr(0, numberString.length-3) + "." +
+            numberString.substr(numberString.length-3);
+        [numberString.slice(0,numberString.length-3), ".", numberString.slice(numberString.length-3)].join('');
+        return number;
+    }
+    return number;
+
+}
+function scrapePathName(link) {
+    let pathName = link.split(".ro/")[1].replace(/\//g, "-");
+    if (pathName[pathName.length - 1] === "-") {
+        pathName = pathName.slice(0, -1);
+    }
+    if (link.includes("compari.ro") && !link.includes("https://www.compari.ro")) {
+        let doubleSlash = "//";
+        return link.substring(link.indexOf(doubleSlash) + doubleSlash.length,
+            link.indexOf(".compari.ro")) + "-" + pathName;
+    }
+    return pathName;
+}

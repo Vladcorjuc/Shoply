@@ -102,7 +102,7 @@ function createProducts() {
 
             let productPrice = document.createElement("div");
             productPrice.setAttribute("class", "price");
-            productPrice.textContent = productObject.price + " Lei";
+            productPrice.textContent = "De la "+addPoint(productObject.price) + " Lei";
             productElement.appendChild(productPrice);
 
             let productOffers = document.createElement("div");
@@ -119,16 +119,4 @@ function makeRequest() {
     categoryRequest.onreadystatechange = createProducts;
     categoryRequest.open("GET", "../php/controllers/home-products-controller.php?category=".concat(currentCategory), true);
     categoryRequest.send();
-}
-function parseTitle(title) {
-    var words = title.split(/,| |-|\(|\)/);
-    if(words.length<=6)
-        return title;
-    var newTitle=words[0];
-    for(var i=1;i<6;i++){
-        if(words[i]!=="cu") {
-            newTitle = newTitle.concat(" " + words[i]);
-        }
-    }
-    return newTitle;
 }
