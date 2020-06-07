@@ -74,7 +74,6 @@
 
 .option, .selected-option {
     padding: 10px 20px;
-    padding: 10px 20px;
 }
 
 .selected-option, .sort-box label {
@@ -127,7 +126,22 @@
 }
 
 @media (max-width: 500px) {
+    .categories {
+        position: initial;
+    }
+
     .sort-text {
         display: none;
+    }
+
+    .sort {
+        grid-row-start: 2;
+        grid-column-start: 1;
+    }
+
+    .products {
+        margin-top: 0;
+        grid-row-start: 3;
+        grid-column-start: 1;
     }
 }
