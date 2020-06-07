@@ -2,9 +2,59 @@
 <html lang="ro">
 <head>
     <script type="text/javascript" src="../JS/template.js" defer></script>
+    <script type="text/javascript" src="../JS/rss.js" defer></script>
+    <script type="text/javascript" src="../JS/mostViewed.js" defer></script>
+    <script type="text/javascript" src="../JS/navCategory.js" defer></script>
+    <script type="text/javascript" src="../JS/search.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="../css/rss.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
 </head>
 <body>
 <header></header>
+<div id="mid-content">
+    <h3 id="popular-heading">Produse populare:</h3>
+    <div id="most-viewed">
+        <img src="../images/angle-left-solid.svg" id="left-arrow">
+        <div id="border-left"></div>
+        <div id="most-view-container">
+        </div>
+        <div id="border-right"></div>
+        <img src="../images/angle-right-solid.svg" id="right-arrow">
+    </div>
+    <div id="categories">
+        <ul id="category-nav-list">
+            <li id="first-category">Calculatoare</li>
+            <li id="second-category">Electronice</li>
+            <li id="third-category">Jucarii</li>
+            <li id="fourth-category">Sport</li>
+        </ul>
+        <div id="category-panel">
+            <div id="category-container">
+
+            </div>
+        </div>
+    </div>
+    <div id="end-part">
+        <div id="end-part-elements">
+            <div id="end-part-title">
+                <h3>Urmareste stirile noastre</h3>
+                <a type="application/rss+xml" href="http://localhost/xml/rss.xml">
+                    <img src="../images/rss.png" style="height: 15px; width: 15px;margin-left: 2px;
+                    margin-top: 7px;border-style: solid;border-color: white;border-width: 0.1em;">
+                </a>
+            </div>
+            <div id="newsDiv">
+                <br>
+            </div>
+        </div>
+        <a href="extension.html">
+            <img src="../images/ad.png" id="ad-image">
+        </a>
+
+    </div>
+
+</div>
+
 <footer></footer>
 </body>
 </html>

@@ -114,7 +114,7 @@ function addProducts() {
                 scrapePathName(decodeURIComponent(productObject.link)));
             let productTitle = document.createElement("div");
             productTitle.setAttribute("class", "title");
-            productTitle.textContent = productObject.title;
+            productTitle.textContent = parseTitle(productObject.title);
             productTitleAnchor.appendChild(productTitle);
             productElement.appendChild(productTitleAnchor);
 
@@ -135,7 +135,7 @@ function addProducts() {
 
             let productPrice = document.createElement("div");
             productPrice.setAttribute("class", "price");
-            let price = document.createTextNode("de la " + productObject.price);
+            let price = document.createTextNode("de la " + addPoint(productObject.price));
             productPrice.appendChild(price);
             let decimals = document.createElement("sup");
             decimals.textContent = "99";

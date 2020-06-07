@@ -17,9 +17,11 @@ window.onload = function () {
     similarButton = document.getElementById("similar-products-button");
     searchButton = document.getElementById("search-button");
     if (document.readyState !== "loading") {
+        ExtensionView.firstMenuOption();
         ExtensionController.pageController();
     } else {
         contentPanel.innerHTML = "<p>celka</p>";
+        ExtensionView.firstMenuOption();
         document.addEventListener("DOMContentLoaded", ExtensionController.pageController());
     }
 };
@@ -305,7 +307,10 @@ class ExtensionView {
         productTitle.style.color = "coral";
 
         let priceElement = document.createElement("P");
-        priceElement.innerText = "From " + product["price"];
+
+
+
+        priceElement.innerText = "de la " + ExtensionView.addPoint(product["price"])+" lei";
         priceElement.style.marginTop = "30px";
         priceElement.style.width = "80px";
         priceElement.style.color = "coral";
@@ -333,7 +338,19 @@ class ExtensionView {
 
         document.getElementById("content").appendChild(productDiv);
     }
+    static addPoint(numberString) {
+        let number=numberString;
+        numberString=numberString.toString();
+        if(numberString.length>=4){
+            number= numberString.substr(0, numberString.length-3) + "." +
+                numberString.substr(numberString.length-3);
+                [numberString.slice(0,numberString.length-3), ".", numberString.slice(numberString.length-3)].join('');
+            console.log(number);
+            return number;
+        }
+        return number;
 
+    }
     static createProductPage() {
         let productDiv = document.createElement("DIV");
         let infoDiv = document.createElement("DIV");
@@ -390,7 +407,7 @@ class ExtensionView {
         vendorLogo.style.height = "20px";
 
         let vendorPrice = document.createElement("H4");
-        vendorPrice.innerText = productVendor["price"] + " Lei";
+        vendorPrice.innerText = this.addPoint(productVendor["price"]) + " Lei";
         vendorPrice.style.marginTop = "10px";
         vendorPrice.style.marginLeft = "20px";
         vendorPrice.style.width = "140px";

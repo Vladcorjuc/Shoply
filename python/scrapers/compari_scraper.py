@@ -17,10 +17,11 @@ connection_pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="shoply_
 def transform_to_int(price_string):
     number = 0
     for character in price_string:
+        if character == "," or character == ".":
+                break
         if character.isdigit():
             number = number * 10 + int(character)
-        if character == ",":
-            break
+
     return number
 
 
@@ -317,9 +318,11 @@ def add_product_in_database(database_connection, cursor, product):
         return
     response_vendors = scrape_vendors_database(product["link"])
     query = "INSERT IGNORE INTO products (link, title, characteristics, description, price, offers, image, vendors) " \
-            "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    #query="UPDATE products SET vendors=%s WHERE link=%s"
     values = (product["link"], product["title"], product["characteristics"], product["description"],
-              product["price"], product["offers"], product["image"], response_vendors,)
+        product["price"], product["offers"], product["image"], response_vendors,)
+    #values=(response_vendors,product["link"],)
     try:
         cursor.execute(query, values)
         database_connection.commit()

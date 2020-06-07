@@ -2,14 +2,15 @@
 require_once '../database/database.php';
 
 header("Content-Type:application/json");
-if (isset($_GET['search']) && $_GET['search'] != "") {
+if (isset($_GET['search']) && $_GET['search']!="") {
     $search = $_GET['search'];
-    $search_url = "https://shoply-scraper.ew.r.appspot.com/search?search=" . $search;
-    $json_file = file_get_contents($search_url);
-    if ($json_file != "") {
-        searchResponse($json_file, 200, "list of searched products.");
-    } else {
-        searchResponse("", 200, "No product found.");
+    $search_url = "https://127.0.0.1/search?search=".$search;
+    $json_file=file_get_contents($search_url);
+    if($json_file!=""){
+        searchResponse($json_file,200,"list of searched products.");
+    }
+    else{
+        searchResponse("",200,"No product found.");
     }
 } else if (isset($_GET['category']) && $_GET['category'] != "") {
     $category = $_GET['category'];
