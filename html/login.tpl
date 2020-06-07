@@ -15,14 +15,14 @@
 <a href="/index.html"><img src="../images/logo.png" alt="Shoply" class="logo"></a>
 <div class="form">
     <div class="button-box">
-        <div id="button" style="left: 110px;"></div>
-        <button type="button" id="login-button" class="toggle-button" name="action" value="login" onclick="login()" style="color: coral;">
+        <div id="button"></div>
+        <button type="button" id="login-button" class="toggle-button" name="action" value="login" onclick="login()">
             Autentificare
         </button>
-        <button type="button" id="register-button" class="toggle-button" name="action" value="register" onclick="register()" style="color: white;">Înregistrare
+        <button type="button" id="register-button" class="toggle-button" name="action" value="register" onclick="register()">Înregistrare
         </button>
     </div>
-    <form id="login" class="credentials" method="POST" action="../php/login.php" style="left: -400px;">
+    <form id="login" class="credentials" method="POST" action="../php/login.php">
         <label>
             <input type="hidden" name="action" value="login">
         </label>
@@ -39,7 +39,7 @@
         <button type="submit" class="submit-button" name="action" value="login">Autentifică-te</button>
     </form>
     <div class="error" id="login-error"></div>
-    <form id="register" class="credentials" method="POST" autocomplete="off" action="../php/login.php" style="left: 50px;">
+    <form id="register" class="credentials" method="POST" autocomplete="off" action="../php/login.php">
         <label>
             <input type="hidden" name="action" value="register">
         </label>
@@ -55,7 +55,7 @@
         <span>Ține minte parola</span>
         <button type="submit" class="submit-button" name="action" value="register">Înregistrează-te</button>
     </form>
-    <div class="error" id="register-error">Numele de utilizator este deja luat.</div>
+    <div class="error" id="register-error"></div>
 </div>
 <footer></footer>
 </body>
