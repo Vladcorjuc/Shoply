@@ -19,15 +19,13 @@ def add_data_in_database(database_connection):
     categories = ["calculatoare", "electronice"]
     categories_links = [
         [
-            "https://altex.ro/laptopuri/cpl/",
-            "https://altex.ro/macbook/cpl/",
-            "https://altex.ro/sisteme-pc-calculatoare/cpl/"
+            "https://www.emag.ro/laptopuri/c?ref=list",
+            "https://www.emag.ro/label/laptopuri/Laptopuri-cu-Windows/c?ref=list"
         ],
         [
-            "https://altex.ro/telefoane/cpl/",
-            "https://altex.ro/televizoare/cpl/",
-            "https://altex.ro/media-playere/cpl/",
-            "https://altex.ro/videoproiectoare-accesorii/cpl/"
+            "https://www.emag.ro/telefoane-mobile/c?ref=list",
+            "https://www.emag.ro/tablete/c?ref=list",
+            "https://www.emag.ro/televizoare/c?ref=list"
         ]
     ]
 
@@ -37,19 +35,22 @@ def add_data_in_database(database_connection):
         for page_link in category:
             page = requests.get(page_link)
             soup = BeautifulSoup(page.content, "html.parser")
-            product_elements = soup.findAll(class_="Product")
+            product_elements = soup.findAll(class_="card")
             for product_element in product_elements:
-                if not product_element.find(class_="Product-photo"):
+                if not product_element.find(class_="lozad"):
                     continue
-                link = product_element.find("a")["href"]
-                title = product_element.find(class_="Product-name").text
+                link = product_element.find(class_="thumbnail-wrapper js-product-url")["href"]
+                characteristics = scrape_characteristics(product_element)
                 description = scrape_description(link)
-                price = product_element.find(class_="Price-int").text.replace(".", "")
-                image = product_element.find(class_="Product-photo")["src"]
+                if description is None:
+                    continue
+                title = product_element.find(class_="product-title js-product-url")["title"]
+                price = product_element.find(class_="product-new-price").text.replace(".", "")[:-6]
+                image = product_element.find(class_="lozad")["data-src"]
                 vendor = get_vendor(link, price)
                 query = "INSERT IGNORE INTO products (link, title, characteristics, description, price, offers, image, vendors) " \
                         "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-                values = (link, title, "", description,
+                values = (link, title, characteristics, description,
                           price, "o oferta", image, vendor,)
                 try:
                     cursor.execute(query, values)
@@ -57,6 +58,7 @@ def add_data_in_database(database_connection):
                 except Exception as exception:
                     print(exception)
                     exit()
+                print(link)
                 query = "INSERT IGNORE INTO product_log(link, price) VALUES (%s, %s)"
                 values = (link, price)
                 try:
@@ -78,20 +80,31 @@ def add_data_in_database(database_connection):
     database_connection.close()
 
 
+def scrape_characteristics(product_element):
+    columns = product_element.find(class_="card-body product-specs-zone hidden-grid hidden-xs hidden-sm")
+    characteristics = ""
+    if columns is None:
+        return characteristics
+    for column in columns:
+        paragraphs = column.findAll("p")
+        for paragraph in paragraphs:
+            characteristics += paragraph.text + "\n"
+    return characteristics
+
+
 def scrape_description(link):
     page = requests.get(link)
     soup = BeautifulSoup(page.content, "html.parser")
-    texts = soup.find(class_="Description").find(class_="Cms-container").find("div").findAll("p")[1:]
-    description = ""
-    for text in texts:
-        description = description + text.text + "\n"
-    description = re.sub("\n+", "\n", description.rstrip())
+    if not soup.find(id="description-body"):
+        return None
+    description = soup.find(id="description-body").text
+    description = re.sub("[\n|\t]+[\s]*", "\n", description)
     return description
 
 
 def get_vendor(link, price):
-    vendor = [{"logo": "https://www.ghidelectrocasnice.ro/wp-content/uploads/2013/10/altex-logo.jpg", "link": link,
-               "name": "altex.ro",
+    vendor = [{"logo": "https://s12emagst.akamaized.net/layout/ro/images/logo//49/73695.svg", "link": link,
+               "name": "emag.ro",
                "price": price}]
     return json.dumps(vendor)
 

@@ -58,7 +58,7 @@ let bigMenu = document.createElement("ul");
 bigMenu.setAttribute("class", "big-menu");
 let productsElement = document.createElement("li");
 let productsAnchor = document.createElement("a");
-productsAnchor.setAttribute("href", "../html/products.html");
+productsAnchor.setAttribute("href", "../html/products.html?category=gradina&sort-by=most-popular");
 productsAnchor.textContent = "Produse";
 productsElement.appendChild(productsAnchor);
 bigMenu.appendChild(productsElement);
@@ -92,14 +92,14 @@ let copyrightText = document.createElement("div");
 copyrightText.setAttribute("class", "copyright-text");
 footer.appendChild(copyrightText);
 
-hamburgerMenu.addEventListener('click', () => {
-    hamburgerMenu.classList.toggle('active');
-    navigationBarLinks.classList.toggle('active');
+hamburgerMenu.addEventListener("click", () => {
+    hamburgerMenu.classList.toggle("active");
+    navigationBarLinks.classList.toggle("active");
 });
 
-searchButtonSmallIcon.addEventListener('click', () => {
-    searchButtonSmallIcon.classList.toggle('active');
-    searchBox.classList.toggle('active');
+searchButtonSmallIcon.addEventListener("click", () => {
+    searchButtonSmallIcon.classList.toggle("active");
+    searchBox.classList.toggle("active");
 });
 
 copyrightText.innerHTML = "&copy; Copyright " + new Date().getFullYear() + " shoply.com";

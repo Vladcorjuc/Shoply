@@ -1,6 +1,6 @@
+import re
 import requests
 import json
-import threading
 import mysql.connector
 from bs4 import BeautifulSoup
 from mysql.connector import pooling
@@ -270,7 +270,7 @@ def scrape_description(link):
     page = requests.get(description_link)
     soup = BeautifulSoup(page.content, "html.parser")
     product_elements = soup.find(class_="text property-sheet").getText()
-    product_elements = product_elements.replace("   ", "\n")
+    product_elements = re.sub("\n+", "\n", product_elements.replace("   ", "\n"))
     escape_index = product_elements.find("Galerie")
     if escape_index != -1:
         product_elements = product_elements[:escape_index]

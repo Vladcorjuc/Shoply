@@ -3,14 +3,37 @@
 <head>
     <script type="text/javascript" src="../JS/template.js" defer></script>
     <link rel="stylesheet" type="text/css" href="../css/products.css">
+    <link rel="stylesheet" type="text/css" href="../css/product_card.css">
     <script type="text/javascript" src="../JS/products.js" defer></script>
 </head>
 <body>
 <header></header>
 <div class="container">
-    <aside>
-        <ul class="categories"></ul>
-    </aside>
+    <ul class="categories"></ul>
+    <div class="sort">
+        <div class="sort-text">Ordoneaza dupa:</div>
+        <div class="sort-box">
+            <div class="options">
+                <div class="option">
+                    <input type="radio" class="radio" id="most-popular" name="criteria">
+                    <label class="most-popular" for="most-popular">Cele mai populare</label>
+                </div>
+                <div class="option">
+                    <input type="radio" class="radio" id="most-viewed" name="criteria">
+                    <label class="most-viewed" for="most-viewed">Cele mai vizionate</label>
+                </div>
+                <div class="option">
+                    <input type="radio" class="radio" id="price-ascending" name="criteria">
+                    <label class="price-ascending" for="price-ascending">Pret crescator</label>
+                </div>
+                <div class="option">
+                    <input type="radio" class="radio" id="price-descending" name="criteria">
+                    <label class="price-descending" for="price-descending">Pret descrescator</label>
+                </div>
+            </div>
+            <div class="selected-option"></div>
+        </div>
+    </div>
 </div>
 <footer></footer>
 </body>
