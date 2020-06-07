@@ -58,7 +58,7 @@ let bigMenu = document.createElement("ul");
 bigMenu.setAttribute("class", "big-menu");
 let productsElement = document.createElement("li");
 let productsAnchor = document.createElement("a");
-productsAnchor.setAttribute("href", "../html/products.html?category=gradina&sort-by=most-popular");
+productsAnchor.setAttribute("href", "../html/products.html?category=calculatoare&sort-by=most-popular");
 productsAnchor.textContent = "Produse";
 productsElement.appendChild(productsAnchor);
 bigMenu.appendChild(productsElement);

@@ -3,7 +3,7 @@ let category;
 if (parameters.has("category")) {
     category = parameters.get("category");
 } else {
-    category = "birou";
+    category = "calculatoare";
 }
 let sortBy;
 if (parameters.has("sort-by")) {
@@ -66,6 +66,7 @@ function addCategories() {
             let newCategory = categoryObject.category;
             categoryElement.textContent = newCategory[0].toUpperCase() + newCategory.slice(1);
             categoryElement.addEventListener("click", () => {
+                category = newCategory;
                 const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname +
                     "?category=" + newCategory + "&sort-by=most-popular";
                 window.history.pushState({path: newUrl}, "", newUrl);
@@ -134,7 +135,7 @@ function addProducts() {
 
             let productPrice = document.createElement("div");
             productPrice.setAttribute("class", "price");
-            let price = document.createTextNode("de la " +addPoint(productObject.price));
+            let price = document.createTextNode("de la " + addPoint(productObject.price));
             productPrice.appendChild(price);
             let decimals = document.createElement("sup");
             decimals.textContent = "99";
@@ -166,4 +167,17 @@ function addProducts() {
             productsElement.appendChild(productElement);
         }
     }
+}
+
+function scrapePathName(link) {
+    let pathName = link.split(".ro/")[1].replace(/\//g, "-");
+    if (pathName[pathName.length - 1] === "-") {
+        pathName = pathName.slice(0, -1);
+    }
+    if (link.includes("compari.ro") && !link.includes("https://www.compari.ro")) {
+        let doubleSlash = "//";
+        return link.substring(link.indexOf(doubleSlash) + doubleSlash.length,
+            link.indexOf(".compari.ro")) + "_" + pathName;
+    }
+    return pathName;
 }
