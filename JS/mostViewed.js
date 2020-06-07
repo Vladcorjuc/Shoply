@@ -11,15 +11,27 @@ function createProducts() {
             let productObject = productObjects[index];
             let productElement = document.createElement("div");
             productElement.setAttribute("class", "product");
+
+            let productImageAnchor = document.createElement("a");
+            productImageAnchor.setAttribute("href", "../html/product.html?name=" +
+                scrapePathName(decodeURIComponent(productObject.link)));
+
             let productImage = document.createElement("img");
             productImage.setAttribute("src", decodeURIComponent(productObject.image));
             productImage.setAttribute("class", "image");
-            productElement.appendChild(productImage);
 
+            productImageAnchor.appendChild(productImage);
+            productElement.appendChild(productImageAnchor);
+
+
+            let productTitleAnchor = document.createElement("a");
+            productTitleAnchor.setAttribute("href", "../html/product.html?name=" +
+                scrapePathName(decodeURIComponent(productObject.link)));
             let productTitle = document.createElement("div");
             productTitle.setAttribute("class", "title");
-            productTitle.textContent = productObject.title;
-            productElement.appendChild(productTitle);
+            productTitle.textContent = parseTitle(productObject.title);
+            productTitleAnchor.appendChild(productTitle);
+            productElement.appendChild(productTitleAnchor);
 
             let productPrice = document.createElement("div");
             productPrice.setAttribute("class", "price");

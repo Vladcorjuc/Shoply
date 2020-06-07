@@ -17,7 +17,7 @@ class RSSView {
             //newsBody.style.marginLeft="20px";
 
             let link=document.createElement("a");
-            link.href=productNews[i]["link"];
+            link.href="../html/product.html?name="+scrapePathName(productNews[i]["link"]);
 
             let newsImg=document.createElement("img");
             newsImg.src=productNews[i]["img_url"];
@@ -28,10 +28,17 @@ class RSSView {
 
             link.appendChild(newsImg);
 
+            let newsTitleAnchor=document.createElement("a");
+            newsTitleAnchor.href="../html/product.html?name="+scrapePathName(productNews[i]["link"]);
+            newsTitleAnchor.style.textDecoration="none";
+            newsTitleAnchor.style.color="coral";
+
             let newsTitle=document.createElement("H4");
             newsTitle.innerText=productNews[i]["title"];
             newsTitle.style.textAlign="center";
             newsTitle.style.marginTop="10px";
+
+            newsTitleAnchor.appendChild(newsTitle);
 
             let newsDescription=document.createElement("P");
             newsDescription.innerText=productNews[i]["description"];
@@ -46,13 +53,12 @@ class RSSView {
             shareLink.style.marginRight="10px";
 
             shareLink.addEventListener("click",function () {
-                console.log(productNews[i]["link"]);
-                let url=productNews[i]["link"].replace("localhost","127.0.0.1");
+                let url="http://127.0.0.1/html/product.html?name="+scrapePathName(productNews[i]["link"]);
                 let facebook_url="https://www.facebook.com/sharer/sharer.php?u=" +url+"&hashtag=%23comit&title="+productNews[i]["title"]+"&quote="+productNews[i]["description"];
                 open_facebook_window(facebook_url);
             });
 
-            newsBody.appendChild(newsTitle);
+            newsBody.appendChild(newsTitleAnchor);
             newsBody.appendChild(newsDescription);
 
 
@@ -114,5 +120,17 @@ function open_facebook_window( facebook_url ) {
         facebook_url, 'share-facebook','width=580,height=296'
     );
 }
-let url="http://localhost:80/xml/rss.xml";
+function scrapePathName(link) {
+    let pathName = link.split(".ro/")[1].replace(/\//g, "-");
+    if (pathName[pathName.length - 1] === "-") {
+        pathName = pathName.slice(0, -1);
+    }
+    if (link.includes("compari.ro") && !link.includes("https://www.compari.ro")) {
+        let doubleSlash = "//";
+        return link.substring(link.indexOf(doubleSlash) + doubleSlash.length,
+            link.indexOf(".compari.ro")) + "-" + pathName;
+    }
+    return pathName;
+}
+let url="../xml/rss.xml";
 RSSModel.getRSSXML(url,RSSView.createRSSNewsFeed);

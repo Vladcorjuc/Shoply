@@ -63,15 +63,25 @@ function createProducts() {
             productElement.style.width="215px";
             productElement.style.minHeigh="300px";
 
+            let productImageAnchor = document.createElement("a");
+            productImageAnchor.setAttribute("href", "../html/product.html?name=" +
+                scrapePathName(decodeURIComponent(productObject.link)));
+
             let productImage = document.createElement("img");
             productImage.setAttribute("src", decodeURIComponent(productObject.image));
             productImage.setAttribute("class", "image");
-            productElement.appendChild(productImage);
 
+            productImageAnchor.appendChild(productImage);
+            productElement.appendChild(productImageAnchor);
+
+            let productTitleAnchor = document.createElement("a");
+            productTitleAnchor.setAttribute("href", "../html/product.html?name=" +
+                scrapePathName(decodeURIComponent(productObject.link)));
             let productTitle = document.createElement("div");
             productTitle.setAttribute("class", "title");
             productTitle.textContent = parseTitle(productObject.title);
-            productElement.appendChild(productTitle);
+            productTitleAnchor.appendChild(productTitle);
+            productElement.appendChild(productTitleAnchor);
 
             let productRating = document.createElement("div");
             productRating.setAttribute("class", "rating");
@@ -111,7 +121,7 @@ function makeRequest() {
     categoryRequest.send();
 }
 function parseTitle(title) {
-    var words = title.split(/,| |-/);
+    var words = title.split(/,| |-|\(|\)/);
     if(words.length<=6)
         return title;
     var newTitle=words[0];

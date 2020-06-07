@@ -19,6 +19,7 @@ function getMostViewedProducts(){
     while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
         $record = array
         (
+            "link" =>urlencode($row["link"]),
             "image" => urlencode($row["image"]),
             "title" => $row["title"],
             "rating" => $row["rating"],

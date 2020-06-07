@@ -23,6 +23,7 @@ body::-webkit-scrollbar-thumb {
     max-width: 960px;
     text-align: left;
     margin: 0 auto 50px;
+    padding-top: 150px;
 }
 #categories{
     display: flex;
@@ -127,8 +128,21 @@ body::-webkit-scrollbar-thumb {
 .rating{
     font-size: 10px;
 }
+.title{
+    max-height: 50px;
+    color: rgb(50, 50, 50);
+    cursor: pointer;
+    text-overflow: ellipsis;
+}
 .title, .price, .offers,.rating {
     text-align: center;
+}
+a {
+    text-decoration: none;
+}
+.offers{
+    font-size: 14px;
+    color: #005eb8;
 }
 .on:before, .off:before {
     font-size: 1.5rem;
