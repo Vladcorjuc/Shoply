@@ -5,6 +5,7 @@ if (parameters.has("search")) {
 } else {
     createNoFoundMessage();
 }
+removeMessages();
 let searchRequest = new XMLHttpRequest();
 searchRequest.onreadystatechange = addProducts;
 
@@ -17,13 +18,15 @@ searchRequest.send();
 
 function listenMessage() {
     if(this.status === 404){
+        removeMessages();
         createNoFoundMessage();
     }
 }
 
 function addProducts() {
     if (this.readyState === searchRequest.DONE && this.status === 200) {
-        removeMessage();
+        removeMessages();
+        createFoundMessage();
         let productsElement = document.getElementsByClassName("products")[0];
         if (typeof productsElement !== "undefined") {
             productsElement.parentNode.removeChild(productsElement);
@@ -108,11 +111,15 @@ function addProducts() {
         createNoFoundMessage();
     }
 }
-
+function createFoundMessage() {
+    let messageDiv=document.getElementById("found-message");
+    messageDiv.style.display="block";
+}
 function createNoFoundMessage(){
     let messageDiv=document.getElementById("no-found-message");
     messageDiv.style.display="block";
 }
-function removeMessage() {
+function removeMessages() {
     document.getElementById("no-found-message").style.display="none";
+    document.getElementById("found-message").style.display="none";
 }

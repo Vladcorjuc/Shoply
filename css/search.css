@@ -2,10 +2,17 @@
     padding-top: 100px;
 }
 .products{
-    padding-top: 150px;
+    padding-top: 20px
 }
 #no-found-message{
     padding-top: 200px;
+    display: none;
+    width: 100%;
+    text-align: center;
+    color: coral;
+}
+#found-message{
+    padding-top: 150px;
     display: none;
     width: 100%;
     text-align: center;
