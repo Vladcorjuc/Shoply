@@ -1,7 +1,7 @@
 .container {
     display: grid;
-    gap: 1rem;
     grid-template-columns: 2fr 20fr 1fr;
+    gap: 1rem;
     min-height: calc(100vh - 130px - 20px);
     margin-top: 130px;
     color: #5e5e5e;
@@ -123,4 +123,10 @@
     grid-column-start: 2;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     margin-bottom: 1rem;
+}
+
+@media (max-width: 500px) {
+    .sort-text {
+        display: none;
+    }
 }

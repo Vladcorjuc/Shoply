@@ -23,8 +23,8 @@
     margin-right: auto;
     padding: 5px;
     background: white;
-    -webkit-box-shadow: 0 0 20px 9px rgba(255, 95, 35, 0.15);
-    box-shadow: 0 0 20px 9px rgba(255, 95, 35, 0.15);
+    -webkit-box-shadow: 0 0 20px 9px rgba(180, 180, 180, 0.15);
+    box-shadow: 0 0 20px 9px rgba(180, 180, 180, 0.15);
     overflow: hidden;
 }
 
@@ -33,8 +33,8 @@
     width: 220px;
     margin: 60px auto;
     border-radius: 30px;
-    -webkit-box-shadow: 0 0 20px 9px rgba(255, 95, 35, 0.15);
-    box-shadow: 0 0 20px 9px rgba(255, 95, 35, 0.15);
+    -webkit-box-shadow: 0 0 20px 9px rgba(180, 180, 180, 0.15);
+    box-shadow: 0 0 20px 9px rgba(180, 180, 180, 0.15);
 }
 
 #button {

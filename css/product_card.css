@@ -8,14 +8,14 @@
     border-radius: 10px;
     background: white;
     text-align: center;
-    -webkit-box-shadow: 0 0 20px 5px rgba(255, 95, 35, 0.15);
-    box-shadow: 0 0 20px 5px rgba(255, 95, 35, 0.15);
+    -webkit-box-shadow: 0 0 20px 5px rgba(180, 180, 180, 0.15);
+    box-shadow: 0 0 20px 5px rgba(180, 180, 180, 0.15);
     color: #5e5e5e;
     overflow: hidden;
 }
 
 .product:hover {
-    box-shadow: 0 0 20px 5px rgba(255, 95, 35, 0.25);
+    box-shadow: 0 0 20px 5px rgba(180, 180, 180, 0.45);
     transition: all 0.2s ease;
 }
 
@@ -36,6 +36,7 @@ a {
 
 .rating, .price {
     padding-top: 10px;
+    font-weight: bold;
     color: coral;
 }
 

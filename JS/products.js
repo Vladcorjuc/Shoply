@@ -3,7 +3,7 @@ let category;
 if (parameters.has("category")) {
     category = parameters.get("category");
 } else {
-    category = "birou";
+    category = "calculatoare";
 }
 let sortBy;
 if (parameters.has("sort-by")) {
@@ -66,6 +66,7 @@ function addCategories() {
             let newCategory = categoryObject.category;
             categoryElement.textContent = newCategory[0].toUpperCase() + newCategory.slice(1);
             categoryElement.addEventListener("click", () => {
+                category = newCategory;
                 const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname +
                     "?category=" + newCategory + "&sort-by=most-popular";
                 window.history.pushState({path: newUrl}, "", newUrl);
@@ -176,7 +177,7 @@ function scrapePathName(link) {
     if (link.includes("compari.ro") && !link.includes("https://www.compari.ro")) {
         let doubleSlash = "//";
         return link.substring(link.indexOf(doubleSlash) + doubleSlash.length,
-            link.indexOf(".compari.ro")) + "-" + pathName;
+            link.indexOf(".compari.ro")) + "_" + pathName;
     }
     return pathName;
 }
