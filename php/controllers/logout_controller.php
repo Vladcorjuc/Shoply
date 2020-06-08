@@ -10,5 +10,5 @@ if (isset($_GET["logout"])) {
     session_start();
     session_unset();
     http_response_code(200);
-    echo json_encode(array("message" => "Ai vizualizat produsul specificat."));
+    echo json_encode(array("message" => "Te-ai deconectat"));
 }
