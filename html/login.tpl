@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="../css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="../JS/login.js" defer></script>
-    <script src="../JS/template.js" defer></script>
     <title>Shoply</title>
 </head>
 <body>

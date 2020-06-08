@@ -85,6 +85,14 @@ let headerLine = document.createElement("hr");
 headerLine.setAttribute("class", "header-line");
 header.appendChild(headerLine);
 
+document.addEventListener("error", function () {
+    document.querySelectorAll("img").forEach(img => {
+        img.onerror = function () {
+            this.src = "../images/broken.png";
+        };
+    })
+});
+
 let footer = document.getElementsByTagName("footer")[0];
 let footerLine = document.createElement("hr");
 footerLine.setAttribute("class", "footer-line");
@@ -105,31 +113,6 @@ searchButtonSmallIcon.addEventListener("click", () => {
 
 copyrightText.innerHTML = "&copy; Copyright " + new Date().getFullYear() + " shoply.com";
 
-function parseTitle(title) {
-    var words = title.split(/,| |-|\(|\)/);
-    if(words.length<=6)
-        return title;
-    var newTitle=words[0];
-    for(var i=1;i<6;i++){
-        if(words[i]!=="cu") {
-            newTitle = newTitle.concat(" " + words[i]);
-        }
-    }
-    return newTitle;
-}
-
-function addPoint(numberString) {
-    let number=numberString;
-    numberString=numberString.toString();
-    if(numberString.length>=4){
-        number= numberString.substr(0, numberString.length-3) + "." +
-            numberString.substr(numberString.length-3);
-        [numberString.slice(0,numberString.length-3), ".", numberString.slice(numberString.length-3)].join('');
-        return number;
-    }
-    return number;
-
-}
 function scrapePathName(link) {
     let pathName = link.split(".ro/")[1].replace(/\//g, "-");
     if (pathName[pathName.length - 1] === "-") {
@@ -138,7 +121,34 @@ function scrapePathName(link) {
     if (link.includes("compari.ro") && !link.includes("https://www.compari.ro")) {
         let doubleSlash = "//";
         return link.substring(link.indexOf(doubleSlash) + doubleSlash.length,
-            link.indexOf(".compari.ro")) + "-" + pathName;
+            link.indexOf(".compari.ro")) + "_" + pathName;
     }
     return pathName;
+}
+
+function parseTitle(title) {
+    let words = title.split(/,| |-|\(|\)/);
+    if (words.length <= 6) {
+        return title;
+    }
+    let newTitle = words[0];
+    for (let i = 1; i < 6; i++) {
+        if (words[i] !== "cu") {
+            newTitle = newTitle.concat(" " + words[i]);
+        }
+    }
+    return newTitle;
+}
+
+function addPoint(numberString) {
+    let number = numberString;
+    numberString = numberString.toString();
+    if (numberString.length >= 4) {
+        number = numberString.substr(0, numberString.length - 3) + "." +
+            numberString.substr(numberString.length - 3);
+        [numberString.slice(0, numberString.length - 3), ".", numberString.slice(numberString.length - 3)].join("");
+        return number;
+    }
+    return number;
+
 }
