@@ -17,10 +17,14 @@ html{
     position: sticky;
     top: 130px;
     list-style: none;
+    padding-left: 10px;
+    padding-top: 10px;
+    font-weight: 500;
 }
 
 .category:hover {
     cursor: pointer;
+    text-shadow: 0 0 2px darkorange;
 }
 
 @media screen and (max-width: 500px) {
