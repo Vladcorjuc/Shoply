@@ -50,3 +50,29 @@ function updateHistory($user, $name) {
     $statement->execute(array("user" => $user, "product" => $product));
     return null;
 }
+
+function getHistory($name){
+    $query = "SELECT p.link, image, title, COALESCE(FLOOR(AVG(rating)), 0) AS rating, price, offers FROM products p " .
+        "JOIN categories c ON p.link = c.link LEFT JOIN rating r ON p.link = r.product LEFT JOIN history h ON p.link=h.product".
+        " WHERE h.user = :username " .
+        "GROUP BY p.link, image, title, price, offers, views";
+    $statement = Database::getConnection()->prepare($query);
+    $statement->execute(array("username" => $name));
+    if ($statement->rowCount() == 0) {
+        return null;
+    }
+    $products = array();
+    while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+        $record = array
+        (
+            "link" => urlencode($row["link"]),
+            "image" => urlencode($row["image"]),
+            "title" => $row["title"],
+            "rating" => $row["rating"],
+            "price" => $row["price"],
+            "offers" => $row["offers"]
+        );
+        array_push($products, $record);
+    }
+    return $products;
+}
