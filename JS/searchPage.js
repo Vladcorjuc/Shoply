@@ -1,7 +1,7 @@
 let parameters = new URLSearchParams(window.location.search);
 let searchQuery;
 if (parameters.has("search")) {
-    searchQuery=parameters.get("search");
+    searchQuery = parameters.get("search");
 } else {
     createNoFoundMessage();
 }
@@ -10,14 +10,13 @@ let searchRequest = new XMLHttpRequest();
 searchRequest.onreadystatechange = addProducts;
 
 
-searchRequest.onloadend=listenMessage;
-searchRequest.open("GET", "../php/controllers/search_controller.php?text="+searchQuery, true);
+searchRequest.onloadend = listenMessage;
+searchRequest.open("GET", "../php/controllers/search_controller.php?text=" + searchQuery, true);
 searchRequest.send();
 
 
-
 function listenMessage() {
-    if(this.status === 404){
+    if (this.status === 404) {
         removeMessages();
         createNoFoundMessage();
     }
@@ -83,8 +82,7 @@ function addProducts() {
             if (parseInt(productObject.price) < 20) {
                 let currency = document.createTextNode(" Lei");
                 productPrice.appendChild(currency);
-            }
-            else {
+            } else {
                 let currency = document.createTextNode(" de Lei");
                 productPrice.appendChild(currency);
             }
@@ -95,31 +93,31 @@ function addProducts() {
             let words = productObject.offers.split(" ");
             if (words[0] === "o" || parseInt(words[0]) < 1) {
                 productOffers.textContent = "(o oferta)";
-            }
-            else if (parseInt(words[0]) < 20) {
+            } else if (parseInt(words[0]) < 20) {
                 productOffers.textContent = "(" + words[0] + " oferte)";
-            }
-            else {
+            } else {
                 productOffers.textContent = "(" + words[0] + " de oferte)";
             }
             productElement.appendChild(productOffers);
 
             productsElement.appendChild(productElement);
         }
-    }
-    else {
+    } else {
         createNoFoundMessage();
     }
 }
+
 function createFoundMessage() {
-    let messageDiv=document.getElementById("found-message");
-    messageDiv.style.display="block";
+    let messageDiv = document.getElementById("found-message");
+    messageDiv.style.display = "block";
 }
-function createNoFoundMessage(){
-    let messageDiv=document.getElementById("no-found-message");
-    messageDiv.style.display="block";
+
+function createNoFoundMessage() {
+    let messageDiv = document.getElementById("no-found-message");
+    messageDiv.style.display = "block";
 }
+
 function removeMessages() {
-    document.getElementById("no-found-message").style.display="none";
-    document.getElementById("found-message").style.display="none";
+    document.getElementById("no-found-message").style.display = "none";
+    document.getElementById("found-message").style.display = "none";
 }

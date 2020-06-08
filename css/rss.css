@@ -1,5 +1,5 @@
 
-.facebook-container{
+.facebook-container {
     width: 30px;
     height: 20px;
 }
@@ -8,7 +8,7 @@
     border-radius: 5px;
     transition: 25ms ease-out;
     padding: 0.5em;
-    font-family: Helvetica Neue,Helvetica,Arial,sans-serif
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif
 }
 
 .resp-sharing-button__icon svg {
@@ -29,6 +29,7 @@
     fill: #fff;
     stroke: none
 }
+
 .resp-sharing-button--facebook {
     background-color: #3b5998
 }

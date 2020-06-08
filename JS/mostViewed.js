@@ -35,7 +35,7 @@ function createProducts() {
 
             let productPrice = document.createElement("div");
             productPrice.setAttribute("class", "price");
-            productPrice.textContent = "De la "+addPoint(productObject.price) + " Lei";
+            productPrice.textContent = "De la " + addPoint(productObject.price) + " Lei";
             productElement.appendChild(productPrice);
 
             container.appendChild(productElement);
@@ -44,29 +44,28 @@ function createProducts() {
 }
 
 
-
-let forward=document.getElementById('right-arrow');
+let forward = document.getElementById('right-arrow');
 forward.onclick = function () {
     var container = document.getElementById('most-view-container');
-    sideScroll(container,'right',1,960,10);
+    sideScroll(container, 'right', 1, 960, 10);
 };
 
 var back = document.getElementById('left-arrow');
 back.onclick = function () {
     var container = document.getElementById('most-view-container');
-    sideScroll(container,'left',1,883,10);
+    sideScroll(container, 'left', 1, 883, 10);
 };
 
-function sideScroll(element,direction,speed,distance,step){
+function sideScroll(element, direction, speed, distance, step) {
     let scrollAmount = 0;
-    var slideTimer = setInterval(function(){
-        if(direction === 'left'){
+    var slideTimer = setInterval(function () {
+        if (direction === 'left') {
             element.scrollLeft -= step;
         } else {
             element.scrollLeft += step;
         }
         scrollAmount += step;
-        if(scrollAmount >= distance){
+        if (scrollAmount >= distance) {
             window.clearInterval(slideTimer);
         }
     }, speed);

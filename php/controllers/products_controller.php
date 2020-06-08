@@ -8,16 +8,13 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 require_once __DIR__ . "/../models/products_model.php";
 
 if (isset($_GET["categories"])) {
-    $categories = $_GET["categories"];
-    if ($categories == "true") {
-        $categories = getCategories();
-        if ($categories == null) {
-            http_response_code(404);
-            echo json_encode(array("message" => "Nu exista nicio categorie."));
-        } else {
-            http_response_code(200);
-            echo json_encode($categories);
-        }
+    $categories = getCategories();
+    if ($categories == null) {
+        http_response_code(404);
+        echo json_encode(array("message" => "Nu exista nicio categorie."));
+    } else {
+        http_response_code(200);
+        echo json_encode($categories);
     }
 } else if (isset($_GET["category"])) {
     $category = $_GET["category"];
@@ -34,4 +31,7 @@ if (isset($_GET["categories"])) {
         http_response_code(200);
         echo json_encode($products, JSON_PRETTY_PRINT);
     }
+} else {
+    http_response_code(400);
+    echo json_encode(array("message" => "Nu ai specificat toate informatiile necesare."));
 }
