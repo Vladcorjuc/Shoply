@@ -65,6 +65,7 @@ bigMenu.appendChild(productsElement);
 
 let extensionElement = document.createElement("li");
 let extensionAnchor = document.createElement("a");
+extensionAnchor.setAttribute("href", "../html/extension.html");
 extensionAnchor.textContent = "Extensie";
 extensionElement.appendChild(extensionAnchor);
 bigMenu.appendChild(extensionElement);

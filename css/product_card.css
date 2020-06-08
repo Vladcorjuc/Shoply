@@ -20,6 +20,8 @@
 }
 
 .image {
+    max-width: 200px;
+    max-height: 180px;
     cursor: pointer;
 }
 
