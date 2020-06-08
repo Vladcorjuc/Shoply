@@ -140,9 +140,13 @@ function addVendors() {
             let button = document.createElement("a");
             button.setAttribute("href", vendorInformation.link);
             button.setAttribute("class", "button");
-            button.textContent = "Cumpara";
+            let buttonIcon = document.createElement("i");
+            buttonIcon.setAttribute("aria-hidden", "true");
+            buttonIcon.setAttribute("class", "fa fa-shopping-cart");
+            button.appendChild(buttonIcon);
+            let buttonText = document.createTextNode(" Cumpara");
+            button.appendChild(buttonText);
             vendor.appendChild(button);
-
             vendors.appendChild(vendor);
         }
     }

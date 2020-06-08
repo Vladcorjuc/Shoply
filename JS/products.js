@@ -11,79 +11,101 @@ if (parameters.has("sort-by")) {
 } else {
     sortBy = "most-popular";
 }
+
+const selectedOption = document.getElementsByClassName("selected-option")[0];
+let arrowOptions = document.createElement("div");
+arrowOptions.setAttribute("class", "arrow");
+selectedOption.textContent = document.getElementsByClassName(sortBy)[0].textContent;
+selectedOption.appendChild(arrowOptions);
+const options = document.getElementsByClassName("options")[0];
+selectedOption.addEventListener("click", () => {
+    options.classList.toggle("active");
+    arrowOptions.classList.toggle("active");
+});
+const optionList = document.querySelectorAll(".option");
+optionList.forEach(option => {
+    option.addEventListener("click", () => {
+        selectedOption.textContent = option.getElementsByTagName("label")[0].textContent;
+        arrowOptions = document.createElement("div");
+        arrowOptions.setAttribute("class", "arrow");
+        selectedOption.appendChild(arrowOptions);
+        options.classList.remove("active");
+
+        sortBy = option.getElementsByTagName("input")[0].id;
+        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname +
+            "?category=" + category + "&sort-by=" + sortBy;
+        window.history.pushState({path: newUrl}, "", newUrl);
+
+        productsRequest = new XMLHttpRequest();
+        productsRequest.onreadystatechange = addProducts;
+        productsRequest.open("GET", "../php/controllers/products_controller.php?category="
+            + category + "&" + "sort-by=" + sortBy, true);
+        productsRequest.send();
+    });
+});
+
 let categoriesRequest = new XMLHttpRequest();
 categoriesRequest.onreadystatechange = addCategories;
 categoriesRequest.open("GET", "../php/controllers/products_controller.php?categories=true", true);
 categoriesRequest.send();
 
-const selectedOption = document.getElementsByClassName("selected-option")[0];
-const options = document.getElementsByClassName("options")[0];
-let arrow = document.createElement("div");
-arrow.setAttribute("class", "arrow");
-const optionList = document.querySelectorAll(".option");
-selectedOption.textContent = document.getElementsByClassName(sortBy)[0].textContent;
-arrow = document.createElement("div");
-arrow.setAttribute("class", "arrow");
-selectedOption.appendChild(arrow);
-selectedOption.addEventListener("click", () => {
-    options.classList.toggle("active");
-    arrow.classList.toggle("active");
-});
-optionList.forEach(option => {
-    option.addEventListener("click", () => {
-        selectedOption.textContent = option.getElementsByTagName("label")[0].textContent;
-        arrow = document.createElement("div");
-        arrow.setAttribute("class", "arrow");
-        selectedOption.appendChild(arrow);
-        options.classList.remove("active");
-        option.addEventListener("click", () => {
-            const newSortBy = option.getElementsByTagName("input")[0].id;
-            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname +
-                "?category=" + category + "&sort-by=" + newSortBy;
-            window.history.pushState({path: newUrl}, "", newUrl);
-            productsRequest = new XMLHttpRequest();
-            productsRequest.onreadystatechange = addProducts;
-            productsRequest.open("GET", "../php/controllers/products_controller.php?category="
-                + category + "&" + "sort-by=" + newSortBy, true);
-            productsRequest.send();
+function addCategories() {
+    if (this.readyState === categoriesRequest.DONE && this.status === 200) {
+        let categoriesElement = document.getElementsByClassName("categories")[0];
+        let categoryObjects = JSON.parse(this.responseText);
+        for (let index = 0; index < categoryObjects.length; ++index) {
+            let categoryObject = categoryObjects[index];
+            let categoryElement = document.createElement("li");
+            categoryElement.setAttribute("class", "category");
+            let newCategory = categoryObject.category;
+            categoryElement.textContent = newCategory[0].toUpperCase() + newCategory.slice(1);
+            categoriesElement.appendChild(categoryElement);
+
+            categoryElement.addEventListener("click", () => {
+                selectedCategory.textContent = categoryElement.textContent;
+                arrowCategories = document.createElement("div");
+                arrowCategories.setAttribute("class", "arrow");
+                selectedCategory.appendChild(arrowCategories);
+                categories.classList.remove("active");
+
+                category = selectedCategory.textContent.toLowerCase();
+                sortBy = "most-popular";
+
+                selectedOption.textContent = "Cele mai populare";
+                arrowOptions = document.createElement("div");
+                arrowOptions.setAttribute("class", "arrow");
+                selectedOption.appendChild(arrowOptions);
+
+                const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname +
+                    "?category=" + category + "&sort-by=" + sortBy;
+                window.history.pushState({path: newUrl}, "", newUrl);
+
+                productsRequest = new XMLHttpRequest();
+                productsRequest.onreadystatechange = addProducts;
+                productsRequest.open("GET", "../php/controllers/products_controller.php?category="
+                    + category + "&sort-by=" + sortBy, true);
+                productsRequest.send();
+            });
+        }
+
+        let selectedCategory = document.getElementsByClassName("selected-category")[0];
+        selectedCategory.textContent = category[0].toUpperCase() + category.slice(1);;
+        let arrowCategories = document.createElement("div");
+        arrowCategories.setAttribute("class", "arrow");
+        selectedCategory.appendChild(arrowCategories);
+        let categories = document.getElementsByClassName("categories")[0];
+        selectedCategory.addEventListener("click", () => {
+            categories.classList.toggle("active");
+            arrowCategories.classList.toggle("active");
         });
-    });
-});
+    }
+}
 
 let productsRequest = new XMLHttpRequest();
 productsRequest.onreadystatechange = addProducts;
 productsRequest.open("GET", "../php/controllers/products_controller.php?category=" + category +
     "&sort-by=" + sortBy, true);
 productsRequest.send();
-
-function addCategories() {
-    if (this.readyState === categoriesRequest.DONE && this.status === 200) {
-        let categoriesElement = document.getElementsByClassName("categories")[0];
-        let categoryObjects = JSON.parse(decodeURIComponent(this.responseText));
-        categoryObjects.forEach(categoryObject => {
-            let categoryElement = document.createElement("li");
-            categoryElement.setAttribute("class", "category");
-            let newCategory = categoryObject.category;
-            categoryElement.textContent = newCategory[0].toUpperCase() + newCategory.slice(1);
-            categoryElement.addEventListener("click", () => {
-                category = newCategory;
-                const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname +
-                    "?category=" + newCategory + "&sort-by=most-popular";
-                window.history.pushState({path: newUrl}, "", newUrl);
-                selectedOption.textContent = "Cele mai populare";
-                arrow = document.createElement("div");
-                arrow.setAttribute("class", "arrow");
-                selectedOption.appendChild(arrow);
-                productsRequest = new XMLHttpRequest();
-                productsRequest.onreadystatechange = addProducts;
-                productsRequest.open("GET", "../php/controllers/products_controller.php?category="
-                    + newCategory + "&sort-by=most-popular", true);
-                productsRequest.send();
-            });
-            categoriesElement.appendChild(categoryElement);
-        });
-    }
-}
 
 function addProducts() {
     if (this.readyState === productsRequest.DONE && this.status === 200) {
