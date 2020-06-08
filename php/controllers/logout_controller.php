@@ -6,7 +6,7 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 
-if(isset($_GET["logout"])){
+if (isset($_GET["logout"])) {
     session_start();
     session_unset();
     http_response_code(200);

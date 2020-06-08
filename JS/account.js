@@ -1,6 +1,6 @@
-let historyRequest=new XMLHttpRequest();
-historyRequest.onreadystatechange=createHistory;
-historyRequest.open("GET","../php/controllers/get_history_controller.php?history=true",true);
+let historyRequest = new XMLHttpRequest();
+historyRequest.onreadystatechange = createHistory;
+historyRequest.open("GET", "../php/controllers/get_history_controller.php?history=true", true);
 historyRequest.send();
 
 
@@ -10,13 +10,12 @@ suggestRequest.open("GET", "../php/controllers/suggestion_controller.php?suggest
 suggestRequest.send();
 
 
-
-function createSlider(){
+function createSlider() {
     if (this.readyState === suggestRequest.DONE && this.status === 200) {
         let container = document.getElementById("product-suggest-container");
         let productObjects = JSON.parse(this.responseText);
-        if(productObjects.length>0){
-            document.getElementById("suggestion").style.display="block";
+        if (productObjects.length > 0) {
+            document.getElementById("suggestion").style.display = "block";
         }
         for (let index = 0; index < productObjects.length; ++index) {
             let productObject = productObjects[index];
@@ -25,7 +24,7 @@ function createSlider(){
 
             let productImageAnchor = document.createElement("a");
             productImageAnchor.setAttribute("href", "../html/product.html?name=" +
-                    scrapePathName(productObject.link));
+                scrapePathName(productObject.link));
             let productImage = document.createElement("img");
             productImage.setAttribute("src", decodeURIComponent(productObject.image));
             productImage.setAttribute("class", "image");
@@ -35,7 +34,7 @@ function createSlider(){
 
             let productTitleAnchor = document.createElement("a");
             productTitleAnchor.setAttribute("href", "../html/product.html?name=" +
-                    scrapePathName(productObject.link));
+                scrapePathName(productObject.link));
             let productTitle = document.createElement("div");
             productTitle.setAttribute("class", "title");
             productTitle.textContent = parseTitle(productObject.title);
@@ -75,7 +74,7 @@ function createSlider(){
 }
 
 function createHistory() {
-    if(this.readyState === historyRequest.DONE && this.status === 200) {
+    if (this.readyState === historyRequest.DONE && this.status === 200) {
         let container = document.getElementById("history");
         let productObjects = JSON.parse(this.responseText);
         for (productObject of productObjects) {
@@ -147,7 +146,7 @@ function createHistory() {
 }
 
 
-let logoutButton=document.getElementsByClassName("button")[0].addEventListener("click",function () {
+let logoutButton = document.getElementsByClassName("button")[0].addEventListener("click", function () {
     let unsetSessionRequest = new XMLHttpRequest();
     unsetSessionRequest.onreadystatechange = function () {
         location.replace("../php/login.php")

@@ -53,9 +53,10 @@ function updateHistory($user, $name)
     return null;
 }
 
-function getHistory($name){
+function getHistory($name)
+{
     $query = "SELECT p.link, image, title, COALESCE(FLOOR(AVG(rating)), 0) AS rating, price, offers FROM products p " .
-        "JOIN categories c ON p.link = c.link LEFT JOIN rating r ON p.link = r.product LEFT JOIN history h ON p.link=h.product".
+        "JOIN categories c ON p.link = c.link LEFT JOIN rating r ON p.link = r.product LEFT JOIN history h ON p.link=h.product" .
         " WHERE h.user = :username " .
         "GROUP BY p.link, image, title, price, offers, views";
     $statement = Database::getConnection()->prepare($query);

@@ -49,9 +49,9 @@ function getSuggestedProducts($user)
 
         if (count($productSuggestion) > 0) {
             usort($productSuggestion, 'scoreSort');
-            $suggestedProd=array();
-            for($i=0;$i<count($productSuggestion);$i++){
-                array_push($suggestedProd,$productSuggestion[$i]["product"]);
+            $suggestedProd = array();
+            for ($i = 0; $i < count($productSuggestion); $i++) {
+                array_push($suggestedProd, $productSuggestion[$i]["product"]);
             }
             return getProductsByLink($suggestedProd);
         }
@@ -59,12 +59,14 @@ function getSuggestedProducts($user)
     }
     return null;
 }
-function getProductsByLink($links){
-    $products=array();
 
-    for($i=0;$i<count($links);$i++){
+function getProductsByLink($links)
+{
+    $products = array();
 
-        $query = "SELECT p.link as link,title,price, image, COALESCE(FLOOR(AVG(rating)), 0) AS rating".
+    for ($i = 0; $i < count($links); $i++) {
+
+        $query = "SELECT p.link as link,title,price, image, COALESCE(FLOOR(AVG(rating)), 0) AS rating" .
             ", offers, views FROM products p LEFT JOIN rating r ON p.link = r.product " .
             "WHERE p.link=:link GROUP BY title, price, image, offers, views";
         $statement = Database::getConnection()->prepare($query);
@@ -75,7 +77,7 @@ function getProductsByLink($links){
         $row = $statement->fetch(PDO::FETCH_ASSOC);
         array_push($products, array
         (
-            "link"=>$row["link"],
+            "link" => $row["link"],
             "title" => $row["title"],
             "price" => $row["price"],
             "image" => urlencode($row["image"]),
@@ -87,6 +89,7 @@ function getProductsByLink($links){
 
     return $products;
 }
+
 function scoreSort($a, $b)
 {
     return $a['score'] < $b['score'];
