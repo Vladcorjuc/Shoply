@@ -1,6 +1,6 @@
 .container {
     display: grid;
-    grid-template-columns: 1fr 10fr 1fr;
+    grid-template-columns: 1fr 4fr 1fr;
     gap: 1rem;
     min-height: calc(100vh - 130px - 20px);
     margin-top: 160px;
@@ -8,7 +8,6 @@
 }
 
 .container * {
-    display: grid;
     grid-column-start: 2;
 }
 
@@ -46,6 +45,43 @@ b {
     font-size: 16px;
     font-weight: bold;
     color: rgb(50, 50, 50);
+}
+
+.stars {
+    display: inline-flex;
+    padding-top: 10px;
+}
+
+.star {
+    pointer-events: none;
+    color: orange;
+}
+
+.rating-input {
+    position: absolute;
+    left: -1000px;
+}
+
+.rating-input:checked ~ .rating-label .star {
+    color: #ddd;
+}
+
+.stars:hover .rating-label .star {
+    color: orange;
+}
+
+.rating-input:hover ~ .rating-label .star {
+    color: #ddd;
+}
+
+.rating-label {
+    cursor: pointer;
+    padding: 0 2px;
+    font-size: 2rem;
+}
+
+.ratings {
+    color: #005eb8;
 }
 
 .price {
