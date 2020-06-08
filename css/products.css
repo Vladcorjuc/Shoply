@@ -19,6 +19,28 @@
     cursor: pointer;
 }
 
+@media screen and (max-width: 500px) {
+    .categories {
+        position: initial;
+    }
+
+    .sort-text{
+        display: none;
+    }
+
+    .sort{
+        grid-row-start: 2;
+        grid-column-start: 1;
+    }
+
+    .products{
+        margin-top: 0;
+        grid-row-start: 3;
+        grid-column-start: 1;
+    }
+}
+
+
 .sort-text {
     display: inline-grid;
 }
@@ -74,7 +96,6 @@
 
 .option, .selected-option {
     padding: 10px 20px;
-    padding: 10px 20px;
 }
 
 .selected-option, .sort-box label {
@@ -124,4 +145,17 @@
     grid-column-start: 2;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     margin-bottom: 1rem;
+}
+
+.gotopbtn img{
+    position: fixed;
+    height: 50px;
+    width: 50px;
+    bottom: 40px;
+    right: 50px;
+    opacity: 0.5;
+}
+
+.gotopbtn:hover img{
+    opacity: 1;
 }
