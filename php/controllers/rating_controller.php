@@ -19,7 +19,12 @@ if (!isset($_SESSION["username"])) {
         echo json_encode(array("message" => $message));
     } else {
         http_response_code(200);
-        echo json_encode(array("message" => "Ai acordat " . $stars . " stele."));
+        if ($stars == 1) {
+            echo json_encode(array("message" => "Ai acordat o stea."));
+        }
+        else {
+            echo json_encode(array("message" => "Ai acordat " . $stars . " stele."));
+        }
     }
 }
 else {
