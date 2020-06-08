@@ -19,8 +19,7 @@ if (isset($_GET["name"])) {
     }
     http_response_code(200);
     echo json_encode(array("message" => "Ai vizualizat produsul specificat."));
-}
-else {
+} else {
     http_response_code(400);
     echo json_encode(array("message" => "Nu ai specificat denumirea produsului."));
 }

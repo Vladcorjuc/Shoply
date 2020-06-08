@@ -1,17 +1,17 @@
 let hostOn = "https://127.0.0.1:5000";
-let child="";
+let child = "";
 
 function createProducts(products) {
-    let container=document.createElement("div");
-    container.setAttribute("id","most-view-container");
+    let container = document.createElement("div");
+    container.setAttribute("id", "most-view-container");
 
     let productObjects = JSON.parse(products);
     for (let index = 0; index < productObjects.length; ++index) {
         let productObject = productObjects[index];
         let productElement = document.createElement("div");
-        productElement.setAttribute("class","product");
+        productElement.setAttribute("class", "product");
         let productImageAnchor = document.createElement("a");
-        productImageAnchor.href="http://localhost:80/html/product.html?name="+scrapePathName(productObject["link"]);
+        productImageAnchor.href = "http://localhost:80/html/product.html?name=" + scrapePathName(productObject["link"]);
 
         let productImage = document.createElement("img");
         productImage.setAttribute("src", productObject["image"]);
@@ -22,7 +22,7 @@ function createProducts(products) {
 
 
         let productTitleAnchor = document.createElement("a");
-        productTitleAnchor.href="http://localhost:80/html/product.html?name="+scrapePathName(productObject["link"]);
+        productTitleAnchor.href = "http://localhost:80/html/product.html?name=" + scrapePathName(productObject["link"]);
         let productTitle = document.createElement("div");
         productTitle.setAttribute("class", "title");
         productTitle.textContent = parseTitle(productObject["title"]);
@@ -41,19 +41,19 @@ function createProducts(products) {
 }
 
 function createFirstPart() {
-    return " <div id=\"most-viewed\">\n"+ "<div id=\"border-left\"></div>";
+    return " <div id=\"most-viewed\">\n" + "<div id=\"border-left\"></div>";
 }
 
 function createSecondPart() {
-        return "<div id=\"border-right\"></div> </div>";
+    return "<div id=\"border-right\"></div> </div>";
 }
 
 function validProduct() {
-    if (response.message === "OK" && response.data.length>0) {
+    if (response.message === "OK" && response.data.length > 0) {
         if (JSON.parse(response.data).length >= 1) {
-            if(child!=null&&child!==""&&!child.closed){
+            if (child != null && child !== "" && !child.closed) {
                 child.close();
-                child="";
+                child = "";
             }
             let products = response.data;
             let first_part = createFirstPart();
@@ -61,8 +61,8 @@ function validProduct() {
             let second_part = createSecondPart();
 
 
-            child=window.open("background_popup.html", "_blank",
-                "width=275px,height=390px;top=200, left=1500").document.write( createStyle() + " " + first_part + "<div id='most-view-container'>" +
+            child = window.open("background_popup.html", "_blank",
+                "width=275px,height=390px;top=200, left=1500").document.write(createStyle() + " " + first_part + "<div id='most-view-container'>" +
                 mid_part.innerHTML + "</div>" + second_part);
         }
 
@@ -116,11 +116,11 @@ chrome.webNavigation.onCompleted.addListener(function () {
 
 function parseTitle(title) {
     var words = title.split(/,| |-|\(|\)/);
-    if(words.length<=6)
+    if (words.length <= 6)
         return title;
-    var newTitle=words[0];
-    for(var i=1;i<6;i++){
-        if(words[i]!=="cu") {
+    var newTitle = words[0];
+    for (var i = 1; i < 6; i++) {
+        if (words[i] !== "cu") {
             newTitle = newTitle.concat(" " + words[i]);
         }
     }
@@ -128,17 +128,18 @@ function parseTitle(title) {
 }
 
 function addPoint(numberString) {
-    let number=numberString;
-    numberString=numberString.toString();
-    if(numberString.length>=4){
-        number= numberString.substr(0, numberString.length-3) + "." +
-            numberString.substr(numberString.length-3);
-        [numberString.slice(0,numberString.length-3), ".", numberString.slice(numberString.length-3)].join('');
+    let number = numberString;
+    numberString = numberString.toString();
+    if (numberString.length >= 4) {
+        number = numberString.substr(0, numberString.length - 3) + "." +
+            numberString.substr(numberString.length - 3);
+        [numberString.slice(0, numberString.length - 3), ".", numberString.slice(numberString.length - 3)].join('');
         return number;
     }
     return number;
 
 }
+
 function scrapePathName(link) {
     let pathName = link.split(".ro/")[1].replace(/\//g, "-");
     if (pathName[pathName.length - 1] === "-") {
@@ -151,8 +152,9 @@ function scrapePathName(link) {
     }
     return pathName;
 }
+
 function createStyle() {
-    let styleElement="\
+    let styleElement = "\
     #most-view-container::-webkit-scrollbar {\
         width: 0.2em;\
     }\
@@ -194,7 +196,7 @@ function createStyle() {
         margin: 15px auto 15px 15px;\
         overflow: hidden;\
         cursor: pointer;\
-    "+"}\
+    " + "}\
 .product:hover {\
         box-shadow: 0 0 20px 5px rgba(255, 95, 35, 0.25);\
         transition: all 0.2s ease;\
@@ -226,5 +228,5 @@ function createStyle() {
     #most-viewed{\
     align-items: center;\
     }";
-    return "<style>"+styleElement+" </style>";
+    return "<style>" + styleElement + " </style>";
 }

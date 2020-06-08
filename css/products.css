@@ -14,17 +14,18 @@ html {
 
 .categories {
     display: grid;
-    background-color: coral;
-    grid-column-start: 1;
     position: sticky;
-    top: 185px;
-    list-style: none;
-    padding: 5px;
-    font-weight: 400;
-    color: white;
-    border-radius: 10px;
+    grid-column-start: 1;
     margin: 5px;
+    top: 185px;
+    padding: 5px;
     max-width: 150px;
+    border-radius: 10px;
+    list-style: none;
+    font-weight: 400;
+    box-shadow: 0 0 20px 5px rgba(180, 180, 180, 0.45);
+    background-color: coral;
+    color: white;
 }
 
 .category {
@@ -34,36 +35,13 @@ html {
 }
 
 .category:hover {
-    cursor: pointer;
     color: coral;
     background-color: white;
-
+    cursor: pointer;
 }
 
 .sort {
     padding-top: 55px;
-}
-
-@media screen and (max-width: 500px) {
-    .categories {
-        position: initial;
-        width: 100%;
-    }
-
-    .sort-text {
-        display: none;
-    }
-
-    .sort {
-        grid-row-start: 2;
-        grid-column-start: 1;
-    }
-
-    .products {
-        margin-top: 100px;
-        grid-row-start: 3;
-        grid-column-start: 1;
-    }
 }
 
 .sort-text {
@@ -172,16 +150,16 @@ html {
     margin-bottom: 1rem;
 }
 
-.gotopbtn img {
+.go-up-button {
     position: fixed;
-    height: 50px;
     width: 50px;
+    height: 50px;
     bottom: 40px;
     right: 50px;
     opacity: 0.5;
 }
 
-.gotopbtn:hover img {
+.go-up-button:hover {
     opacity: 1;
 }
 

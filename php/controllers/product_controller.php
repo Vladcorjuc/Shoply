@@ -11,8 +11,11 @@ if (isset($_GET["name"])) {
     $name = $_GET["name"];
     if (isset($_GET["rating"])) {
         $information = getRating($name);
-    }
-    else {
+    } else if (isset($_GET["vendors"])) {
+        $information = getVendors($name);
+    } else if (isset($_GET["chart"])) {
+        $information = getProductPrices($name);
+    } else {
         $information = getProductInformation($name);
     }
     if ($information == null) {
@@ -22,8 +25,7 @@ if (isset($_GET["name"])) {
         http_response_code(200);
         echo json_encode($information);
     }
-}
-else {
+} else {
     http_response_code(400);
     echo json_encode(array("message" => "Nu ai specificat denumirea produsului."));
 }

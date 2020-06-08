@@ -5,11 +5,13 @@
     <script type="text/javascript" src="../JS/search.js" defer></script>
     <link rel="stylesheet" type="text/css" href="../css/product.css">
     <script type="text/javascript" src="../JS/product.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 </head>
 <body>
 <header></header>
 <div class="container">
-    <div class="top">
+    <div class="general-information-text">Informatii generale</div>
+    <div class="general-information">
         <img class="image">
         <div class="characteristics"></div>
         <div class="information">
@@ -17,15 +19,20 @@
             <div class="rating">
                 <div class="stars">
                     <input class="rating-input" name="rating" id="rating-0" value="0" type="radio">
-                    <label aria-label="1 star" class="rating-label" for="rating-1"><i class="star  fa fa-star"></i></label>
+                    <label aria-label="1 star" class="rating-label" for="rating-1"><i
+                            class="star  fa fa-star"></i></label>
                     <input class="rating-input" name="rating" id="rating-1" value="1" type="radio">
-                    <label aria-label="2 stars" class="rating-label" for="rating-2"><i class="star fa fa-star"></i></label>
+                    <label aria-label="2 stars" class="rating-label" for="rating-2"><i
+                            class="star fa fa-star"></i></label>
                     <input class="rating-input" name="rating" id="rating-2" value="2" type="radio">
-                    <label aria-label="3 stars" class="rating-label" for="rating-3"><i class="star fa fa-star"></i></label>
+                    <label aria-label="3 stars" class="rating-label" for="rating-3"><i
+                            class="star fa fa-star"></i></label>
                     <input class="rating-input" name="rating" id="rating-3" value="3" type="radio">
-                    <label aria-label="4 stars" class="rating-label" for="rating-4"><i class="star fa fa-star"></i></label>
+                    <label aria-label="4 stars" class="rating-label" for="rating-4"><i
+                            class="star fa fa-star"></i></label>
                     <input class="rating-input" name="rating" id="rating-4" value="4" type="radio">
-                    <label aria-label="5 stars" class="rating-label" for="rating-5"><i class="star fa fa-star"></i></label>
+                    <label aria-label="5 stars" class="rating-label" for="rating-5"><i
+                            class="star fa fa-star"></i></label>
                     <input class="rating-input" name="rating" id="rating-5" value="5" type="radio">
                 </div>
                 <div class="ratings"></div>
@@ -36,8 +43,14 @@
             <div class="views"></div>
         </div>
     </div>
-    <div class="middle"></div>
-    <div class="bottom"></div>
+    <div class="description-text">Descriere</div>
+    <div class="description"></div>
+    <div class="chart-text">Fluctuatii de pret</div>
+    <div class="chart-container">
+        <canvas id="chart" width="400" height="400"></canvas>
+    </div>
+    <div class="vendors-text">Oferte</div>
+    <div class="vendors"></div>
 </div>
 <footer></footer>
 </body>

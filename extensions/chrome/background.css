@@ -1,20 +1,18 @@
-body{
+body {
     max-width: 300px;
     max-height: 300px;
 }
-body::-webkit-scrollbar {
-    width: 0.2em;
-}
 
-body::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+body::-webkit-scrollbar {
+    width: 8px;
+    background: rgb(230, 230, 230);
 }
 
 body::-webkit-scrollbar-thumb {
-    background-color: coral;
-    outline: 1px solid coral;
+    background: rgb(210, 210, 210);
 }
-#most-view-container{
+
+#most-view-container {
     min-width: 300px;
     display: flex;
     border-color: coral;
@@ -25,12 +23,15 @@ body::-webkit-scrollbar-thumb {
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+
 #most-view-container::-webkit-scrollbar {
     display: none;
 }
+
 * {
     font-family: "Open Sans", sans-serif;
 }
+
 .product {
     position: relative;
     display: flex;
@@ -65,25 +66,31 @@ body::-webkit-scrollbar-thumb {
     max-height: 150px;
     max-width: 200px;
 }
-.rating{
+
+.rating {
     font-size: 10px;
 }
-.title{
+
+.title {
     max-height: 50px;
     color: rgb(50, 50, 50);
     cursor: pointer;
     text-overflow: ellipsis;
 }
-.title, .price, .offers,.rating {
+
+.title, .price, .offers, .rating {
     text-align: center;
 }
+
 a {
     text-decoration: none;
 }
-.offers{
+
+.offers {
     font-size: 14px;
     color: #005eb8;
 }
+
 .on:before, .off:before {
     font-size: 1.5rem;
 }
@@ -92,23 +99,27 @@ a {
     color: orange;
     font-size: 10px;
 }
+
 .off {
     font-size: 10px;
     color: #ddd;
 }
-#most-viewed{
+
+#most-viewed {
     display: flex;
     flex-flow: row;
     justify-content: space-between;
 }
-#left-arrow{
+
+#left-arrow {
     width: 20px;
     height: 100px;
     margin-right: 10px;
     margin-top: 100px;
     filter: invert(65%) sepia(44%) saturate(2335%) hue-rotate(323deg) brightness(100%) contrast(112%);
 }
-#right-arrow{
+
+#right-arrow {
     width: 20px;
     height: 100px;
     margin-left: 10px;

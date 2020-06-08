@@ -53,3 +53,47 @@ function getRating($name)
         "ratings" => $row["ratings"],
     );
 }
+
+function getVendors($name)
+{
+    if (strpos($name, "_")) {
+        $name = explode("_", $name)[1];
+    }
+    $name = str_replace("-", "", $name);
+    $query = "SELECT vendors FROM products WHERE REPLACE(REPLACE(link, '/', ''), '-', '') LIKE CONCAT('%', :name, '%')";
+    $statement = Database::getConnection()->prepare($query);
+    $statement->execute(array("name" => $name));
+    if ($statement->rowCount() == 0) {
+        return null;
+    }
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    return array
+    (
+        "vendors" => $row["vendors"]
+    );
+}
+
+function getProductPrices($name)
+{
+    if (strpos($name, "_")) {
+        $name = explode("_", $name)[1];
+    }
+    $name = str_replace("-", "", $name);
+    $query = "SELECT price, updated_at FROM product_log WHERE REPLACE(REPLACE(link, '/', ''), '-', '') " .
+        "LIKE CONCAT('%', :name, '%')";
+    $statement = Database::getConnection()->prepare($query);
+    $statement->execute(array("name" => $name));
+    if ($statement->rowCount() == 0) {
+        return null;
+    }
+    $prices = array();
+    while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+        $record = array
+        (
+            "price" => $row["price"],
+            "date" => $row["updated_at"]
+        );
+        array_push($prices, $record);
+    }
+    return $prices;
+}

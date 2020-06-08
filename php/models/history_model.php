@@ -2,7 +2,8 @@
 session_start();
 require_once __DIR__ . "/../../database/database.php";
 
-function updateViews($name) {
+function updateViews($name)
+{
     if (strpos($name, "_")) {
         $name = explode("_", $name)[1];
     }
@@ -13,7 +14,8 @@ function updateViews($name) {
     $statement->execute(array("name" => $name));
 }
 
-function updateHistory($user, $name) {
+function updateHistory($user, $name)
+{
     $query = "SELECT username FROM users WHERE username = :user";
     $statement = Database::getConnection()->prepare($query);
     $statement->execute(array("user" => $user));

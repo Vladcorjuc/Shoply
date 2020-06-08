@@ -7,23 +7,28 @@ if (parameters.has("name")) {
 }
 
 let historyRequest = new XMLHttpRequest();
-historyRequest.onreadystatechange = addView;
 historyRequest.open("GET", "../php/controllers/history_controller.php?name=" + name, true);
 historyRequest.send();
 
-let productInformationRequest = new XMLHttpRequest();
-productInformationRequest.onreadystatechange = addProductInformation;
-productInformationRequest.open("GET", "../php/controllers/product_controller.php?name=" + name, true);
-productInformationRequest.send();
+let generalInformationRequest = new XMLHttpRequest();
+generalInformationRequest.onreadystatechange = addProductInformation;
+generalInformationRequest.open("GET", "../php/controllers/product_controller.php?name=" + name, true);
+generalInformationRequest.send();
 
-function addView() {
-    if (this.readyState === historyRequest.DONE) {
-        let response = JSON.parse(this.responseText);
-    }
-}
+let vendorsRequest = new XMLHttpRequest();
+vendorsRequest.onreadystatechange = addVendors;
+vendorsRequest.open("GET", "../php/controllers/product_controller.php?name=" + name +
+    "&vendors=true", true);
+vendorsRequest.send();
+
+let chartRequest = new XMLHttpRequest();
+chartRequest.onreadystatechange = addChart;
+chartRequest.open("GET", "../php/controllers/product_controller.php?name=" + name +
+    "&chart=true", true);
+chartRequest.send();
 
 function addProductInformation() {
-    if (this.readyState === productInformationRequest.DONE && this.status === 200) {
+    if (this.readyState === generalInformationRequest.DONE && this.status === 200) {
         let productInformation = JSON.parse(this.responseText);
         let image = document.getElementsByClassName("image")[0];
         image.setAttribute("src", decodeURIComponent(productInformation.image));
@@ -76,26 +81,126 @@ function addProductInformation() {
         } else {
             offers.textContent = "(" + words[0] + " de oferte)";
         }
+        offers.addEventListener("click", () => {
+            let vendors = document.getElementsByClassName("vendors-text")[0];
+            vendors.scrollIntoView({behavior: "smooth", block: "center"});
+        });
 
         updateViews(productInformation);
+
+        let description = document.getElementsByClassName("description")[0];
+        description.textContent = productInformation.description;
+    }
+}
+
+function addVendors() {
+    if (this.readyState === vendorsRequest.DONE && this.status === 200) {
+        let vendorsInformation = JSON.parse(this.responseText);
+        vendorsInformation = JSON.parse(vendorsInformation.vendors);
+        let vendors = document.getElementsByClassName("vendors")[0];
+        vendorsInformation.sort(function (first, second) {
+            return parseFloat(first.price) - parseFloat(second.price);
+        });
+        let vendorInformation;
+        for (vendorInformation of vendorsInformation) {
+            let vendor = document.createElement("div");
+            vendor.setAttribute("class", "vendor");
+            let logoAnchor = document.createElement("a");
+            logoAnchor.setAttribute("href", vendorInformation.link);
+            let logo = document.createElement("img");
+            if (vendorInformation.logo === "NO_LOGO") {
+                logo.setAttribute("src", "../images/broken.png");
+            } else {
+                logo.setAttribute("src", vendorInformation.logo);
+            }
+            logo.setAttribute("class", "vendorLogo");
+            logoAnchor.appendChild(logo);
+            vendor.appendChild(logoAnchor);
+
+            let name = document.createElement("div");
+            name.setAttribute("class", "name");
+            name.textContent = vendorInformation.name;
+
+            let price = document.createElement("div");
+            price.setAttribute("class", "price");
+            let priceText = document.createTextNode(addPoint(vendorInformation.price));
+            price.appendChild(priceText);
+            let decimals = document.createElement("sup");
+            decimals.textContent = "99";
+            price.appendChild(decimals);
+            if (parseInt(vendorInformation.price) < 20) {
+                let currency = document.createTextNode(" Lei");
+                price.appendChild(currency);
+            } else {
+                let currency = document.createTextNode(" de Lei");
+                price.appendChild(currency);
+            }
+            vendor.appendChild(price);
+
+            let button = document.createElement("a");
+            button.setAttribute("href", vendorInformation.link);
+            button.setAttribute("class", "button");
+            button.textContent = "Cumpara";
+            vendor.appendChild(button);
+
+            vendors.appendChild(vendor);
+        }
+    }
+}
+
+function addChart() {
+    if (this.readyState === chartRequest.DONE && this.status === 200) {
+        let logs = JSON.parse(this.responseText);
+        let prices = [];
+        let dates = [];
+        let log;
+        for (log of logs) {
+            prices.push(parseInt(log.price, 10));
+            dates.push(log.date);
+        }
+        let context = document.getElementById("chart").getContext("2d");
+        const chart = new Chart(context, {
+            type: "line",
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: "Prices",
+                    data: prices,
+                    borderColor: "coral",
+                    fill: false,
+                    borderWidth: 1
+                }]
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        suggestedMax: 1000000
+                    }
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
     }
 }
 
 function addMessage() {
-    if (this.readyState === productInformationRequest.DONE) {
+    if (this.readyState === generalInformationRequest.DONE) {
         let response = JSON.parse(this.responseText);
         let ratingText = document.getElementsByClassName("rating-text")[0];
         ratingText.textContent = response.message;
-        productInformationRequest = new XMLHttpRequest();
-        productInformationRequest.onreadystatechange = updateRating;
-        productInformationRequest.open("GET", "../php/controllers/product_controller.php?name=" + name +
+        generalInformationRequest = new XMLHttpRequest();
+        generalInformationRequest.onreadystatechange = updateRating;
+        generalInformationRequest.open("GET", "../php/controllers/product_controller.php?name=" + name +
             "&rating=true", true);
-        productInformationRequest.send();
+        generalInformationRequest.send();
     }
 }
 
 function updateRating() {
-    if (this.readyState === productInformationRequest.DONE && this.status === 200) {
+    if (this.readyState === generalInformationRequest.DONE && this.status === 200) {
         let productInformation = JSON.parse(this.responseText);
         let starElement = document.getElementById("rating-" + productInformation.rating);
         starElement.checked = true;
@@ -108,11 +213,9 @@ function updateRatings(productInformation) {
     let ratingsNumber = parseInt(productInformation.ratings);
     if (ratingsNumber === 1) {
         ratings.textContent = "(un vot)";
-    }
-    else if (ratingsNumber < 20) {
+    } else if (ratingsNumber < 20) {
         ratings.textContent = "(" + ratingsNumber + " voturi)";
-    }
-    else {
+    } else {
         ratings.textContent = "(" + ratingsNumber + " de voturi)";
     }
 }
@@ -120,7 +223,7 @@ function updateRatings(productInformation) {
 function updateViews(productInformation) {
     let views = document.getElementsByClassName("views")[0];
     let viewsNumber = parseInt(productInformation.views);
-    if (viewsNumber=== 1) {
+    if (viewsNumber === 1) {
         views.textContent = "o vizualizare";
     } else if (viewsNumber < 20) {
         views.textContent = viewsNumber + " vizualizari";

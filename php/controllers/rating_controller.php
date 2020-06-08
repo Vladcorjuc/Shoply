@@ -21,13 +21,11 @@ if (!isset($_SESSION["username"])) {
         http_response_code(200);
         if ($stars == 1) {
             echo json_encode(array("message" => "Ai acordat o stea."));
-        }
-        else {
+        } else {
             echo json_encode(array("message" => "Ai acordat " . $stars . " stele."));
         }
     }
-}
-else {
+} else {
     http_response_code(400);
     echo json_encode(array("message" => "Nu ai specificat denumirea produsului sau votul."));
 }

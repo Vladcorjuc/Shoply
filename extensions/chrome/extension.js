@@ -144,8 +144,8 @@ class ExtensionView {
             prices.push(parseInt(data[i].x, 10));
         }
         let ctx = document.getElementById('data_graph').getContext('2d');
-        let myChart = new Chart(ctx, {
-            type: 'line',
+        let chart = new Chart(ctx, {
+            type: "line",
             data: {
                 labels: dates,
                 datasets: [{

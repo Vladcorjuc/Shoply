@@ -275,16 +275,14 @@ a {
     }
 
     #category-panel::-webkit-scrollbar {
-        width: 0.2em;
-    }
-
-    #category-panel::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        width: 8px;
+        background: rgb(230, 230, 230);
+        border-radius: 0 7px 7px 0;
     }
 
     #category-panel::-webkit-scrollbar-thumb {
-        background-color: coral;
-        outline: 1px solid coral;
+        background: rgb(210, 210, 210);
+        border-radius: 0 7px 7px 0;
     }
 
     #categories {
@@ -307,16 +305,14 @@ a {
     }
 
     #category-panel::-webkit-scrollbar {
-        width: 0.2em;
-    }
-
-    #category-panel::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        width: 8px;
+        background: rgb(230, 230, 230);
+        border-radius: 0 7px 7px 0;
     }
 
     #category-panel::-webkit-scrollbar-thumb {
-        background-color: coral;
-        outline: 1px solid coral;
+        background: rgb(210, 210, 210);
+        border-radius: 0 7px 7px 0;
     }
 
     #categories {
@@ -343,16 +339,14 @@ a {
     }
 
     #category-panel::-webkit-scrollbar {
-        width: 0.2em;
-    }
-
-    #category-panel::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        width: 8px;
+        background: rgb(230, 230, 230);
+        border-radius: 0 7px 7px 0;
     }
 
     #category-panel::-webkit-scrollbar-thumb {
-        background-color: coral;
-        outline: 1px solid coral;
+        background: rgb(210, 210, 210);
+        border-radius: 0 7px 7px 0;
     }
 
     #first-category {
@@ -408,16 +402,14 @@ a {
     }
 
     #category-panel::-webkit-scrollbar {
-        width: 0.2em;
-    }
-
-    #category-panel::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        width: 8px;
+        background: rgb(230, 230, 230);
+        border-radius: 0 7px 7px 0;
     }
 
     #category-panel::-webkit-scrollbar-thumb {
-        background-color: coral;
-        outline: 1px solid coral;
+        background: rgb(210, 210, 210);
+        border-radius: 0 7px 7px 0;
     }
 
     #first-category {
@@ -438,7 +430,7 @@ a {
 
     #categories {
         max-width: 300px;
-        margin-left: 0px;
+        margin-left: 0;
     }
 
     #newsDiv p {

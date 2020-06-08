@@ -1,35 +1,41 @@
-#mid-content{
+#mid-content {
     max-width: 960px;
     text-align: left;
     min-height: calc(100vh - 130px - 20px);
     margin: 0 auto 50px;
     padding-top: 200px;
 }
-#container{
-     display: flex;
-     flex-flow: row;
-     justify-content: space-between;
- }
-#extension-gif{
+
+#container {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+#extension-gif {
     max-height: 350px;
     max-width: 350px;
     min-width: 350px;
     min-height: 350px;
 }
-#description{
+
+#description {
     margin-top: -10px;
     display: flex;
     flex-flow: column;
     max-width: 500px;
     min-width: 400px;
 }
-#description h1{
+
+#description h1 {
     color: coral;
 }
-#description p{
+
+#description p {
     color: gray;
     font-size: 20px;
 }
+
 .download-button {
     margin-top: 20px;
     background-color: coral;
@@ -45,7 +51,7 @@
     background-color: darkorange;
 }
 
-#graph-container{
+#graph-container {
     display: flex;
     margin-top: 50px;
     flex-flow: row;
@@ -54,7 +60,8 @@
     padding-top: 50px;
     border-top: solid lightgray;
 }
-#graph-png{
+
+#graph-png {
     border-style: solid;
     border-color: lightgray;
     border-width: 0.01em;
@@ -63,70 +70,88 @@
     min-width: 350px;
     min-height: 350px;
 }
-#graph-description{
+
+#graph-description {
     margin-top: -10px;
     display: flex;
     flex-flow: column;
     max-width: 500px;
     min-width: 400px;
 }
-#graph-description h1{
+
+#graph-description h1 {
     color: coral;
 }
-#graph-description p{
+
+#graph-description p {
     color: gray;
     font-size: 20px;
 }
+
 @media (max-width: 840px) {
-    #extension-gif{
+    #extension-gif {
         display: none;
     }
-    #description{
+
+    #description {
         max-width: 600px;
     }
-    #graph-description{
+
+    #graph-description {
         max-width: 600px;
     }
-    #graph-png{
+
+    #graph-png {
         display: none;
     }
-    #graph-container{
+
+    #graph-container {
         flex-flow: column;
         justify-content: space-between;
     }
-    #mid-content{
+
+    #mid-content {
         max-width: 600px;
     }
-    #container{
+
+    #container {
         flex-flow: column;
         justify-content: space-between;
     }
 }
+
 @media (max-width: 600px) {
-    #mid-content{
+    #mid-content {
         max-width: 400px;
     }
-    #description{
+
+    #description {
         max-width: 400px;
     }
-    #graph-description{
+
+    #graph-description {
         max-width: 400px;
     }
-    #description{
+
+    #description {
         justify-content: space-evenly;
     }
 }
+
 @media (max-width: 400px) {
-    #mid-content{
+    #mid-content {
         max-width: 300px;
     }
-    #description{
+
+    #description {
         max-width: 300px;
     }
-    #graph-description{
+
+    #graph-description {
         max-width: 300px;
     }
-    #description{
+
+    #description {
         justify-content: space-evenly;
     }
 }

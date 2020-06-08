@@ -9,15 +9,25 @@
 
 .container * {
     grid-column-start: 2;
+    border-radius: 8px;
 }
 
-.top {
+.general-information-text, .description-text, .chart-text, .vendors-text {
+    height: 40px;
+    padding: 10px;
+    background: #005eb8;
+    color: white;
+    box-shadow: 0 0 20px 9px rgba(180, 180, 180, 0.15);
+    opacity: 0.75;
+}
+
+.general-information {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    padding: 5%;
+    padding: 10px;
     text-align: center;
     box-shadow: 0 0 20px 9px rgba(180, 180, 180, 0.15);
 }
@@ -100,4 +110,98 @@ sup {
     padding-top: 5px;
     font-size: 14px;
     color: #005eb8;
+    cursor: pointer;
+}
+
+.description {
+    height: 35vh;
+    padding: 3%;
+    font-size: 15px;
+    white-space: pre-wrap;
+    text-align: justify;
+    overflow-y: auto;
+    box-shadow: 0 0 20px 9px rgba(180, 180, 180, 0.15);
+}
+
+.description::-webkit-scrollbar {
+    width: 8px;
+    background: rgb(230, 230, 230);
+    border-radius: 0 7px 7px 0;
+}
+
+.description::-webkit-scrollbar-thumb {
+    background: rgb(210, 210, 210);
+    border-radius: 0 7px 7px 0;
+}
+
+.vendors {
+    margin-bottom: 1rem;
+    height: 35vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.vendors::-webkit-scrollbar {
+    width: 8px;
+    background: rgb(230, 230, 230);
+    border-radius: 0 7px 7px 0;
+}
+
+.vendors::-webkit-scrollbar-thumb {
+    background: rgb(210, 210, 210);
+    border-radius: 0 7px 7px 0;
+}
+
+.vendor:nth-child(odd) {
+    background: rgb(230, 230, 230);
+    box-shadow: 0 0 20px 9px rgba(230, 230, 230, 0.45);
+}
+
+.vendor:nth-child(even) {
+    background: rgb(245, 245, 245);
+    box-shadow: 0 0 20px 9px rgba(245, 245, 245, 0.45);
+}
+
+.vendor {
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+    margin: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    min-height: 75px;
+}
+
+.vendorLogo {
+    max-height: 60px;
+    max-width: 100px;
+    align-self: center;
+    cursor: pointer;
+}
+
+.vendorLogo:hover, .button:hover {
+    transform: scale(1.2);
+    transform-origin: 50% 50%;
+    opacity: 0.9;
+}
+
+.button {
+    padding: 7px 10px;
+    background: dodgerblue;
+    opacity: 0.75;
+    color: white;
+    box-shadow: 0 0 20px 9px rgba(180, 180, 180, 0.15);
+    text-decoration: none;
+}
+
+.chart-container {
+    margin: 0 auto 1rem;
+}
+
+@media screen and (max-width: 500px) {
+    .general-information-text, .description-text, .chart-text, .vendors-text,
+    .general-information, .description, .chart-container, .vendors {
+        width: 95%;
+    }
 }
