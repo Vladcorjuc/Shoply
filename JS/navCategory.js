@@ -1,67 +1,69 @@
-let currentCategory="calculatoare";
+let currentCategory = "calculatoare";
 init();
 let categoryRequest = new XMLHttpRequest();
 makeRequest();
 
 document.getElementById("first-category").addEventListener("click", function () {
     deleteNavClass();
-    currentCategory="calculatoare";
-    document.getElementById("first-category").style.color="white";
+    currentCategory = "calculatoare";
+    document.getElementById("first-category").style.color = "white";
     document.getElementById("first-category").classList.add("selected-category");
     makeRequest();
 });
 document.getElementById("second-category").addEventListener("click", function () {
     deleteNavClass();
-    currentCategory="electronice";
-    document.getElementById("second-category").style.color="white";
+    currentCategory = "electronice";
+    document.getElementById("second-category").style.color = "white";
     document.getElementById("second-category").classList.add("selected-category");
     makeRequest();
 });
 document.getElementById("third-category").addEventListener("click", function () {
     deleteNavClass();
-    currentCategory="jucarii";
-    document.getElementById("third-category").style.color="white";
+    currentCategory = "jucarii";
+    document.getElementById("third-category").style.color = "white";
     document.getElementById("third-category").classList.add("selected-category");
     makeRequest();
 });
 document.getElementById("fourth-category").addEventListener("click", function () {
     deleteNavClass();
-    currentCategory="sport";
-    document.getElementById("fourth-category").style.color="white";
+    currentCategory = "sport";
+    document.getElementById("fourth-category").style.color = "white";
     document.getElementById("fourth-category").classList.add("selected-category");
     makeRequest();
 });
 
 function deleteNavClass() {
     document.getElementById("first-category").classList.remove("selected-category");
-    document.getElementById("first-category").style.color="coral";
+    document.getElementById("first-category").style.color = "coral";
 
     document.getElementById("second-category").classList.remove("selected-category");
-    document.getElementById("second-category").style.color="coral";
+    document.getElementById("second-category").style.color = "coral";
 
     document.getElementById("third-category").classList.remove("selected-category");
-    document.getElementById("third-category").style.color="coral";
+    document.getElementById("third-category").style.color = "coral";
 
     document.getElementById("fourth-category").classList.remove("selected-category");
-    document.getElementById("fourth-category").style.color="coral";
+    document.getElementById("fourth-category").style.color = "coral";
 }
+
 function init() {
     deleteNavClass();
-    currentCategory="calculatoare";
-    document.getElementById("first-category").style.color="white";
+    currentCategory = "calculatoare";
+    document.getElementById("first-category").style.color = "white";
     document.getElementById("first-category").classList.add("selected-category");
 }
+
 function createProducts() {
     if (this.readyState === categoryRequest.DONE && this.status === 200) {
         let container = document.getElementById("category-container");
-        document.getElementById("category-container").innerHTML='';
+        document.getElementById("category-container").innerHTML = '';
         let productObjects = JSON.parse(this.responseText);
         for (let index = 0; index < productObjects.length; ++index) {
             let productObject = productObjects[index];
             let productElement = document.createElement("div");
             productElement.setAttribute("class", "product");
-            productElement.style.width="215px";
-            productElement.style.minHeigh="300px";
+            productElement.style.width = "215px";
+            productElement.style.minHeigh = "300px";
 
             let productImageAnchor = document.createElement("a");
             productImageAnchor.setAttribute("href", "../html/product.html?name=" +
@@ -89,20 +91,20 @@ function createProducts() {
             for (; star < productObject.rating; ++star) {
                 let starElement = document.createElement("i");
                 starElement.setAttribute("class", "on fa fa-star");
-                starElement.style.fontSize="15px";
+                starElement.style.fontSize = "15px";
                 productRating.appendChild(starElement);
             }
             for (; star < 5; ++star) {
                 let starElement = document.createElement("i");
                 starElement.setAttribute("class", "off fa fa-star");
-                starElement.style.fontSize="15px";
+                starElement.style.fontSize = "15px";
                 productRating.appendChild(starElement);
             }
             productElement.appendChild(productRating);
 
             let productPrice = document.createElement("div");
             productPrice.setAttribute("class", "price");
-            productPrice.textContent = "De la "+addPoint(productObject.price) + " Lei";
+            productPrice.textContent = "De la " + addPoint(productObject.price) + " Lei";
             productElement.appendChild(productPrice);
 
             let productOffers = document.createElement("div");
@@ -114,8 +116,9 @@ function createProducts() {
         }
     }
 }
+
 function makeRequest() {
-    categoryRequest=new XMLHttpRequest();
+    categoryRequest = new XMLHttpRequest();
     categoryRequest.onreadystatechange = createProducts;
     categoryRequest.open("GET", "../php/controllers/home-products-controller.php?category=".concat(currentCategory), true);
     categoryRequest.send();

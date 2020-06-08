@@ -12,8 +12,7 @@ if (isset($_GET["views"])) {
     if ($products == null) {
         http_response_code(404);
         echo json_encode(array("message" => "Nu exista produse in categoria " . $category . "."));
-    }
-    else {
+    } else {
         http_response_code(200);
         echo json_encode($products);
     }

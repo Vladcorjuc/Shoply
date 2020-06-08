@@ -14,7 +14,6 @@ function getProductInformation($name)
     $statement = Database::getConnection()->prepare($query);
     $statement->execute(array("name" => $name));
     if ($statement->rowCount() == 0) {
-        echo "ana";
         return null;
     }
     $row = $statement->fetch(PDO::FETCH_ASSOC);
@@ -30,5 +29,27 @@ function getProductInformation($name)
         "ratings" => $row["ratings"],
         "offers" => $row["offers"],
         "views" => $row["views"]
+    );
+}
+
+function getRating($name)
+{
+    if (strpos($name, "_")) {
+        $name = explode("_", $name)[1];
+    }
+    $name = str_replace("-", "", $name);
+    $query = "SELECT COALESCE(FLOOR(AVG(rating)), 0) AS rating, COUNT(rating) AS ratings " .
+        "FROM products p LEFT JOIN rating r ON p.link = r.product " .
+        "WHERE REPLACE(REPLACE(link, '/', ''), '-', '') LIKE CONCAT('%', :name, '%')";
+    $statement = Database::getConnection()->prepare($query);
+    $statement->execute(array("name" => $name));
+    if ($statement->rowCount() == 0) {
+        return null;
+    }
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    return array
+    (
+        "rating" => $row["rating"],
+        "ratings" => $row["ratings"],
     );
 }

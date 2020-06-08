@@ -1,0 +1,132 @@
+#mid-content{
+    max-width: 960px;
+    text-align: left;
+    min-height: calc(100vh - 130px - 20px);
+    margin: 0 auto 50px;
+    padding-top: 200px;
+}
+#container{
+     display: flex;
+     flex-flow: row;
+     justify-content: space-between;
+ }
+#extension-gif{
+    max-height: 350px;
+    max-width: 350px;
+    min-width: 350px;
+    min-height: 350px;
+}
+#description{
+    margin-top: -10px;
+    display: flex;
+    flex-flow: column;
+    max-width: 500px;
+    min-width: 400px;
+}
+#description h1{
+    color: coral;
+}
+#description p{
+    color: gray;
+    font-size: 20px;
+}
+.download-button {
+    margin-top: 20px;
+    background-color: coral;
+    border: none;
+    width: 200px;
+    color: white;
+    padding: 12px 30px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.download-button:hover {
+    background-color: darkorange;
+}
+
+#graph-container{
+    display: flex;
+    margin-top: 50px;
+    flex-flow: row;
+    justify-content: space-between;
+    border-width: 0.01em;
+    padding-top: 50px;
+    border-top: solid lightgray;
+}
+#graph-png{
+    border-style: solid;
+    border-color: lightgray;
+    border-width: 0.01em;
+    max-height: 350px;
+    max-width: 350px;
+    min-width: 350px;
+    min-height: 350px;
+}
+#graph-description{
+    margin-top: -10px;
+    display: flex;
+    flex-flow: column;
+    max-width: 500px;
+    min-width: 400px;
+}
+#graph-description h1{
+    color: coral;
+}
+#graph-description p{
+    color: gray;
+    font-size: 20px;
+}
+@media (max-width: 840px) {
+    #extension-gif{
+        display: none;
+    }
+    #description{
+        max-width: 600px;
+    }
+    #graph-description{
+        max-width: 600px;
+    }
+    #graph-png{
+        display: none;
+    }
+    #graph-container{
+        flex-flow: column;
+        justify-content: space-between;
+    }
+    #mid-content{
+        max-width: 600px;
+    }
+    #container{
+        flex-flow: column;
+        justify-content: space-between;
+    }
+}
+@media (max-width: 600px) {
+    #mid-content{
+        max-width: 400px;
+    }
+    #description{
+        max-width: 400px;
+    }
+    #graph-description{
+        max-width: 400px;
+    }
+    #description{
+        justify-content: space-evenly;
+    }
+}
+@media (max-width: 400px) {
+    #mid-content{
+        max-width: 300px;
+    }
+    #description{
+        max-width: 300px;
+    }
+    #graph-description{
+        max-width: 300px;
+    }
+    #description{
+        justify-content: space-evenly;
+    }
+}

@@ -11,7 +11,7 @@ function getProductsByCategoryLimited($category)
 {
     $query = "SELECT image, title, COALESCE(FLOOR(AVG(rating)), 0) AS rating, price, offers, p.link AS link FROM products p " .
         "JOIN categories c ON p.link = c.link LEFT JOIN rating r ON p.link = r.product WHERE category = :category " .
-        "GROUP BY image, title, price, offers,p.link ORDER BY RAND()"." LIMIT 4";
+        "GROUP BY image, title, price, offers,p.link ORDER BY RAND()" . " LIMIT 4";
     $statement = Database::getConnection()->prepare($query);
     $statement->execute(array("category" => $category));
     if ($statement->rowCount() == 0) {
@@ -21,7 +21,7 @@ function getProductsByCategoryLimited($category)
     while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
         $record = array
         (
-            "link"=> urlencode($row["link"]),
+            "link" => urlencode($row["link"]),
             "image" => urlencode($row["image"]),
             "title" => $row["title"],
             "rating" => $row["rating"],

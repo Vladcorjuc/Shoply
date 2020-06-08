@@ -1,17 +1,20 @@
-.container{
+.container {
     padding-top: 100px;
 }
-.products{
+
+.products {
     padding-top: 20px
 }
-#no-found-message{
+
+#no-found-message {
     padding-top: 200px;
     display: none;
     width: 100%;
     text-align: center;
     color: coral;
 }
-#found-message{
+
+#found-message {
     padding-top: 150px;
     display: none;
     width: 100%;

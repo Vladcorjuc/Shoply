@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from mysql.connector import pooling
 
 connection_pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="shoply_pool",
-                                                              pool_size=5,
+                                                              pool_size=3,
                                                               pool_reset_session=True,
                                                               host="remotemysql.com",
                                                               user="9RI3meN7i3",

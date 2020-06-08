@@ -1,46 +1,117 @@
-* {
-    background-color: wheat;
+body{
+    max-width: 300px;
+    max-height: 300px;
+}
+body::-webkit-scrollbar {
+    width: 0.2em;
 }
 
-.scrolling-wrapper {
-    white-space: nowrap;
-    height: 200px;
-    width: 100%;
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
 
-    overflow-x: scroll;
+body::-webkit-scrollbar-thumb {
+    background-color: coral;
+    outline: 1px solid coral;
+}
+#most-view-container{
+    min-width: 300px;
+    display: flex;
+    border-color: coral;
+    overflow-x: auto;
     overflow-y: hidden;
-
+    color: #5e5e5e;
+    height: 300px;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
 }
-
-.scrolling-wrapper::-webkit-scrollbar {
+#most-view-container::-webkit-scrollbar {
     display: none;
 }
-
-.scrolling-wrapper {
-    -ms-overflow-style: none;
+* {
+    font-family: "Open Sans", sans-serif;
 }
-
-body {
+.product {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+    padding: 5px;
+    border-radius: 5px;
+    background: white;
+    -webkit-box-shadow: 0 0 20px 5px rgba(255, 95, 35, 0.15);
+    box-shadow: 0 0 20px 5px rgba(255, 95, 35, 0.15);
+    min-width: 215px;
+    color: coral;
+    min-height: 270px;
+    max-height: 270px;
+    margin: 15px auto 15px 15px;
     overflow: hidden;
+    cursor: pointer;
 }
 
-#card1 {
-    display: inline-block;
-    background-color: coral;
-    width: 100%;
-    height: 100%;
+.product:hover {
+    box-shadow: 0 0 20px 5px rgba(255, 95, 35, 0.25);
+    transition: all 0.2s ease;
 }
 
-#card2 {
-    display: inline-block;
-    background-color: coral;
-    width: 100%;
-    height: 100%;
+.image {
+    display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+    min-height: 150px;
+    max-height: 150px;
+    max-width: 200px;
+}
+.rating{
+    font-size: 10px;
+}
+.title{
+    max-height: 50px;
+    color: rgb(50, 50, 50);
+    cursor: pointer;
+    text-overflow: ellipsis;
+}
+.title, .price, .offers,.rating {
+    text-align: center;
+}
+a {
+    text-decoration: none;
+}
+.offers{
+    font-size: 14px;
+    color: #005eb8;
+}
+.on:before, .off:before {
+    font-size: 1.5rem;
 }
 
-#card3 {
-    display: inline-block;
-    background-color: coral;
-    width: 100%;
-    height: 100%;
+.on {
+    color: orange;
+    font-size: 10px;
+}
+.off {
+    font-size: 10px;
+    color: #ddd;
+}
+#most-viewed{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+#left-arrow{
+    width: 20px;
+    height: 100px;
+    margin-right: 10px;
+    margin-top: 100px;
+    filter: invert(65%) sepia(44%) saturate(2335%) hue-rotate(323deg) brightness(100%) contrast(112%);
+}
+#right-arrow{
+    width: 20px;
+    height: 100px;
+    margin-left: 10px;
+    margin-top: 100px;
+    filter: invert(65%) sepia(44%) saturate(2335%) hue-rotate(323deg) brightness(100%) contrast(112%);
 }
