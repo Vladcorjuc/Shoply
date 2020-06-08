@@ -18,7 +18,7 @@ function register() {
         loginError.style.visibility = "hidden";
     }
     if (registerError !== null) {
-        registerError.style.visibility = "visible";
+        registerError.style.visibility = "hidden";
     }
 }
 
@@ -29,7 +29,7 @@ function login() {
     registerElement.style.left = "450px";
     buttonElement.style.left = "0";
     if (loginError !== null) {
-        loginError.style.visibility = "visible";
+        loginError.style.visibility = "hidden";
     }
     if (registerError !== null) {
         registerError.style.visibility = "hidden";
