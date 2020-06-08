@@ -120,5 +120,5 @@ function open_facebook_window( facebook_url ) {
         facebook_url, 'share-facebook','width=580,height=296'
     );
 }
-let url="../xml/rss.xml";
+let url="../php/models/rss.php";
 RSSModel.getRSSXML(url,RSSView.createRSSNewsFeed);
