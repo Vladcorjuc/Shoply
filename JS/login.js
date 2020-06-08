@@ -35,3 +35,12 @@ function login() {
         registerError.style.visibility = "hidden";
     }
 }
+
+
+let footer = document.getElementsByTagName("footer")[0];
+let footerLine = document.createElement("hr");
+footerLine.setAttribute("class", "footer-line");
+footer.appendChild(footerLine);
+let copyrightText = document.createElement("div");
+copyrightText.setAttribute("class", "copyright-text");
+footer.appendChild(copyrightText);

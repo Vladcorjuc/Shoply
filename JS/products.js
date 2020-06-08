@@ -143,8 +143,7 @@ function addProducts() {
             if (parseInt(productObject.price) < 20) {
                 let currency = document.createTextNode(" Lei");
                 productPrice.appendChild(currency);
-            }
-            else {
+            } else {
                 let currency = document.createTextNode(" de Lei");
                 productPrice.appendChild(currency);
             }
@@ -155,11 +154,9 @@ function addProducts() {
             let words = productObject.offers.split(" ");
             if (words[0] === "o" || parseInt(words[0]) < 1) {
                 productOffers.textContent = "(o oferta)";
-            }
-            else if (parseInt(words[0]) < 20) {
+            } else if (parseInt(words[0]) < 20) {
                 productOffers.textContent = "(" + words[0] + " oferte)";
-            }
-            else {
+            } else {
                 productOffers.textContent = "(" + words[0] + " de oferte)";
             }
             productElement.appendChild(productOffers);
@@ -167,17 +164,4 @@ function addProducts() {
             productsElement.appendChild(productElement);
         }
     }
-}
-
-function scrapePathName(link) {
-    let pathName = link.split(".ro/")[1].replace(/\//g, "-");
-    if (pathName[pathName.length - 1] === "-") {
-        pathName = pathName.slice(0, -1);
-    }
-    if (link.includes("compari.ro") && !link.includes("https://www.compari.ro")) {
-        let doubleSlash = "//";
-        return link.substring(link.indexOf(doubleSlash) + doubleSlash.length,
-            link.indexOf(".compari.ro")) + "_" + pathName;
-    }
-    return pathName;
 }

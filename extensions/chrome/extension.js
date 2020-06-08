@@ -294,6 +294,9 @@ class ExtensionView {
 
         let productImage = document.createElement("IMG");
         productImage.src = product["image"];
+        productImage.onerror = function () {
+            this.src = "broken.png";
+        };
         productImage.style.width = "60px";
         productImage.style.height = "70px";
         productImage.style.marginTop = "10px";
@@ -309,8 +312,7 @@ class ExtensionView {
         let priceElement = document.createElement("P");
 
 
-
-        priceElement.innerText = "de la " + ExtensionView.addPoint(product["price"])+" lei";
+        priceElement.innerText = "de la " + ExtensionView.addPoint(product["price"]) + " lei";
         priceElement.style.marginTop = "30px";
         priceElement.style.width = "80px";
         priceElement.style.color = "coral";
@@ -338,19 +340,21 @@ class ExtensionView {
 
         document.getElementById("content").appendChild(productDiv);
     }
+
     static addPoint(numberString) {
-        let number=numberString;
-        numberString=numberString.toString();
-        if(numberString.length>=4){
-            number= numberString.substr(0, numberString.length-3) + "." +
-                numberString.substr(numberString.length-3);
-                [numberString.slice(0,numberString.length-3), ".", numberString.slice(numberString.length-3)].join('');
+        let number = numberString;
+        numberString = numberString.toString();
+        if (numberString.length >= 4) {
+            number = numberString.substr(0, numberString.length - 3) + "." +
+                numberString.substr(numberString.length - 3);
+            [numberString.slice(0, numberString.length - 3), ".", numberString.slice(numberString.length - 3)].join('');
             console.log(number);
             return number;
         }
         return number;
 
     }
+
     static createProductPage() {
         let productDiv = document.createElement("DIV");
         let infoDiv = document.createElement("DIV");
@@ -365,6 +369,7 @@ class ExtensionView {
 
         let productImage = document.createElement("IMG");
         productImage.src = selectedProduct['image'];
+        productImage.alt = "Nicio imagine";
         productImage.style.marginLeft = "40px";
         productImage.style.marginTop = "10px";
 
@@ -401,6 +406,9 @@ class ExtensionView {
 
         let vendorLogo = document.createElement("IMG");
         vendorLogo.src = productVendor["logo"];
+        vendorLogo.onerror = function () {
+            this.src = "broken.png";
+        };
         vendorLogo.style.marginTop = "10px";
         vendorLogo.style.marginLeft = "10px";
         vendorLogo.style.width = "120px";
