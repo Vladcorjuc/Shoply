@@ -1,0 +1,67 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 10fr 1fr;
+    gap: 1rem;
+    min-height: calc(100vh - 130px - 20px);
+    margin-top: 160px;
+    color: #5e5e5e;
+}
+
+.container * {
+    display: grid;
+    grid-column-start: 2;
+}
+
+.top {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5%;
+    text-align: center;
+    box-shadow: 0 0 20px 9px rgba(180, 180, 180, 0.15);
+}
+
+.characteristics {
+    text-align: justify;
+    padding-top: 20px;
+}
+
+.characteristics li {
+    list-style: none;
+}
+
+b {
+    padding-left: 5px;
+}
+
+.information {
+    flex-direction: column;
+    max-width: 500px;
+    padding-top: 10px;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(50, 50, 50);
+}
+
+.price {
+    display: inline-flex;
+    justify-content: center;
+    padding-top: 10px;
+    font-weight: bold;
+    color: coral;
+}
+
+sup {
+    padding-right: 5px;
+}
+
+.offers {
+    padding-top: 5px;
+    font-size: 14px;
+    color: #005eb8;
+}
