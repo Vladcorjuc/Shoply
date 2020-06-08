@@ -46,13 +46,13 @@ function createProducts() {
 
 let forward = document.getElementById('right-arrow');
 forward.onclick = function () {
-    var container = document.getElementById('most-view-container');
+    var container = document.getElementById('most-views');
     sideScroll(container, 'right', 1, 960, 10);
 };
 
 var back = document.getElementById('left-arrow');
 back.onclick = function () {
-    var container = document.getElementById('most-view-container');
+    var container = document.getElementById('most-views');
     sideScroll(container, 'left', 1, 883, 10);
 };
 

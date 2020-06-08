@@ -61,9 +61,13 @@
 #product-suggest {
     min-width: 720px;
     display: flex;
-    overflow: hidden;
-}
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
 
+}
+#product-suggest::-webkit-scrollbar {
+    display: none;
+}
 #product-suggest-container {
     display: flex;
     align-items: center;
@@ -71,7 +75,6 @@
     justify-content: center;
     flex-wrap: nowrap;
 }
-
 .product {
     margin-left: 20px;
 }
