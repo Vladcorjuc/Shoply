@@ -1,11 +1,12 @@
 let parameters = new URLSearchParams(window.location.search);
 let searchQuery;
+removeMessages();
 if (parameters.has("search")) {
     searchQuery=parameters.get("search");
-} else {
+}
+else{
     createNoFoundMessage();
 }
-removeMessages();
 let searchRequest = new XMLHttpRequest();
 searchRequest.onreadystatechange = addProducts;
 
@@ -106,9 +107,6 @@ function addProducts() {
 
             productsElement.appendChild(productElement);
         }
-    }
-    else {
-        createNoFoundMessage();
     }
 }
 function createFoundMessage() {
