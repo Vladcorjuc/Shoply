@@ -174,6 +174,7 @@ class ExtensionView {
         vendorsDiv.style.marginLeft = "15%";
         let vendorsUl = document.createElement("UL");
         vendorsUl.style.overflow = "auto";
+        vendorsUl.className = "extension-vendors";
         vendorsUl.style.maxHeight = "100px";
         for (let key in productVendors) {
             if (productVendors.hasOwnProperty(key)) {
@@ -205,7 +206,7 @@ class ExtensionView {
     }
 
     static firstMenuOption() {
-        alternativesButton.style.backgroundColor = "peachpuff";
+        alternativesButton.style.backgroundColor = "white";
         priceButton.style.backgroundColor = "white";
         similarButton.style.backgroundColor = "white";
 
@@ -230,7 +231,7 @@ class ExtensionView {
 
     static secondMenuOption() {
         alternativesButton.style.backgroundColor = "white";
-        priceButton.style.backgroundColor = "peachpuff";
+        priceButton.style.backgroundColor = "white";
         similarButton.style.backgroundColor = "white";
 
         if (products === null) {
@@ -249,7 +250,7 @@ class ExtensionView {
     static thirdMenuOption() {
         alternativesButton.style.backgroundColor = "white";
         priceButton.style.backgroundColor = "white";
-        similarButton.style.backgroundColor = "peachpuff";
+        similarButton.style.backgroundColor = "white";
 
         if (products == null) {
             contentPanel.innerHTML = "";
@@ -289,8 +290,11 @@ class ExtensionView {
         productDiv.style.marginRight = "10px";
         productDiv.style.width = "96%";
         productDiv.style.height = "90px";
-        productDiv.style.border = "2px dashed";
+        productDiv.style.border = "2px solid";
         productDiv.style.borderColor = "#ffb441";
+        productDiv.style.borderRadius = "5px";
+        productDiv.style.paddingTop = "0px";
+        productDiv.style.paddingBottom = "5px";
 
         let productImage = document.createElement("IMG");
         productImage.src = product["image"];
@@ -302,16 +306,15 @@ class ExtensionView {
         productImage.style.marginTop = "10px";
         productImage.style.marginLeft = "10px";
 
-        let productTitle = document.createElement("H4");
-        productTitle.innerText = product["title"];
+        let productTitle = document.createElement("H5");
+        productTitle.innerText = product["title"].substring(0, 50);
+
         productTitle.style.marginTop = "30px";
         productTitle.style.marginLeft = "20px";
         productTitle.style.width = "140px";
         productTitle.style.color = "coral";
 
         let priceElement = document.createElement("P");
-
-
         priceElement.innerText = "de la " + ExtensionView.addPoint(product["price"]) + " lei";
         priceElement.style.marginTop = "30px";
         priceElement.style.width = "80px";
@@ -394,10 +397,10 @@ class ExtensionView {
         let vendorLi = document.createElement("LI");
         vendorLi.style.display = "flex";
         vendorLi.style.width = "85%";
-        vendorLi.style.border = "1px dashed";
+        vendorLi.style.border = "1px solid";
         vendorLi.style.borderColor = "#ffb441";
 
-        let vendorName = document.createElement("H4");
+        let vendorName = document.createElement("H5");
         vendorName.innerText = productVendor["name"];
         vendorName.style.marginTop = "10px";
         vendorName.style.marginLeft = "20px";

@@ -104,23 +104,26 @@ header {
     -ms-flex-pack: center;
     justify-content: center;
     width: 100%;
-    height: 25px;
-    padding: 0;
+    height: 30px;
+    padding-bottom: 10px;
     font-size: 15px;
     cursor: pointer;
 }
 
 .navigation-bar-links li {
     list-style: none;
+    height: 20px;
 }
 
 .navigation-bar-links li a {
-    padding: 1rem;
     color: coral;
     text-decoration: none;
+    padding: 5px;
+    margin: 10px;
+
 }
 
-.navigation-bar-links li:hover {
+.navigation-bar-links li a:hover {
     background-color: peachpuff;
 }
 
@@ -158,4 +161,22 @@ footer {
 .copyright-text {
     font-size: 14px;
     color: #5e5e5e;
+}
+
+#content::-webkit-scrollbar {
+    width: 8px;
+    background: rgb(230, 230, 230);
+}
+
+#content::-webkit-scrollbar-thumb {
+    background: rgb(210, 210, 210);
+}
+
+.extension-vendors::-webkit-scrollbar {
+    width: 8px;
+    background: rgb(230, 230, 230);
+}
+
+.extension-vendors::-webkit-scrollbar-thumb {
+    background: rgb(210, 210, 210);
 }
