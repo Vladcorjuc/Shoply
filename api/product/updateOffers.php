@@ -37,21 +37,17 @@ if ($user->username != "admin" || $user->password != "admin") {
 $database = new Database();
 $connection = $database->getConnection();
 $data = json_decode(file_get_contents("php://input"));
-if (empty($data->category) || empty($data->link) || empty($data->title) || empty($data->price) || empty($data->image)) {
+if (empty($data->link) || empty($data->logo) || empty($data->name) || empty($data->product) || empty($data->price)) {
     http_response_code(400);
-    print(json_encode(array("message" => "Nu ai furnizat categoria, link-ul, titlul, pretul sau imaginea.")));
+    print(json_encode(array("message" => "Nu ai furnizat link-ul, logo-ul, numele, produsul sau pretul.")));
 }
 $product = new Product($connection);
-$product->setCategory($data->category);
 $product->setLink($data->link);
-$product->setTitle($data->title);
-$product->setPrice($data->price);
-$product->setImage($data->image);
-if ($product->create()) {
-    http_response_code(201);
-    echo json_encode(array("message" => "Produsul a fost adaugat."));
-}
-else {
-    http_response_code(503);
-    echo json_encode(array("message" => "Eroare interna."));
+$vendor = array("logo" => $data->logo, "name" => $data->name, "link" => $data->link, "price" => $data->price);
+if ($product->updateOffers($vendor)) {
+    http_response_code(200);
+    echo json_encode(array("message" => "Ofertele au fost actualizate."));
+} else {
+    http_response_code(204);
+    echo json_encode(array("message" => "Nu exista produsul specificat."));
 }

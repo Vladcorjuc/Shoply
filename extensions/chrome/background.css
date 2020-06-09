@@ -82,6 +82,10 @@ body::-webkit-scrollbar-thumb {
     text-align: center;
 }
 
+.price {
+    color: coral;
+}
+
 a {
     text-decoration: none;
 }
