@@ -3,7 +3,7 @@ session_start();
 require_once "controllers/login_controller.php";
 
 if (isset($_SESSION["username"])) {
-    header("Location: ../html/account_page.html");
+    header("Location: ../html/account.html");
 } else {
     if (isset($_POST["action"])) {
         $action = $_POST["action"];
