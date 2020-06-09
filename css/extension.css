@@ -34,6 +34,7 @@
 #description p {
     color: gray;
     font-size: 20px;
+    text-align: justify;
 }
 
 .download-button {
@@ -88,7 +89,7 @@
     font-size: 20px;
 }
 
-@media (max-width: 840px) {
+@media (max-width: 950px) {
     #extension-gif {
         display: none;
     }
