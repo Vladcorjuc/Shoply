@@ -206,9 +206,13 @@ class ExtensionView {
     }
 
     static firstMenuOption() {
-        alternativesButton.style.backgroundColor = "peachpuff";
+        alternativesButton.style.backgroundColor = "white";
         priceButton.style.backgroundColor = "white";
         similarButton.style.backgroundColor = "white";
+
+        alternativesButton.addEventListener("click", () => {
+            alternativesButton.style.backgroundColor = "peachpuff";
+        });
 
         if (products === null) {
             contentPanel.innerHTML = "";
@@ -231,8 +235,12 @@ class ExtensionView {
 
     static secondMenuOption() {
         alternativesButton.style.backgroundColor = "white";
-        priceButton.style.backgroundColor = "peachpuff";
+        priceButton.style.backgroundColor = "white";
         similarButton.style.backgroundColor = "white";
+
+        priceButton.addEventListener("click", () => {
+            priceButton.style.backgroundColor = "peachpuff";
+        });
 
         if (products === null) {
             contentPanel.innerHTML = "";
@@ -250,7 +258,11 @@ class ExtensionView {
     static thirdMenuOption() {
         alternativesButton.style.backgroundColor = "white";
         priceButton.style.backgroundColor = "white";
-        similarButton.style.backgroundColor = "peachpuff";
+        similarButton.style.backgroundColor = "white";
+
+        similarButton.addEventListener("click", () => {
+            similarButton.style.backgroundColor = "peachpuff";
+        });
 
         if (products == null) {
             contentPanel.innerHTML = "";
