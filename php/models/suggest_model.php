@@ -167,12 +167,18 @@ function cosineSimilarity($A, $B, $userA, $userB)
     $productB = getProducts($userB);
 
     foreach ($productA as $user) {
+        if(!array_key_exists($user,$A) || !array_key_exists($user,$B)){
+            continue;
+        }
         if (array_search($user, $productB)) {
             $dot += $A[$user] * $B[$user];
         }
         $denomA += $A[$user] * $A[$user];
     }
     foreach ($productB as $user) {
+        if(!array_key_exists($user,$B)){
+            continue;
+        }
         $denomB += $B[$user] * $B[$user];
     }
 
