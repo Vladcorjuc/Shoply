@@ -39,6 +39,7 @@
     display: flex;
     justify-content: space-between;
     margin-top: 3px;
+    margin-bottom: 10px;
     color: coral;
     border-radius: 3px;
     -webkit-box-shadow: 0 0 3px 3px rgba(255, 95, 35, 0.15);
@@ -118,8 +119,10 @@
     width: 20px;
     height: 100px;
     margin-top: 100px;
+    margin-left: 10px;
     margin-right: 10px;
     filter: invert(65%) sepia(44%) saturate(2335%) hue-rotate(323deg) brightness(100%) contrast(112%);
+    cursor: pointer;
 }
 
 #right-arrow {
@@ -127,7 +130,13 @@
     height: 100px;
     margin-top: 100px;
     margin-left: 20px;
+    margin-right: 10px;
     filter: invert(65%) sepia(44%) saturate(2335%) hue-rotate(323deg) brightness(100%) contrast(112%);
+    cursor: pointer;
+}
+
+#left-arrow, #right-arrow:hover {
+    opacity: 0.75;
 }
 
 #popular-heading {
