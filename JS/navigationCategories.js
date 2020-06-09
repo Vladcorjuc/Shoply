@@ -131,6 +131,6 @@ function createProducts() {
 function makeRequest() {
     categoryRequest = new XMLHttpRequest();
     categoryRequest.onreadystatechange = createProducts;
-    categoryRequest.open("GET", "../php/controllers/home-products-controller.php?category=".concat(currentCategory), true);
+    categoryRequest.open("GET", "../php/controllers/home_products_controller.php?category=".concat(currentCategory), true);
     categoryRequest.send();
 }

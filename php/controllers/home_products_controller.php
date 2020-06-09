@@ -5,7 +5,7 @@ header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-require_once __DIR__ . "/../models/home-products-model.php";
+require_once __DIR__ . "/../models/home_products_model.php";
 
 if (isset($_GET["category"])) {
     $category = $_GET["category"];

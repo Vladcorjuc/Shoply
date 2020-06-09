@@ -151,53 +151,80 @@ class Product
         $this->views = $views;
     }
 
-    public function readAll()
+    public function create()
     {
-        $statement = "SELECT * FROM products p JOIN categories c on p.link = c.link ORDER BY p.id";
-        $query = $this->connection->prepare($statement);
-        $query->execute();
-        return $query;
+        $query = "INSERT INTO products (link, title, price, image) VALUES (:link, :title, :price, :image)";
+        $statement = $this->connection->prepare($query);
+        if (!$statement->execute(array("link" => $this->link, "title" => $this->title, "price" => $this->price,
+            "image" => $this->image))) {
+            return false;
+        }
+        $query = "INSERT INTO product_log (link, price) VALUES (:link, :price)";
+        $statement = $this->connection->prepare($query);
+        if (!$statement->execute(array("link" => $this->link, "price" => $this->price))) {
+            return false;
+        }
+        $query = "INSERT INTO categories (link, category) VALUES (:link, :category)";
+        $statement = $this->connection->prepare($query);
+        return $statement->execute(array("link" => $this->link, "category" => $this->category));
     }
 
-    public function readById()
+    public function readAll()
     {
-        $statement = "SELECT * FROM products p JOIN categories c on p.link = c.link WHERE p.id = :id";
-        $query = $this->connection->prepare($statement);
-        $query->execute(array("id" => $this->id));
-        return $query;
+        $query = "SELECT * FROM products p JOIN categories c on p.link = c.link ORDER BY p.id";
+        $statement = $this->connection->prepare($query);
+        $statement->execute();
+        return $statement;
+    }
+
+    public function readByLink()
+    {
+        $query = "SELECT * FROM products p JOIN categories c on p.link = c.link WHERE p.link = :link";
+        $statement = $this->connection->prepare($query);
+        $statement->execute(array("link" => $this->link));
+        return $statement;
     }
 
     public function readByCategory()
     {
-        $statement = "SELECT * FROM products p JOIN categories c on p.link = c.link WHERE category = :category ORDER BY p.id";
-        $query = $this->connection->prepare($statement);
-        $query->execute(array("category" => $this->category));
-        return $query;
-    }
-
-    public function create()
-    {
-        $statement = "INSERT INTO products SET link = :link, title = :title, price = :price";
-        $query = $this->connection->prepare($statement);
-        return $query->execute(array("link" => $this->link, "title" => $this->title, "price" => $this->price));
+        $query = "SELECT * FROM products p JOIN categories c on p.link = c.link WHERE category = :category ORDER BY p.id";
+        $statement = $this->connection->prepare($query);
+        $statement->execute(array("category" => $this->category));
+        return $statement;
     }
 
     public function updatePrice()
     {
-        $statement = "UPDATE products SET price = :price WHERE id = :id";
-        $query = $this->connection->prepare($statement);
-        if ($query->execute(array("price" => $this->price, "id" => $this->id))) {
-            $statement = "INSERT INTO product_log (link, price) VALUES (:link, :price)";
-            $query = $this->connection->prepare($statement);
-            return $query->execute(array("link" => $this->link, "price" => $this->price));
+        $query = "UPDATE products SET price = :price WHERE link = :link";
+        $statement = $this->connection->prepare($query);
+        if (!$statement->execute(array("price" => $this->price, "link" => $this->link))) {
+            return false;
         }
-        return false;
+        $query = "INSERT INTO product_log (link, price) VALUES (:link, :price)";
+        $statement = $this->connection->prepare($query);
+        return $statement->execute(array("link" => $this->link, "price" => $this->price));
     }
 
-    public function deleteById()
+    public function updateOffers($vendor)
     {
-        $statement = "DELETE FROM products WHERE id = :id";
+        $query = "SELECT vendors FROM products WHERE link = :link";
+        $statement = $this->connection->prepare($query);
+        $statement->execute(array("link" => $this->link));
+        $vendorsNumber = $statement->rowCount();
+        if ($vendorsNumber == 0) {
+            return false;
+        }
+        $vendors = json_decode($statement["vendors"]);
+        array_push($vendors, $vendor);
+        $query = "UPDATE products SET vendors = :vendors WHERE link = :link";
+        $statement = $this->connection->prepare($query);
+        return $statement->execute(array("vendors" => $vendors, "link" => $this->link));
+    }
+
+    public function deleteByLink()
+    {
+        $statement = "DELETE FROM products WHERE link = :link";
         $query = $this->connection->prepare($statement);
-        return $query->execute(array("id" => $this->id));
+        return $query->execute(array("link" => $this->link));
     }
 }
