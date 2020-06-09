@@ -1,6 +1,7 @@
 * {
     font-family: "Open Sans", sans-serif;
 }
+
 #homepage {
     width: 1200px;
     border-color: coral;
@@ -9,15 +10,18 @@
     text-align: left;
     margin: 0 auto 50px;
 }
+
 #mid-content {
     max-width: 960px;
     text-align: left;
     margin: 0 auto 50px;
     padding-top: 150px;
 }
-#categories-frame{
+
+#categories-frame {
     display: flex;
 }
+
 #categories {
     display: flex;
     width: 100%;
@@ -48,6 +52,7 @@
     flex-direction: row;
     justify-content: space-evenly;
 }
+
 #end-part-title {
     display: flex;
     flex-direction: row;
@@ -61,29 +66,35 @@
     box-shadow: 0 0 5px 5px rgba(255, 95, 35, 0.15);
     */
 }
+
 #end-part-elements {
     display: flex;
     width: 65%;
     flex-direction: column;
 }
+
 #ad-image {
     height: 320px;
     width: 300px;
 }
+
 #most-viewed {
     display: flex;
     flex-flow: row;
     justify-content: space-between;
 }
+
 #most-views {
     min-width: 720px;
     display: flex;
     overflow-x: scroll;
     -webkit-overflow-scrolling: touch;
 }
+
 #most-views::-webkit-scrollbar {
-         display: none;
+    display: none;
 }
+
 #most-view-container {
     display: flex;
     align-items: center;
@@ -92,13 +103,16 @@
     flex-wrap: nowrap;
     -webkit-overflow-scrolling: touch;
 }
+
 #most-view-container .product {
     min-height: 300px;
     max-height: 300px;
 }
+
 .product {
     margin-left: 20px;
 }
+
 #left-arrow {
     width: 20px;
     height: 100px;
@@ -106,6 +120,7 @@
     margin-right: 10px;
     filter: invert(65%) sepia(44%) saturate(2335%) hue-rotate(323deg) brightness(100%) contrast(112%);
 }
+
 #right-arrow {
     width: 20px;
     height: 100px;
@@ -187,18 +202,19 @@
     justify-content: center;
 
 }
+
 #category-panel .product {
     margin-top: 10px;
 }
 
 @media (max-width: 1000px) {
-    #most-views{
+    #most-views {
         min-width: 700px;
     }
 }
 
 @media (max-width: 900px) {
-    #most-views{
+    #most-views {
         min-width: 700px;
     }
 }
@@ -207,13 +223,14 @@
     #ad-image {
         display: none;
     }
-    #most-views{
+
+    #most-views {
         min-width: 400px;
     }
 }
 
 @media (max-width: 570px) {
-    #most-views{
+    #most-views {
         min-width: 400px;
     }
 }
@@ -222,24 +239,31 @@
     #ad-image {
         display: none;
     }
-    #most-views{
+
+    #most-views {
         min-width: 300px;
     }
-    #third-category{
+
+    #third-category {
         display: none;
     }
+
     #newsDiv p {
         display: none;
     }
-    #first-category{
+
+    #first-category {
         width: 30%;
     }
-    #second-category{
+
+    #second-category {
         width: 30%;
     }
-    #fourth-category{
+
+    #fourth-category {
         width: 30%;
     }
+
     #left-arrow {
         display: none;
     }

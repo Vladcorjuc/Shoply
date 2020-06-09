@@ -111,7 +111,7 @@ searchButtonSmallIcon.addEventListener("click", () => {
     searchBox.classList.toggle("active");
 });
 
-copyrightText.innerHTML = "&copy; Copyright " + new Date().getFullYear() + " shoply.com";
+copyrightText.innerHTML = "&copy; Copyright " + new Date().getFullYear() + " shoply.herokuapp.com";
 
 function scrapePathName(link) {
     let pathName = link.split(".ro/")[1].replace(/\//g, "-");
@@ -150,5 +150,4 @@ function addPoint(numberString) {
         return number;
     }
     return number;
-
 }

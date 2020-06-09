@@ -31,7 +31,7 @@ function createProducts(products) {
 
         let productPrice = document.createElement("div");
         productPrice.setAttribute("class", "price");
-        productPrice.textContent = "De la " + addPoint(productObject.price) + " Lei";
+        productPrice.textContent = "de la " + addPoint(productObject.price) + " Lei";
         productElement.appendChild(productPrice);
 
         container.appendChild(productElement);
