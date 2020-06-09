@@ -1,9 +1,8 @@
-.container {
-    padding-top: 100px;
-}
-
 .products {
     padding-top: 20px
+}
+.container{
+    margin-top: 40px;
 }
 
 #no-found-message {
