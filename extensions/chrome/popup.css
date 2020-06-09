@@ -123,8 +123,8 @@ header {
 
 }
 
-.navigation-bar-links li a:hover {
-    background-color: peachpuff;
+#alternatives-button:hover, #price-button:hover, #similar-products-button:hover {
+    background: peachpuff;
 }
 
 #content {
