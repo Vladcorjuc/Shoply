@@ -15,7 +15,7 @@ if (isset($_GET["suggest"])) {
         echo json_encode($products);
     } else {
         http_response_code(404);
-        echo "";
+        echo json_encode("Nu avem suficiente informatii.");
     }
 
 }

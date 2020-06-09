@@ -13,6 +13,7 @@ suggestRequest.send();
 function createSlider() {
     if (this.readyState === suggestRequest.DONE && this.status === 200) {
         let container = document.getElementById("product-suggest-container");
+        console.log(this.responseText);
         let productObjects = JSON.parse(this.responseText);
         if (productObjects.length > 0) {
             document.getElementById("suggestion").style.display = "block";
