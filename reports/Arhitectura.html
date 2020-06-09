@@ -7,58 +7,74 @@
 <body>
 <h1>Shoply (arhitectura aplicatiei)</h1>
 <h3>Structurat pe modelul arhitectural MVC-SITE</h3>
-<p>Aplicatia web este construita pe modelul MVC: pentru fiecare pagina vom avea 3 componente MODEL,VIEW,unul sau mai
-    multe CONTROLLER-ere.</p>
-<p>View-ul este reprezentat de o un script javascript, acesta va face un request catre controller(php), prin ruta
+<p>Aplicatia web este construita pe modelul MVC: pentru fiecare pagina vom avea trei componente Model, View si unul sau
+    mai
+    multe componente Controller.</p>
+<p>View-ul este reprezentat de o un script JavaScript, acesta va face un request catre controller-ul scris in PHP, prin
+    ruta
     acestuia.</p>
-<p>Controllerul va utiliza functiile din fisierul php Model atasat acestuia(fiecare Model utilizeaza baza de date sau
+<p>Controllerul va utiliza functiile din modelul scris tot in PHP atasat acestuia (fiecare model utilizeaza baza de date
+    sau
     alte resurse ale site-ului).</p>
-<br>
-<h3>Structura Extensie</h3>
+<h3>Structura extensiei</h3>
 <p>Extensia prezinta o structura MVC simplificata, view-ul (si cel al extensiei in sine si cel al scriptului care
     ruleaza in background) va face un request controller-ului.</p>
-<p>In acest caz controllerul il reprezinta o aplicatie python Flask care realizeaza scraping pe cautarile de pe Compari,
-    evitand baza de date devine mai usoara din punct de vedere al codului.</p>
-<h3>Servicii Utilitare</h3>
-<p>Cum am precizat anterior aplicatia foloseste un server flask, ce contine rutele <strong>"/search , /vendors,
+<p>In acest caz, controllerul il reprezinta o aplicatie Python Flask care realizeaza scraping pe cautarile de pe
+    compari.ro,
+    astfel ca evitand baza de date devine mai usoara din punct de vedere al codului.</p>
+<h3>Servicii utilitare</h3>
+<p>Cum am precizat anterior aplicatia foloseste un server Flask, ce contine rutele <strong>"/search , /vendors,
     /data"</strong></p>
-<p>Prima va genera un json a cautarii realizate pe Compari, prin "/vendors" obtinem diversele magazine si preturi iar
+<p>Prima va genera un JSON a cautarii realizate pe compari.ro, prin "/vendors" obtinem diversele magazine si preturi,
+    iar
     ultima este pentru a prelua datele necesare crearii graficului.</p>
 <h3>API</h3>
 <ul>
-    <h4>functionalitati disponibile:</h4>
-    <li><strong>GET /api/api.php?search=#STRING</strong> - necesita un string de cautat si va rapsunde cu raspunsul
-        serverului flask.
+    <h4>Functionalitati disponibile</h4>
+    <li><strong>GET /api/api.php?search=#STRING</strong> - necesita un string de cautat si va raspunde cu raspunsul
+        serverului Flask
     </li>
-    <li><strong>GET /api/api.php?category=#STRING</strong> - va intoarce un json cu produsele care fac parte din
-        categoria precizata.
+    <li><strong>GET /api/api.php?category=#STRING</strong> - va intoarce un JSON cu produsele care fac parte din
+        categoria precizata
     </li>
     <li><strong>GET /api/api.php?price_fluct=#LINK</strong> - va intoarce istoricul preturilor al unui produs prin
-        link-ul acestuia.
+        link-ul acestuia
     </li>
-    <li><strong>POST /api/authenticate.php {"username"=#STRING,"password"=#STRING}</strong> -va genera un JWT valid daca
-        userul se poate autentifica.
+    <li><strong>POST /api/authenticate.php {"username"=#STRING,"password"=#STRING}</strong> - va genera un JWT valid
+        daca
+        userul se poate autentifica
     </li>
     <li><strong>GET /api/stars.php?star_link=#LINK</strong> - va intoarce media recenzilor asupra produsului specificat
         de #LINK
     </li>
-    <li><strong>GET /api/rate.php {"jwt"=#JWT,"product":#LINK,"stars":#INT(1-5)}</strong> - Va adauga rating-ul unui
-        produs unui utilizator care a folosit authenticate.
+    <li><strong>GET /api/rate.php {"jwt"=#JWT,"product"=#LINK,"stars"=#INT(1-5)}</strong> - va adauga rating-ul unui
+        produs unui utilizator care a accesat authenticate
     </li>
-    <li><strong>GET /api/suggest_product.php {"jwt"=#JWT}</strong> - Va intoarce un json continand sugestiile de
-        produs(bazate pe un algoritm K-nearest-neighbors) daca JWT-ul este valid.
+    <li><strong>GET /api/suggest_product.php {"jwt"=#JWT}</strong> - va intoarce un JSON continand sugestiile de
+        produs (bazate pe un algoritm K-nearest-neighbors), daca JWT-ul este valid
     </li>
-    <li><strong>GET /api/top_viewed.php {"number":#INT}</strong> -Va intoarce cele mai populare produse limitand numarul
-        acestora la cell precizat.
+    <li><strong>GET /api/top_viewed.php {"number"=#INT}</strong> - va intoarce cele mai populare produse limitand
+        numarul
+        acestora la cell precizat
     </li>
-    <li><strong>/api/product/</strong></li>
+    <li><strong>/api/product/create</strong> - creeaza un produs (request POST cu categorie, link, titlu, pret si
+        imagine)
+    </li>
+    <li><strong>/api/product/readAll</strong> - furnizeaza toate produsele (request GET)</li>
+    <li><strong>/api/product/readByLink</strong> - furnizeaza un produs dupa link (request GET cu link)</li>
+    <li><strong>/api/product/readByCategory</strong> - furnizeaza produse dupa categorie (request GET cu categorie)</li>
+    <li><strong>/api/product/updatePrice</strong> - actualizeaza pretul unui produs (request PUT cu link si pret)</li>
+    <li><strong>/api/product/updateOffers</strong> - adauga o oferta noua (request PUT cu link, logo firma, nume firma,
+        link catre oferta si pret)
+    </li>
+    <li><strong>/api/product/deleteByLink</strong> - sterge un produs dupa link (request DELETE cu link)</li>
 </ul>
 <h3>Alte rute disponibile</h3>
 <h4>Controllers</h4>
 <ul>
     <li><strong>/php/controllers/get_history_controller.php</strong></li>
     <li><strong>/php/controllers/history_controller.php</strong></li>
-    <li><strong>/php/controllers/home-products-controller.php</strong></li>
+    <li><strong>/php/controllers/home_products_controller.php</strong></li>
     <li><strong>/php/controllers/login_controller.php</strong></li>
     <li><strong>/php/controllers/logout_controller.php</strong></li>
     <li><strong>/php/controllers/most_views_controller.php</strong></li>
@@ -67,13 +83,12 @@
     <li><strong>/php/controllers/rating_controller.php</strong></li>
     <li><strong>/php/controllers/search_controller.php</strong></li>
     <li><strong>/php/controllers/suggestion_controller.php</strong></li>
-
 </ul>
 <h4>Models</h4>
 <ul>
     <li><strong>/php/models/history_model.php</strong></li>
     <li><strong>/php/models/history_model.php</strong></li>
-    <li><strong>/php/models/home-products-model.php</strong></li>
+    <li><strong>/php/models/home_products_model.php</strong></li>
     <li><strong>/php/models/login_model.php</strong></li>
     <li><strong>/php/models/most_views_model.php</strong></li>
     <li><strong>/php/models/product_model.php</strong></li>
