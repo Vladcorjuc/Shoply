@@ -27,18 +27,22 @@ chartRequest.open("GET", "../php/controllers/product_controller.php?name=" + nam
     "&chart=true", true);
 chartRequest.send();
 
-let shareButton=document.getElementById("fb-share-button").addEventListener("click",function () {
-    let facebook_url = "https://www.facebook.com/sharer/sharer.php?u=" +"https://shoply-web.herokuapp.com/html/product.html?name="+name+ "&hashtag=%23comit&title=" + name;
-    open_facebook_window(facebook_url);
+let shareButton = document.getElementById("fb-share-button").addEventListener("click", function () {
+    let facebookUrl = "https://www.facebook.com/sharer/sharer.php?u=" + "https://shoply-web.herokuapp.com/html/product.html?name=" + name + "&hashtag=%23comit&title=" + name;
+    openFacebookWindow(facebookUrl);
 });
-function open_facebook_window(facebook_url) {
+
+function openFacebookWindow(facebook_url) {
     window.open(
-        facebook_url, 'share-facebook', 'width=580,height=296'
+        facebook_url, "share-facebook", "width = 580, height = 296"
     );
 }
+
 function addProductInformation() {
     if (this.readyState === generalInformationRequest.DONE && this.status === 200) {
         let productInformation = JSON.parse(this.responseText);
+        let link = document.getElementsByClassName("link")[0];
+        link.setAttribute("href", decodeURIComponent(productInformation.link));
         let image = document.getElementsByClassName("image")[0];
         image.setAttribute("src", decodeURIComponent(productInformation.image));
 

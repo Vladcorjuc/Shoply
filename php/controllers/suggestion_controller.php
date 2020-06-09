@@ -8,8 +8,8 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 require_once __DIR__ . "/../models/suggest_model.php";
 if (isset($_GET["suggest"])) {
     session_start();
-    $name=isset($_SESSION["username"])?$_SESSION["username"]:"";
-    $products =getSuggestedProducts($name);
+    $name = $_SESSION["username"];
+    $products = getSuggestedProducts($name);
     if ($products != null) {
         http_response_code(200);
         echo json_encode($products);

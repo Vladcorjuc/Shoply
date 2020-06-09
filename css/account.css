@@ -126,9 +126,11 @@
     display: flex;
     flex-flow: column;
 }
-#history .product{
+
+#history .product {
     margin-top: 20px;
 }
+
 #history-part h2 {
     margin-left: 50px;
     margin-bottom: 10px;

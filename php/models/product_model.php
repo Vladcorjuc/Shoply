@@ -7,9 +7,9 @@ function getProductInformation($name)
         $name = explode("_", $name)[1];
     }
     $name = str_replace("-", "", $name);
-    $query = "SELECT title, characteristics, description, price, image, COALESCE(FLOOR(AVG(rating)), 0) AS rating, " .
+    $query = "SELECT link, title, characteristics, description, price, image, COALESCE(FLOOR(AVG(rating)), 0) AS rating, " .
         "COUNT(rating) AS ratings, offers, views FROM products p LEFT JOIN rating r ON p.link = r.product " .
-        "WHERE REPLACE(REPLACE(link, '/', ''), '-', '') LIKE CONCAT('%', :name, '%') GROUP BY title, characteristics, " .
+        "WHERE REPLACE(REPLACE(link, '/', ''), '-', '') LIKE CONCAT('%', :name, '%') GROUP BY link, title, characteristics, " .
         "description, price, image, offers, views";
     $statement = Database::getConnection()->prepare($query);
     $statement->execute(array("name" => $name));
@@ -19,6 +19,7 @@ function getProductInformation($name)
     $row = $statement->fetch(PDO::FETCH_ASSOC);
     return array
     (
+        "link" => urlencode($row["link"]),
         "title" => $row["title"],
         "characteristics" => str_replace("<b> ", "<b>", trim($row["characteristics"])),
         "description" => str_replace("\n ", "\n\t", preg_replace("/ +/", " ",

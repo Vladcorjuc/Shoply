@@ -208,7 +208,7 @@
     cursor: pointer;
 }
 
-#first-category:hover, #second-category:hover, #third-category:hover, #fourth-category:hover{
+#first-category:hover, #second-category:hover, #third-category:hover, #fourth-category:hover {
     background-color: peachpuff;
     border-color: peachpuff;
 }
