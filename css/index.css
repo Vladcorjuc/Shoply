@@ -139,6 +139,7 @@
     width: 15%;
     padding: 10px;
     margin: 5px;
+    cursor: pointer;
 }
 
 #second-category {
@@ -152,6 +153,7 @@
     width: 15%;
     padding: 10px;
     margin: 5px;
+    cursor: pointer;
 }
 
 #third-category {
@@ -165,6 +167,7 @@
     width: 15%;
     padding: 10px;
     margin: 5px;
+    cursor: pointer;
 }
 
 #fourth-category {
@@ -178,6 +181,12 @@
     width: 15%;
     padding: 10px;
     margin: 5px;
+    cursor: pointer;
+}
+
+#first-category:hover, #second-category:hover, #third-category:hover, #fourth-category:hover{
+    background-color: peachpuff;
+    border-color: peachpuff;
 }
 
 .selected-cat {
