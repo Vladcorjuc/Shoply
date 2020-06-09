@@ -175,6 +175,7 @@ class ExtensionView {
         let vendorsUl = document.createElement("UL");
         vendorsUl.style.overflow = "auto";
         vendorsUl.style.maxHeight = "100px";
+        vendorsUl.className
         for (let key in productVendors) {
             if (productVendors.hasOwnProperty(key)) {
                 let vendorLi = ExtensionView.createVendorDiv(productVendors[key]);

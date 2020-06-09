@@ -11,6 +11,7 @@
     grid-column-start: 2;
     border-radius: 8px;
 }
+
 .general-information-text, .description-text, .chart-text, .vendors-text {
     height: 40px;
     padding: 10px;
@@ -70,10 +71,6 @@ b {
     position: absolute;
     left: -1000px;
 }
-#fb-share-button{
-    width: 30px;
-    height: 30px;
-}
 
 .rating-input:checked ~ .rating-label .star {
     color: #ddd;
@@ -113,6 +110,12 @@ sup {
     padding-top: 5px;
     font-size: 14px;
     color: #005eb8;
+    cursor: pointer;
+}
+
+#fb-share-button {
+    width: 30px;
+    height: 30px;
     cursor: pointer;
 }
 
