@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shoply</title>
+</head>
+<body>
+<h1>Shoply (arhitectura aplicatiei)</h1>
+<h3>Structurat pe modelul arhitectural MVC-SITE</h3>
+<p>Aplicatia web este construita pe modelul MVC: pentru fiecare pagina vom avea 3 componente MODEL,VIEW,unul sau mai multe CONTROLLER-ere.</p>
+<p>View-ul este reprezentat de o un script javascript, acesta va face un request catre controller(php), prin ruta acestuia.</p>
+<p>Controllerul va utiliza functiile din fisierul php Model atasat acestuia(fiecare Model utilizeaza baza de date sau alte resurse ale site-ului).</p>
+<br>
+<h3>Structura Extensie</h3>
+<p>Extensia prezinta o structura MVC simplificata, view-ul (si cel al extensiei in sine si cel al scriptului care ruleaza in background) va face un request controller-ului.</p>
+<p>In acest caz controllerul il reprezinta o aplicatie python Flask care realizeaza scraping pe cautarile de pe Compari, evitand baza de date devine mai usoara din punct de vedere al codului.</p>
+<h3>Servicii Utilitare</h3>
+<p>Cum am precizat anterior aplicatia foloseste un server flask, ce contine rutele <strong>"/search , /vendors, /data"</strong></p>
+<p>Prima va genera un json a cautarii realizate pe Compari, prin "/vendors" obtinem diversele magazine si preturi iar ultima este pentru a prelua datele necesare crearii graficului.</p>
+<h3>API</h3>
+<ul>
+    <h4>functionalitati disponibile:</h4>
+    <li><strong>GET /api/api.php?search=#STRING</strong> - necesita un string de cautat si va rapsunde cu raspunsul serverului flask.</li>
+    <li><strong>GET /api/api.php?category=#STRING</strong> - va intoarce un json cu produsele care fac parte din categoria precizata.</li>
+    <li><strong>GET /api/api.php?price_fluct=#LINK</strong> - va intoarce istoricul preturilor al unui produs prin link-ul acestuia. </li>
+    <li><strong>POST /api/authenticate.php  {"username"=#STRING,"password"=#STRING}</strong> -va genera un JWT valid daca userul se poate autentifica.</li>
+    <li><strong>GET /api/stars.php?star_link=#LINK</strong> - va intoarce media recenzilor asupra produsului specificat de #LINK </li>
+    <li><strong>GET /api/rate.php {"jwt"=#JWT,"product":#LINK,"stars":#INT(1-5)}</strong> - Va adauga rating-ul unui produs unui utilizator care a folosit authenticate.</li>
+    <li><strong>GET /api/suggest_product.php {"jwt"=#JWT}</strong> - Va intoarce un json continand sugestiile de produs(bazate pe un algoritm K-nearest-neighbors) daca JWT-ul este valid.</li>
+    <li><strong>GET /api/top_viewed.php {"number":#INT}</strong> -Va intoarce cele mai populare produse limitand numarul acestora la cell precizat.</li>
+    <li><strong>/api/product/</strong></li>
+</ul>
+<h3>Alte rute disponibile</h3>
+<h4>Controllers</h4>
+<ul>
+    <li><strong>/php/controllers/get_history_controller.php</strong></li>
+    <li><strong>/php/controllers/history_controller.php</strong></li>
+    <li><strong>/php/controllers/home-products-controller.php</strong></li>
+    <li><strong>/php/controllers/login_controller.php</strong></li>
+    <li><strong>/php/controllers/logout_controller.php</strong></li>
+    <li><strong>/php/controllers/most_views_controller.php</strong></li>
+    <li><strong>/php/controllers/product_controller.php</strong></li>
+    <li><strong>/php/controllers/products_controller.php</strong></li>
+    <li><strong>/php/controllers/rating_controller.php</strong></li>
+    <li><strong>/php/controllers/search_controller.php</strong></li>
+    <li><strong>/php/controllers/suggestion_controller.php</strong></li>
+
+</ul>
+<h4>Models</h4>
+<ul>
+    <li><strong>/php/models/history_model.php</strong></li>
+    <li><strong>/php/models/history_model.php</strong></li>
+    <li><strong>/php/models/home-products-model.php</strong></li>
+    <li><strong>/php/models/login_model.php</strong></li>
+    <li><strong>/php/models/most_views_model.php</strong></li>
+    <li><strong>/php/models/product_model.php</strong></li>
+    <li><strong>/php/models/products_model.php</strong></li>
+    <li><strong>/php/models/rating_model.php</strong></li>
+    <li><strong>/php/models/search_model.php</strong></li>
+    <li><strong>/php/models/suggest_model.php</strong></li>
+</ul>
+</body>
+</html>
