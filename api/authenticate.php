@@ -13,7 +13,7 @@ header("Content-Type:application/json");
 $data = json_decode(file_get_contents("php://input"));
 
 if (!empty($data->username) && !empty($data->password)) {
-    $query = "SELECT username,password from users where username=:username";
+    $query = "SELECT username, password from users where username = :username";
     $statement = Database::getConnection()->prepare($query);
     $statement->execute(array("username" => $data->username));
     $row = $statement->fetch(PDO::FETCH_ASSOC);

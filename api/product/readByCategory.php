@@ -32,7 +32,7 @@ try {
     echo json_encode(array("message" => $exception->getMessage()));
     exit();
 }
-if ($user->username != "admin" || $user->password != "admin") {
+if ($user->username != "admin") {
     http_response_code(401);
     print(json_encode(array("message" => "Nu ai drepturi de administrator.")));
     exit();
