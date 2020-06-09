@@ -212,7 +212,7 @@ class ExtensionView {
         similarButton.style.backgroundColor = "white";
 
         alternativesButton.addEventListener("click", () => {
-            alternativesButton.style.backgroundColor = "peachpuff";
+            alternativesButton.style.background = "peachpuff";
         });
 
         if (products === null) {
@@ -240,7 +240,7 @@ class ExtensionView {
         similarButton.style.backgroundColor = "white";
 
         priceButton.addEventListener("click", () => {
-            priceButton.style.backgroundColor = "peachpuff";
+            priceButton.style.background = "peachpuff";
         });
 
         if (products === null) {
@@ -262,7 +262,7 @@ class ExtensionView {
         similarButton.style.backgroundColor = "white";
 
         similarButton.addEventListener("click", () => {
-            similarButton.style.backgroundColor = "peachpuff";
+            similarButton.style.background = "peachpuff";
         });
 
         if (products == null) {
