@@ -205,7 +205,8 @@ class Product
         return $statement->execute(array("link" => $this->link, "price" => $this->price));
     }
 
-    public function updateOffers($vendor) {
+    public function updateOffers($vendor)
+    {
         $query = "SELECT vendors FROM products WHERE link = :link";
         $statement = $this->connection->prepare($query);
         $statement->execute(array("link" => $this->link));

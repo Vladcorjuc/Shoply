@@ -123,8 +123,8 @@ header {
 
 }
 
-#alternatives-button:hover, #price-button:hover, #similar-products-button:hover {
-    background: peachpuff;
+.alternatives:hover, .prices:hover, .similars:hover {
+    background-color: peachpuff;
 }
 
 #content {

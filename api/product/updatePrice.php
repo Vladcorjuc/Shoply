@@ -47,8 +47,7 @@ $product->setPrice($data->price);
 if ($product->updatePrice()) {
     http_response_code(200);
     echo json_encode(array("message" => "Pretul a fost actualizat."));
-}
-else {
+} else {
     http_response_code(204);
     echo json_encode(array("message" => "Produsul nu exista in baza de date."));
 }

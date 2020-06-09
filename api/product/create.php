@@ -50,8 +50,7 @@ $product->setImage($data->image);
 if ($product->create()) {
     http_response_code(201);
     echo json_encode(array("message" => "Produsul a fost adaugat."));
-}
-else {
+} else {
     http_response_code(503);
     echo json_encode(array("message" => "Eroare interna."));
 }

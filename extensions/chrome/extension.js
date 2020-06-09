@@ -211,10 +211,6 @@ class ExtensionView {
         priceButton.style.backgroundColor = "white";
         similarButton.style.backgroundColor = "white";
 
-        alternativesButton.addEventListener("click", () => {
-            alternativesButton.style.background = "peachpuff";
-        });
-
         if (products === null) {
             contentPanel.innerHTML = "";
             contentPanel.appendChild(ExtensionView.createNotMessage("Nu ai cautat niciun produs."));
@@ -239,10 +235,6 @@ class ExtensionView {
         priceButton.style.backgroundColor = "white";
         similarButton.style.backgroundColor = "white";
 
-        priceButton.addEventListener("click", () => {
-            priceButton.style.background = "peachpuff";
-        });
-
         if (products === null) {
             contentPanel.innerHTML = "";
             contentPanel.appendChild(ExtensionView.createNotMessage("Nu ai cautat niciun produs."));
@@ -260,10 +252,6 @@ class ExtensionView {
         alternativesButton.style.backgroundColor = "white";
         priceButton.style.backgroundColor = "white";
         similarButton.style.backgroundColor = "white";
-
-        similarButton.addEventListener("click", () => {
-            similarButton.style.background = "peachpuff";
-        });
 
         if (products == null) {
             contentPanel.innerHTML = "";
@@ -477,6 +465,24 @@ class ExtensionView {
 
 class ExtensionController {
     static pageController() {
+        let alternatives = document.getElementsByClassName("alternatives")[0];
+        let prices = document.getElementsByClassName("prices")[0];
+        let similars = document.getElementsByClassName("similars")[0];
+        alternatives.addEventListener("click", () => {
+            alternatives.style.backgroundColor = "peachpuff";
+            prices.style.backgroundColor = "white";
+            similars.style.backgroundColor = "white";
+        });
+        prices.addEventListener("click", () => {
+            alternatives.style.backgroundColor = "white";
+            prices.style.backgroundColor = "peachpuff";
+            similars.style.backgroundColor = "white";
+        });
+        similars.addEventListener("click", () => {
+            alternatives.style.backgroundColor = "white";
+            prices.style.backgroundColor = "white";
+            similars.style.backgroundColor = "peachpuff";
+        });
         alternativesButton.addEventListener("click", function () {
             ExtensionView.firstMenuOption()
         });

@@ -46,8 +46,7 @@ $product->setLink($data->link);
 if ($product->deleteByLink()) {
     http_response_code(200);
     echo json_encode(array("message" => "Pretul a fost sters."));
-}
-else {
+} else {
     http_response_code(204);
     echo json_encode(array("message" => "Produsul nu exista in baza de date."));
 }
