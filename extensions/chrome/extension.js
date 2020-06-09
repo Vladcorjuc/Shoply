@@ -174,6 +174,7 @@ class ExtensionView {
         vendorsDiv.style.marginLeft = "15%";
         let vendorsUl = document.createElement("UL");
         vendorsUl.style.overflow = "auto";
+        vendorsUl.className = "extension-vendors";
         vendorsUl.style.maxHeight = "100px";
         vendorsUl.className
         for (let key in productVendors) {
@@ -294,7 +295,7 @@ class ExtensionView {
         productDiv.style.marginRight = "10px";
         productDiv.style.width = "96%";
         productDiv.style.height = "90px";
-        productDiv.style.border = "2px dashed";
+        productDiv.style.border = "2px solid";
         productDiv.style.borderColor = "#ffb441";
 
         let productImage = document.createElement("IMG");
@@ -307,8 +308,8 @@ class ExtensionView {
         productImage.style.marginTop = "10px";
         productImage.style.marginLeft = "10px";
 
-        let productTitle = document.createElement("H4");
-        productTitle.innerText = product["title"];
+        let productTitle = document.createElement("H5");
+        productTitle.innerText = product["title"].substring(0, 50);
         productTitle.style.marginTop = "30px";
         productTitle.style.marginLeft = "20px";
         productTitle.style.width = "140px";
@@ -399,10 +400,10 @@ class ExtensionView {
         let vendorLi = document.createElement("LI");
         vendorLi.style.display = "flex";
         vendorLi.style.width = "85%";
-        vendorLi.style.border = "1px dashed";
+        vendorLi.style.border = "1px solid";
         vendorLi.style.borderColor = "#ffb441";
 
-        let vendorName = document.createElement("H4");
+        let vendorName = document.createElement("H5");
         vendorName.innerText = productVendor["name"];
         vendorName.style.marginTop = "10px";
         vendorName.style.marginLeft = "20px";
