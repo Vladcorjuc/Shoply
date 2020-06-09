@@ -82,6 +82,7 @@
     display: flex;
     flex-flow: row;
     justify-content: space-between;
+    margin-bottom: 30px;
 }
 
 #most-views {
@@ -147,40 +148,68 @@
     border-color: rgba(255, 95, 35, 0.50);
     text-align: center;
     border-width: 0.01em;
-    width: 20%;
     color: coral;
+    border-radius: 10px;
+    height: 45px;
+    width: 15%;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
 }
 
 #second-category {
     border-style: solid;
-    width: 20%;
     text-align: center;
     border-width: 0.01em;
     border-color: rgba(255, 95, 35, 0.50);
     color: coral;
+    border-radius: 10px;
+    height: 45px;
+    width: 15%;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
 }
 
 #third-category {
-    width: 20%;
     border-style: solid;
     text-align: center;
     border-width: 0.01em;
     border-color: rgba(255, 95, 35, 0.50);
     color: coral;
+    border-radius: 10px;
+    height: 45px;
+    width: 15%;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
 }
 
 #fourth-category {
-    width: 20%;
     border-style: solid;
     text-align: center;
     border-width: 0.01em;
     border-color: rgba(255, 95, 35, 0.50);
     color: coral;
+    border-radius: 10px;
+    height: 45px;
+    width: 15%;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
 }
 
-.selected-category {
+#first-category:hover, #second-category:hover, #third-category:hover, #fourth-category:hover{
+    background-color: peachpuff;
+    border-color: peachpuff;
+}
+
+.selected-cat {
     background-color: coral;
     color: white;
+    height: 40px;
+    width: 15%;
+    font-weight: 600;
 }
 
 #category-container {
@@ -194,6 +223,7 @@
     flex-wrap: wrap;
     width: 100%;
     height: 100%;
+    border-radius: 10px;
 }
 
 #category-panel {

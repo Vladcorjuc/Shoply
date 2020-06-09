@@ -7,42 +7,42 @@ document.getElementById("first-category").addEventListener("click", function () 
     deleteNavClass();
     currentCategory = "calculatoare";
     document.getElementById("first-category").style.color = "white";
-    document.getElementById("first-category").classList.add("selected-category");
+    document.getElementById("first-category").classList.add("selected-cat");
     makeRequest();
 });
 document.getElementById("second-category").addEventListener("click", function () {
     deleteNavClass();
     currentCategory = "electronice";
     document.getElementById("second-category").style.color = "white";
-    document.getElementById("second-category").classList.add("selected-category");
+    document.getElementById("second-category").classList.add("selected-cat");
     makeRequest();
 });
 document.getElementById("third-category").addEventListener("click", function () {
     deleteNavClass();
     currentCategory = "jucarii";
     document.getElementById("third-category").style.color = "white";
-    document.getElementById("third-category").classList.add("selected-category");
+    document.getElementById("third-category").classList.add("selected-cat");
     makeRequest();
 });
 document.getElementById("fourth-category").addEventListener("click", function () {
     deleteNavClass();
     currentCategory = "sport";
     document.getElementById("fourth-category").style.color = "white";
-    document.getElementById("fourth-category").classList.add("selected-category");
+    document.getElementById("fourth-category").classList.add("selected-cat");
     makeRequest();
 });
 
 function deleteNavClass() {
-    document.getElementById("first-category").classList.remove("selected-category");
+    document.getElementById("first-category").classList.remove("selected-cat");
     document.getElementById("first-category").style.color = "coral";
 
-    document.getElementById("second-category").classList.remove("selected-category");
+    document.getElementById("second-category").classList.remove("selected-cat");
     document.getElementById("second-category").style.color = "coral";
 
-    document.getElementById("third-category").classList.remove("selected-category");
+    document.getElementById("third-category").classList.remove("selected-cat");
     document.getElementById("third-category").style.color = "coral";
 
-    document.getElementById("fourth-category").classList.remove("selected-category");
+    document.getElementById("fourth-category").classList.remove("selected-cat");
     document.getElementById("fourth-category").style.color = "coral";
 }
 
@@ -50,7 +50,7 @@ function init() {
     deleteNavClass();
     currentCategory = "calculatoare";
     document.getElementById("first-category").style.color = "white";
-    document.getElementById("first-category").classList.add("selected-category");
+    document.getElementById("first-category").classList.add("selected-cat");
 }
 
 function createProducts() {

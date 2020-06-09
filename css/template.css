@@ -102,20 +102,28 @@ header {
 
 .navigation-bar-links li {
     list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .navigation-bar-links li a {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    padding: 1em;
+    padding: 0.5em;
     text-decoration: none;
     color: coral;
 }
 
 .navigation-bar-links li:hover {
     background-color: peachpuff;
+    border-radius: 10px;
 }
+
 
 .small-menu {
     display: -webkit-box;
