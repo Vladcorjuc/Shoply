@@ -31,7 +31,7 @@ class RSSView {
             let newsTitleAnchor = document.createElement("a");
             newsTitleAnchor.href = "../html/product.html?name=" + scrapePathName(productNews[i]["link"]);
             newsTitleAnchor.style.textDecoration = "none";
-            newsTitleAnchor.style.color = "coral";
+            newsTitleAnchor.style.color = "grey";
 
             let newsTitle = document.createElement("H4");
             newsTitle.innerText = productNews[i]["title"];
