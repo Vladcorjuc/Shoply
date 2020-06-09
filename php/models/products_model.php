@@ -35,7 +35,7 @@ function getProductsByCategory($category, $sortBy)
     }
     $query = "SELECT p.link, image, title, COALESCE(FLOOR(AVG(rating)), 0) AS rating, price, offers FROM products p " .
         "JOIN categories c ON p.link = c.link LEFT JOIN rating r ON p.link = r.product WHERE category = :category " .
-        "GROUP BY p.link, image, title, price, offers, views ORDER BY " . $criteria . " LIMIT 10";
+        "GROUP BY p.link, image, title, price, offers, views ORDER BY " . $criteria;
     $statement = Database::getConnection()->prepare($query);
     $statement->execute(array("category" => $category));
     if ($statement->rowCount() == 0) {

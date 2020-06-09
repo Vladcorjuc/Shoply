@@ -10,7 +10,7 @@ require_once __DIR__ . "/../models/rating_model.php";
 
 if (!isset($_SESSION["username"])) {
     http_response_code(403);
-    echo json_encode(array("message" => $_SESSION["username"] . "test"));
+    echo json_encode(array("message" => "Nu esti autentificat."));
 } else if (isset($_GET["name"]) && isset($_GET["stars"])) {
     $stars = $_GET["stars"];
     $message = updateRating($_SESSION["username"], $_GET["name"], $stars);

@@ -13,6 +13,7 @@ suggestRequest.send();
 function createSlider() {
     if (this.readyState === suggestRequest.DONE && this.status === 200) {
         let container = document.getElementById("product-suggest-container");
+        console.log(this.responseText);
         let productObjects = JSON.parse(this.responseText);
         if (productObjects.length > 0) {
             document.getElementById("suggestion").style.display = "block";
@@ -60,7 +61,18 @@ function createSlider() {
 
             let productPrice = document.createElement("div");
             productPrice.setAttribute("class", "price");
-            productPrice.textContent = "De la " + addPoint(productObject.price) + " Lei";
+            let price = document.createTextNode("de la " + addPoint(productObject.price));
+            productPrice.appendChild(price);
+            let decimals = document.createElement("sup");
+            decimals.textContent = "99";
+            productPrice.appendChild(decimals);
+            if (parseInt(productObject.price) < 20) {
+                let currency = document.createTextNode(" Lei");
+                productPrice.appendChild(currency);
+            } else {
+                let currency = document.createTextNode(" de Lei");
+                productPrice.appendChild(currency);
+            }
             productElement.appendChild(productPrice);
 
             let productOffers = document.createElement("div");

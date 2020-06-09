@@ -89,7 +89,7 @@ function addCategories() {
         }
 
         let selectedCategory = document.getElementsByClassName("selected-category")[0];
-        selectedCategory.textContent = category[0].toUpperCase() + category.slice(1);;
+        selectedCategory.textContent = category[0].toUpperCase() + category.slice(1);
         let arrowCategories = document.createElement("div");
         arrowCategories.setAttribute("class", "arrow");
         selectedCategory.appendChild(arrowCategories);
